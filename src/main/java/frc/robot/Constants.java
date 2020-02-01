@@ -34,8 +34,6 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static CANSparkMax leftDriveMotorLead; // Creates new talon motor for leading left drive
-    public static CANSparkMax rightDriveMotorLead; // Creates new talon motor for leading right drive
 
     public static DifferentialDrive robotDrive; // Creates new differential drive
   

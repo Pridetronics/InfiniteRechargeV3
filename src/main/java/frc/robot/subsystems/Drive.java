@@ -39,7 +39,7 @@ public class Drive extends SubsystemBase { // Creates a new Drive.
     leftDriveMotor.set(0); // Sets speed to 0 (anywhere between -1 and 1)
 
     rightDriveMotor = new CANSparkMax(rightDriveMotorAddress, MotorType.kBrushless); // Assigns Leading Right Drive Motor to Talon #2
-    rightDriveMotor.setInverted(true); // Inverts Right Drive Motor
+    rightDriveMotor.setInverted(false); // Inverts Right Drive Motor
     rightDriveMotor.set(0); // Sets speed to 0 (anywhere between -1 and 1)
     
     robotDrive = new DifferentialDrive(leftDriveMotor, rightDriveMotor);
