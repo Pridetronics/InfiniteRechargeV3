@@ -8,19 +8,20 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.*;
-//import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-//import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-//import com.revrobotics.CANEncoder;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
-/* import com.revrobotics.CANSparkMax.IdleMode;
+ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMax.*;
 import com.revrobotics.CANSparkMaxLowLevel.*;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Victor; */
+import edu.wpi.first.wpilibj.Victor; 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+
 //import com.revrobotics.CANPIDController;
 
 //import com.revrobotics.ControlType;

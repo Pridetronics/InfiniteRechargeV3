@@ -4,14 +4,25 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.DriveJoystick;
+import frc.robot.subsystems.Drive;
+import frc.robot.commands.IntakeRunExternal;
+import frc.robot.commands.IntakeRunVertical;
+import frc.robot.subsystems.Intake;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj2.command.button.JoystickButton; //Deals with the buttons on the controller
+import edu.wpi.first.wpilibj.Joystick; //Allows gamepad/joystick referencing
+
+//import edu.wpi.first.wpilibj.PWMVictorSPX;
+import edu.wpi.first.wpilibj.SpeedController;
+//import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+//import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -19,20 +30,36 @@ import edu.wpi.first.wpilibj2.command.Command;
  * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
  * (including subsystems, commands, and button mappings) should be declared here.
  */
-public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+public class RobotContainer { // The robot's subsystems and commands are defined here...
+  // The container for the robot.  Contains subsystems, OI devices, and commands.
+    
+  public Joystick joystickDriver;
+  public Joystick joystickShooter;
+  public JoystickButton intakeButtonExternal; 
+  public JoystickButton intakeButtonVertical;
+  public final Drive robotDrive;
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-
-
-
-  /**
-   * The container for the robot.  Contains subsystems, OI devices, and commands.
-   */
   public RobotContainer() {
+
+    this.joystickDriver = new Joystick(0); // 'this.' Grabs a variable specifically
+    this.joystickShooter = new Joystick(1); // ^^ Creates less confusion in the system
+    // The numbers in the parenthesis represents the ports each controller goes to. 
+    
+    robotDrive = new Drive(1, 2); 
+    // It sets a new drive and uses the ints 1 and 2. The order matters.
+    // 1 is assigned to leftDriveMotorAddress, whereas 2 is rightDriveMotorAddress
+
+    robotDrive.setDefaultCommand(new DriveJoystick(joystickDriver, robotDrive));
+    // This helps set the default command. It sets it to DriveJoystick so that way RobotContainer
+    // can grab the information and utilize it for the given controller, in this case joystickDriver
+    intakeButtonExternal = new JoystickButton(joystickDriver, 6);
+    intakeButtonExternal.whenPressed(new IntakeRunExternal());
+  
+    intakeButtonVertical = new JoystickButton(joystickDriver, 7);
+    intakeButtonVertical.whenPressed(new IntakeRunVertical());
     // Configure the button bindings
     configureButtonBindings();
+
   }
 
   /**
@@ -42,16 +69,18 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    // final JoystickButton switchDriveMode = new JoystickButton(null, 8);
+
   }
 
 
-  /**
+  /*
    * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
+   * 
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return getAutonomousCommand();
   }
 }
