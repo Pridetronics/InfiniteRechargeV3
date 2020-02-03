@@ -13,6 +13,8 @@ import frc.robot.subsystems.Drive;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import frc.robot.subsystems.Climb;
+
 //import edu.wpi.first.wpilibj2.command.button.JoystickButton; //Deals with the buttons on the controller
 import edu.wpi.first.wpilibj.Joystick; //Allows gamepad/joystick referencing
 
@@ -34,8 +36,18 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   public Joystick joystickShooter;
     
   public final Drive robotDrive;
+
+
+
+
+  public final Climb shooterGamepad;
+ 
+
+
   
-  public RobotContainer() {
+  public RobotContainer() { 
+
+
     this.joystickDriver = new Joystick(0); // 'this.' Grabs a variable specifically
     this.joystickShooter = new Joystick(1); // ^^ Creates less confusion in the system
     // The numbers in the parenthesis represents the ports each controller goes to. 
@@ -44,6 +56,9 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     // It sets a new drive and uses the ints 1 and 2. The order matters.
     // 1 is assigned to leftDriveMotorAddress, whereas 2 is rightDriveMotorAddress
 
+    shooterGamepad = new Climb(joystickShooter);
+    //shooterGamepad = joystickShooter;
+
     robotDrive.setDefaultCommand(new DriveJoystick(joystickDriver, robotDrive));
     // This helps set the default command. It sets it to DriveJoystick so that way RobotContainer
     // can grab the information and utilize it for the given controller, in this case joystickDriver
@@ -51,7 +66,6 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   
     // Configure the button bindings
     configureButtonBindings();
-
   }
 
   /**

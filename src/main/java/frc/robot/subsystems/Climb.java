@@ -34,15 +34,28 @@ public class Climb extends SubsystemBase {
     //Lifts up, grabs bar, pulls self up
 
     raiseClimbMotor = new CANSparkMax(3, MotorType.kBrushed);
+    raiseClimbMotor.setInverted(false);
+    raiseClimbMotor.set(0);
+
+
     telescopicClimbMotor = new Talon(3);
+    telescopicClimbMotor.setInverted(false);
+    telescopicClimbMotor.set(0);
 
     shooterGamepad = new Joystick(1);
 
     raiseTelescopic = new JoystickButton(shooterGamepad, 6);
+
+
     descendTelescopic = new JoystickButton(shooterGamepad, 5);
+
+
     sequenceClimbButton = new JoystickButton(shooterGamepad, 3);
   
+
     shooterGamepad = joystickShooter;
+
+
 
 
   }
