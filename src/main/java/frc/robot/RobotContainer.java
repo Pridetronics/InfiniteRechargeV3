@@ -23,6 +23,8 @@ import edu.wpi.first.wpilibj.SpeedController;
 //import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 //import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
+import frc.robot.commands.ExtendTelescopicClimb;
+
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -34,17 +36,12 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     
   public Joystick joystickDriver;
   public Joystick joystickShooter;
-  public JoystickButton raiseTelescopic;
+  
+  public JoystickButton extendTelescopic;
   public JoystickButton descendTelescopic;
   public JoystickButton sequenceClimbButton;
     
   public final Drive robotDrive;
-
-
-
-
-  public final Climb shooterGamepad;
- 
 
 
   
@@ -59,20 +56,25 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     // It sets a new drive and uses the ints 1 and 2. The order matters.
     // 1 is assigned to leftDriveMotorAddress, whereas 2 is rightDriveMotorAddress
 
-    shooterGamepad = new Climb(joystickShooter);
+  
     //shooterGamepad = joystickShooter;
 
     robotDrive.setDefaultCommand(new DriveJoystick(joystickDriver, robotDrive));
     // This helps set the default command. It sets it to DriveJoystick so that way RobotContainer
     // can grab the information and utilize it for the given controller, in this case joystickDriver
 
-    raiseTelescopic = new JoystickButton(joystickShooter, 6);
-
+    extendTelescopic = new JoystickButton(joystickShooter, 6);
+    extendTelescopic.whileHeld(new ExtendTelescopicClimb());
 
     descendTelescopic = new JoystickButton(joystickShooter, 5);
 
 
     sequenceClimbButton = new JoystickButton(joystickShooter, 3);
+
+
+    
+
+
 
     // Configure the button bindings
     configureButtonBindings();
