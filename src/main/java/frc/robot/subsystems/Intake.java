@@ -8,11 +8,13 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-//import edu.wpi.first.wipilibj.Talon;
+import edu.wpi.first.wpilibj.Talon;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import frc.robot.Constants;
+import frc.robot.Robot;
+import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 
 public class Intake extends SubsystemBase {

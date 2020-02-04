@@ -17,13 +17,11 @@ public class IntakeRunVertical extends CommandBase {
   /**
    * Creates a new IntakeRunVertical.
    */
-  public Intake m_Intake;
   private CANSparkMax intakeMotorVertical = Intake.intakeMotorVertical;
   //private Talon intakeMotorVertical = Intake.intakeMotorVertical; 
 
   public IntakeRunVertical() {
 
-    addRequirements(m_Intake);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -35,11 +33,13 @@ public class IntakeRunVertical extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    SmartDashboard.putBoolean("Intake Vertical",  true);
+    intakeMotorVertical.set(55);
   }
   public void intakeRunVertical(){
 
-    SmartDashboard.putBoolean("Intake Vertical",  true);
-    intakeMotorVertical.set(55);
+    //SmartDashboard.putBoolean("Intake Vertical",  true);
+    //intakeMotorVertical.set(55);
   }
 
   // Called once the command ends or is interrupted.

@@ -16,13 +16,11 @@ public class IntakeRunExternal extends CommandBase {
   /**
    * Creates a new IntakeRunExternal.
    */
-  public Intake m_Intake;
   private CANSparkMax intakeMotorExternal = Intake.intakeMotorExternal;
   //private Talon intakeMotorExternal = Intake.intakeMotorExternal;
 
   public IntakeRunExternal() {
-
-    addRequirements(m_Intake);
+   
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -34,12 +32,13 @@ public class IntakeRunExternal extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    SmartDashboard.putBoolean("Intake External", true);
+    intakeMotorExternal.set(55);
   }
   public void intakeRunExternal()
   {
-
-    SmartDashboard.putBoolean("Intake External", true);
-    intakeMotorExternal.set(55);
+    //SmartDashboard.putBoolean("Intake External", true);
+    //intakeMotorExternal.set(55);
   }
   // Called once the command ends or is interrupted.
   @Override

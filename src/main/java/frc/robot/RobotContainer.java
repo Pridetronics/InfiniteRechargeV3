@@ -41,6 +41,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
   public RobotContainer() {
 
+
     this.joystickDriver = new Joystick(0); // 'this.' Grabs a variable specifically
     this.joystickShooter = new Joystick(1); // ^^ Creates less confusion in the system
     // The numbers in the parenthesis represents the ports each controller goes to. 
@@ -52,11 +53,11 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     robotDrive.setDefaultCommand(new DriveJoystick(joystickDriver, robotDrive));
     // This helps set the default command. It sets it to DriveJoystick so that way RobotContainer
     // can grab the information and utilize it for the given controller, in this case joystickDriver
-    intakeButtonExternal = new JoystickButton(joystickDriver, 6);
-    intakeButtonExternal.whenPressed(new IntakeRunExternal());
+    intakeButtonExternal = new JoystickButton(joystickDriver, 6); // Right Upper Bumper
+    intakeButtonExternal.whileHeld(new IntakeRunExternal());
   
-    intakeButtonVertical = new JoystickButton(joystickDriver, 7);
-    intakeButtonVertical.whenPressed(new IntakeRunVertical());
+    intakeButtonVertical = new JoystickButton(joystickDriver, 5); //Left Upper Bumper
+    intakeButtonVertical.whileHeld(new IntakeRunVertical());
     // Configure the button bindings
     configureButtonBindings();
 
