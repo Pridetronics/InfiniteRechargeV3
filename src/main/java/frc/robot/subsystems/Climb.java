@@ -43,21 +43,6 @@ public class Climb extends SubsystemBase {
     telescopicClimbMotor.set(0);
 
     shooterGamepad = new Joystick(1);
-
-    raiseTelescopic = new JoystickButton(shooterGamepad, 6);
-
-
-    descendTelescopic = new JoystickButton(shooterGamepad, 5);
-
-
-    sequenceClimbButton = new JoystickButton(shooterGamepad, 3);
-  
-
-    shooterGamepad = joystickShooter;
-
-
-
-
   }
 
 

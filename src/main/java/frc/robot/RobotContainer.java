@@ -15,7 +15,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import frc.robot.subsystems.Climb;
 
-//import edu.wpi.first.wpilibj2.command.button.JoystickButton; //Deals with the buttons on the controller
+import edu.wpi.first.wpilibj2.command.button.JoystickButton; //Deals with the buttons on the controller
 import edu.wpi.first.wpilibj.Joystick; //Allows gamepad/joystick referencing
 
 //import edu.wpi.first.wpilibj.PWMVictorSPX;
@@ -36,13 +36,11 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   public Joystick joystickShooter;
     
   public final Drive robotDrive;
-
-
-
-
-  public final Climb shooterGamepad;
  
-
+  public Joystick shooterGamepad;
+  public JoystickButton raiseTelescopic;
+  public JoystickButton descendTelescopic;
+  public JoystickButton sequenceClimbButton;
 
   
   public RobotContainer() { 
@@ -56,12 +54,20 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     // It sets a new drive and uses the ints 1 and 2. The order matters.
     // 1 is assigned to leftDriveMotorAddress, whereas 2 is rightDriveMotorAddress
 
-    shooterGamepad = new Climb(joystickShooter);
     //shooterGamepad = joystickShooter;
 
     robotDrive.setDefaultCommand(new DriveJoystick(joystickDriver, robotDrive));
     // This helps set the default command. It sets it to DriveJoystick so that way RobotContainer
     // can grab the information and utilize it for the given controller, in this case joystickDriver
+    shooterGamepad = new Joystick(1);
+
+    raiseTelescopic = new JoystickButton(shooterGamepad, 6);
+
+
+    descendTelescopic = new JoystickButton(shooterGamepad, 5);
+
+
+    sequenceClimbButton = new JoystickButton(shooterGamepad, 3);
 
   
     // Configure the button bindings
