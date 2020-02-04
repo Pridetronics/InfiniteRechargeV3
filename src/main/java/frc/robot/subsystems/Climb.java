@@ -44,16 +44,15 @@ public class Climb extends SubsystemBase {
 
     shooterGamepad = new Joystick(1);
 
-    raiseTelescopic = new JoystickButton(shooterGamepad, 6);
+    //raiseTelescopic = new JoystickButton(shooterGamepad, 6);
 
 
-    descendTelescopic = new JoystickButton(shooterGamepad, 5);
+    //descendTelescopic = new JoystickButton(shooterGamepad, 5);
 
 
-    sequenceClimbButton = new JoystickButton(shooterGamepad, 3);
+    //sequenceClimbButton = new JoystickButton(shooterGamepad, 3);
   
 
-    shooterGamepad = joystickShooter;
 
 
 

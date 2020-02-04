@@ -15,7 +15,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import frc.robot.subsystems.Climb;
 
-//import edu.wpi.first.wpilibj2.command.button.JoystickButton; //Deals with the buttons on the controller
+import edu.wpi.first.wpilibj2.command.button.JoystickButton; //Deals with the buttons on the controller
 import edu.wpi.first.wpilibj.Joystick; //Allows gamepad/joystick referencing
 
 //import edu.wpi.first.wpilibj.PWMVictorSPX;
@@ -34,6 +34,9 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     
   public Joystick joystickDriver;
   public Joystick joystickShooter;
+  public JoystickButton raiseTelescopic;
+  public JoystickButton descendTelescopic;
+  public JoystickButton sequenceClimbButton;
     
   public final Drive robotDrive;
 
@@ -63,7 +66,14 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     // This helps set the default command. It sets it to DriveJoystick so that way RobotContainer
     // can grab the information and utilize it for the given controller, in this case joystickDriver
 
-  
+    raiseTelescopic = new JoystickButton(joystickShooter, 6);
+
+
+    descendTelescopic = new JoystickButton(joystickShooter, 5);
+
+
+    sequenceClimbButton = new JoystickButton(joystickShooter, 3);
+
     // Configure the button bindings
     configureButtonBindings();
   }
