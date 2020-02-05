@@ -33,10 +33,10 @@ import edu.wpi.first.wpilibj.SpeedController;
 public class RobotContainer { // The robot's subsystems and commands are defined here...
   // The container for the robot.  Contains subsystems, OI devices, and commands.
     
-  public Joystick joystickDriver;
-  public Joystick joystickShooter;
-  public JoystickButton intakeButtonExternal; 
-  public JoystickButton intakeButtonVertical;
+  public Joystick joystickDriver; //The name of the first controller, main driver
+  public Joystick joystickShooter; //The name of the second controller, secondary driver
+  public JoystickButton intakeButtonExternal; //Button to run the intake External
+  public JoystickButton intakeButtonVertical; //Button to run the intake Vertical
   public final Drive robotDrive;
 
   public RobotContainer() {
@@ -53,11 +53,11 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     robotDrive.setDefaultCommand(new DriveJoystick(joystickDriver, robotDrive));
     // This helps set the default command. It sets it to DriveJoystick so that way RobotContainer
     // can grab the information and utilize it for the given controller, in this case joystickDriver
-    intakeButtonExternal = new JoystickButton(joystickDriver, 6); // Right Upper Bumper
-    intakeButtonExternal.whileHeld(new IntakeRunExternal());
+    intakeButtonExternal = new JoystickButton(joystickDriver, 6); // Right Upper Bumper, sets intake Button External to a controller
+    intakeButtonExternal.whileHeld(new IntakeRunExternal());//While the button is being held, the command is being run
   
-    intakeButtonVertical = new JoystickButton(joystickDriver, 5); //Left Upper Bumper
-    intakeButtonVertical.whileHeld(new IntakeRunVertical());
+    intakeButtonVertical = new JoystickButton(joystickDriver, 5); //Left Upper Bumper, sets intake Button Vertical to a controller
+    intakeButtonVertical.whileHeld(new IntakeRunVertical());//While held, command is being run, references command from commands. Hence imports
     // Configure the button bindings
     configureButtonBindings();
 
