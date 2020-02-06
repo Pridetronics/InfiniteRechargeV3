@@ -10,9 +10,10 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DriveJoystick;
 import frc.robot.subsystems.Drive;
-import frc.robot.commands.IntakeRunExternal;
-import frc.robot.commands.IntakeRunVertical;
+import frc.robot.commands.IntakeRun;
+import frc.robot.commands.ElevatorRun;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Elevator;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -35,8 +36,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     
   public Joystick joystickDriver; //The name of the first controller, main driver
   public Joystick joystickShooter; //The name of the second controller, secondary driver
-  public JoystickButton intakeButtonExternal; //Button to run the intake External
-  public JoystickButton intakeButtonVertical; //Button to run the intake Vertical
+  public JoystickButton intakeButton; //Button to run the intake 
+  public JoystickButton elevatorButton; //Button to run the intake Vertical
   public final Drive robotDrive;
 
   public RobotContainer() {
@@ -53,11 +54,11 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     robotDrive.setDefaultCommand(new DriveJoystick(joystickDriver, robotDrive));
     // This helps set the default command. It sets it to DriveJoystick so that way RobotContainer
     // can grab the information and utilize it for the given controller, in this case joystickDriver
-    intakeButtonExternal = new JoystickButton(joystickDriver, 6); // Right Upper Bumper, sets intake Button External to a controller
-    intakeButtonExternal.whileHeld(new IntakeRunExternal());//While the button is being held, the command is being run
+    intakeButton = new JoystickButton(joystickDriver, 6); // Right Upper Bumper, sets intake Button to a controller
+    intakeButton.whileHeld(new IntakeRun());//While the button is being held, the command is being run
   
-    intakeButtonVertical = new JoystickButton(joystickDriver, 5); //Left Upper Bumper, sets intake Button Vertical to a controller
-    intakeButtonVertical.whileHeld(new IntakeRunVertical());//While held, command is being run, references command from commands. Hence imports
+    elevatorButton = new JoystickButton(joystickDriver, 5); //Left Upper Bumper, elevator button  to a controller
+    elevatorButton.whileHeld(new ElevatorRun());//While held, command is being run, references command from commands. Hence imports
     // Configure the button bindings
     configureButtonBindings();
 
