@@ -20,17 +20,14 @@ public class Intake extends SubsystemBase {
   /**
    * Creates a new Intake.
    */
-  public static CANSparkMax intakeMotor; // Testing Motor: Creates an intake motor 
+  public static CANSparkMax intakeMotor = RobotContainer.intakeMotor; // Testing Motor: Creates an intake motor 
   
-   ///private Talon intakeMotor; //Competition Motor--> Intake motor
+   ///private Talon intakeMotor = RobotContainer.intakeMotor; //Competition Motor--> Intake motor
 
    public Intake() {
     //Collect power cell balls
-    intakeMotor = new CANSparkMax(5, MotorType.kBrushless); //The motor (CANSparkMax) is defined with a type and port (port 5, and motor type = brushless)
-    ///intakeMotor =  new Talon(5); //Motor is defined as a specified motor under port five (Talon)
-    intakeMotor.set(0); //Initially sets motor value to 0, will not run without further command
-  }
-
+    
+   }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
