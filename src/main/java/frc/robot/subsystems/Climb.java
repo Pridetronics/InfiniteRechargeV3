@@ -34,15 +34,11 @@ public class Climb extends SubsystemBase {
   public Climb() {
     //Lifts up, grabs bar, pulls self up
 
-    raiseClimbMotor = new CANSparkMax(1, MotorType.kBrushed);
-    raiseClimbMotor.setInverted(false);
-    raiseClimbMotor.set(0);
+    raiseClimbMotor = RobotContainer.raiseClimbMotor;
 
-    //telescopicClimbMotor = new Talon(1);
-    telescopicClimbMotor = new CANSparkMax(2, MotorType.kBrushed);
-    telescopicClimbMotor.setInverted(false);
-    telescopicClimbMotor.set(0);
+    telescopicClimbMotor = RobotContainer.telescopicClimbMotor;
 
+    
 
     //raiseTelescopic = new JoystickButton(shooterGamepad, 6);
 

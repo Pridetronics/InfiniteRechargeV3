@@ -27,6 +27,7 @@ public class ExtendTelescopicClimb extends CommandBase {
 
   public ExtendTelescopicClimb () {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(Climb);
   }
 
   // Called when the command is initially scheduled.
@@ -38,7 +39,7 @@ public class ExtendTelescopicClimb extends CommandBase {
   @Override
   public void execute() {
 
-    telescopicClimbMotor.set(55);
+   Climb.telescopicClimbMotor.set(55);
 
   }
 

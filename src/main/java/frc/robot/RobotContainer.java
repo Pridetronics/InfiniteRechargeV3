@@ -43,6 +43,12 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     
   public final Drive robotDrive;
 
+  
+
+  public static CANSparkMax raiseClimbMotor;
+  //public  static Talon telescopicClimbMotor;
+  public  static CANSparkMax telescopicClimbMotor;
+
 
   
   public RobotContainer() { 
@@ -55,6 +61,20 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     robotDrive = new Drive(1, 2); 
     // It sets a new drive and uses the ints 1 and 2. The order matters.
     // 1 is assigned to leftDriveMotorAddress, whereas 2 is rightDriveMotorAddress
+
+    raiseClimbMotor = new CANSparkMax(1, MotorType.kBrushed);
+    raiseClimbMotor.setInverted(false);
+    raiseClimbMotor.set(0);
+
+    //telescopicClimbMotor = new Talon(1);
+    telescopicClimbMotor = new CANSparkMax(2, MotorType.kBrushed);
+    telescopicClimbMotor.setInverted(false);
+    telescopicClimbMotor.set(0);
+
+
+
+
+
 
   
     //shooterGamepad = joystickShooter;
