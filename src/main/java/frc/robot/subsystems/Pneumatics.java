@@ -18,14 +18,15 @@ public class Pneumatics extends SubsystemBase {
    * Creates a new Pneumatics.
    */
   
-  private final DoubleSolenoid shooterBallRelease;
+  // empty double solenoids to bring in from RobotContainer
+  private final DoubleSolenoid shooterBallRelease; 
   private final DoubleSolenoid intakeDeploy;
   private final DoubleSolenoid controlPanelSpinnerDeploy;
 
   /*
   enum(enumerated type) allows you to create your own data type and create a fixed set of constants
   for that data type. To reference enums in another class, you have to import it. Using enums to represent 
-  the state of a piston is not helpful now because we onlyhave pistons that can only extend and retract, but 
+  the state of a piston is not helpful now because we only have pistons that can only extend and retract, but 
   using them will be helpful in the future when we have pistons that could have more states than just 
   extended or retracted, such as half-extended.
   */
@@ -35,8 +36,8 @@ public class Pneumatics extends SubsystemBase {
   }
   
    public Pneumatics() {
-
-    shooterBallRelease = RobotContainer.shooterBallRelease;
+    // sets the double solenoids equal to the double solenoids form RobotContainer
+    shooterBallRelease = RobotContainer.shooterBallRelease; 
     intakeDeploy = RobotContainer.intakeDeploy;
     controlPanelSpinnerDeploy = RobotContainer.controlPanelSpinnerDeploy;
   
@@ -47,29 +48,15 @@ public class Pneumatics extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void releaseGate()
+  public void releaseGate() // This method will release the gate
   {
+    // This reverses the air flow, which should release the gate
     shooterBallRelease.set(Value.kReverse);
   }
 
-  public void retractGate()
+  public void retractGate() // This method will bring the gate back up again
   {
+    //This lets the air go through, which should close the gate
     shooterBallRelease.set(Value.kForward);
   }
-  
-  // previous code that works, but I found a better way than this
-  /*
-  public void gateControl(ballReleasePiston ballRelease)
-  {
-    if(ballRelease == ballReleasePiston.EXTENDED)
-    {
-      shooterBallRelease.set(Value.kReverse);
-    }
-    else
-    {
-      shooterBallRelease.set(Value.kForward);
-    }
-    
-  }
-  */
 }

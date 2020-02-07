@@ -40,8 +40,12 @@ public final class Constants {
 
     public static DifferentialDrive robotDrive; // Creates new differential drive
   
-    public static final double lowShooterSpeed = 0.6;
-    public static final double highShooterSpeed = 0.8;
+    public static final double lowShooterSpeed = 0.6; // creates the speed for the LowSpeedShooter
+    public static final double highShooterSpeed = 0.8; // creates the speed for the HighSpeedShooter
+
+    public static final int shooterMotorCanAddress = 9; // creates can address for shooter motor
+
+    public static final double shooterMotorRPM = 5676.0; // constant that represents shooter RPM
 
     public static void init() {
 

@@ -16,15 +16,15 @@ public class CloseGate extends CommandBase {
   /**
    * Creates a new CloseGate.
    */
-  private Joystick m_joystickShooter;
+  private Joystick m_joystickShooter; // creates empty objects
   private Pneumatics m_pneumatics;
-  ballReleasePiston ballRelease;
+  //ballReleasePiston ballRelease;
 
   public CloseGate(Joystick joystickShooter, Pneumatics pneumatics) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_joystickShooter = joystickShooter;
+    m_joystickShooter = joystickShooter; // instantiates inside empty variables
     m_pneumatics = pneumatics;
-    ballRelease = ReleaseGate.ballRelease;
+    //ballRelease = ReleaseGate.ballRelease;
 
   }
 
@@ -36,8 +36,8 @@ public class CloseGate extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_pneumatics.retractGate();
-    ballRelease = ballReleasePiston.EXTENDED;
+    m_pneumatics.retractGate(); // retracts the gate
+    ReleaseGate.ballRelease = ballReleasePiston.EXTENDED; // changes the state of the piston
 
   
   }
