@@ -7,20 +7,21 @@
 
 package frc.robot;
 
-
+import edu.wpi.first.wpilibj.*;
 //import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 //import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-//import com.revrobotics.CANEncoder;
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
-/* import com.revrobotics.CANSparkMax.IdleMode;
+ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMax.*;
 import com.revrobotics.CANSparkMaxLowLevel.*;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Victor; */
+import edu.wpi.first.wpilibj.Victor; 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+
 //import com.revrobotics.CANPIDController;
 
 //import com.revrobotics.ControlType;
@@ -34,9 +35,14 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    public static CANSparkMax leftDriveMotorLead; // Creates new talon motor for leading left drive
+    public static CANSparkMax rightDriveMotorLead; // Creates new talon motor for leading right drive
 
     public static DifferentialDrive robotDrive; // Creates new differential drive
   
+    public static final double lowShooterSpeed = 0.6;
+    public static final double highShooterSpeed = 0.8;
+
     public static void init() {
 
 
