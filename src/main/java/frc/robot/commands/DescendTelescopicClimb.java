@@ -9,12 +9,21 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
+import frc.robot.RobotContainer;
+
+import com.revrobotics.CANSparkMax;
+
+import frc.robot.subsystems.Climb;
+
 public class DescendTelescopicClimb extends CommandBase {
   /**
    * Creates a new RaiseTelescopicClimb.
    */
-  public DescendTelescopicClimb() {
+  public static CANSparkMax telescopicClimbMotor = Climb.telescopicClimbMotor;
+  
+  public DescendTelescopicClimb(CANSparkMax descendMotor) {
     // Use addRequirements() here to declare subsystem dependencies.
+    telescopicClimbMotor = descendMotor;
   }
 
   // Called when the command is initially scheduled.
@@ -25,6 +34,11 @@ public class DescendTelescopicClimb extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+  
+  System.out.println("telescopicClimbMotor");
+
+  telescopicClimbMotor.set(-.55);
+
   }
 
   // Called once the command ends or is interrupted.
