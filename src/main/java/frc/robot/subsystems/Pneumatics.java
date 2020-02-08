@@ -20,7 +20,7 @@ public class Pneumatics extends SubsystemBase {
   
   // empty double solenoids to bring in from RobotContainer
   private final DoubleSolenoid shooterBallRelease; 
-  private final DoubleSolenoid intakeDeploy;
+  public static DoubleSolenoid intakeDeploy;
   private final DoubleSolenoid controlPanelSpinnerDeploy;
 
   /*
@@ -58,5 +58,10 @@ public class Pneumatics extends SubsystemBase {
   {
     //This lets the air go through, which should close the gate
     shooterBallRelease.set(Value.kForward);
+  }
+
+  
+  public void intakeRetract(){
+    intakeDeploy.set(Value.kReverse);
   }
 }

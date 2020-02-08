@@ -19,6 +19,8 @@ import frc.robot.commands.LowSpeedShooter;
 import frc.robot.commands.ReleaseGate;
 import frc.robot.commands.ElevatorRun;
 import frc.robot.commands.HighSpeedShooter;
+import frc.robot.commands.IntakePneumaticExtend;
+import frc.robot.commands.IntakePneumaticRetract;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pneumatics;
 import frc.robot.subsystems.Shooter;
@@ -53,6 +55,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   
   public JoystickButton intakeButton; //Button to run the intake 
   public JoystickButton elevatorButton; //Button to run the intake Vertical
+  public JoystickButton intakePneumaticExtendButton;
+  public JoystickButton intakePneumaticRetractButton;
   public static CANSparkMax intakeMotor;
   public static CANSparkMax elevatorMotorLead;
   public static CANSparkMax elevatorMotorFollow;
@@ -132,8 +136,14 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   
     elevatorButton = new JoystickButton(joystickDriver, 5); //Left Upper Bumper, elevator button  to a controller
     elevatorButton.whileHeld(new ElevatorRun());//While held, command is being run, references command from commands. Hence imports
+    
+    intakePneumaticExtendButton = new JoystickButton(joystickDriver, 7);
+    intakePneumaticExtendButton.whileHeld(new IntakePneumaticExtend());
+
+    intakePneumaticRetractButton = new JoystickButton(joystickDriver, 8);
+    intakePneumaticRetractButton.whileHeld(new IntakePneumaticRetract());
     // Configure the button bindings
-  
+
     /*
       Start of shooter section
     */
