@@ -34,12 +34,21 @@ public class Drive extends SubsystemBase { // Creates a new Drive.
     // The ints inside the params of Drive () is called in RobotContainer
     driveMode = 0;
  
+<<<<<<< HEAD
     leftDriveMotor = new CANSparkMax(leftDriveMotorAddress, MotorType.kBrushed);
     leftDriveMotor.setInverted(false); // Inverts Left Drive Motor
     leftDriveMotor.set(0); // Sets speed to 0 (anywhere between -1 and 1)
 
     rightDriveMotor = new CANSparkMax(rightDriveMotorAddress, MotorType.kBrushed); // Assigns Leading Right Drive Motor to Talon #2
     rightDriveMotor.setInverted(false); // Inverts Right Drive Motor
+=======
+    leftDriveMotor = new CANSparkMax(leftDriveMotorAddress, MotorType.kBrushless);
+    leftDriveMotor.setInverted(true); // Inverts Left Drive Motor
+    leftDriveMotor.set(0); // Sets speed to 0 (anywhere between -1 and 1)
+
+    rightDriveMotor = new CANSparkMax(rightDriveMotorAddress, MotorType.kBrushless); // Assigns Leading Right Drive Motor to Talon #2
+    rightDriveMotor.setInverted(true); // Inverts Right Drive Motor
+>>>>>>> 88c7b82bf4be8d39a3222d96ca13fe099b2f91ae
     rightDriveMotor.set(0); // Sets speed to 0 (anywhere between -1 and 1)
     
     robotDrive = new DifferentialDrive(leftDriveMotor, rightDriveMotor);
