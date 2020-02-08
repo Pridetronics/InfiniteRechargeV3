@@ -42,10 +42,21 @@ import edu.wpi.first.wpilibj.Victor;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static CANSparkMax leftDriveMotorLead; // Creates new talon motor for leading left drive
-    public static CANSparkMax rightDriveMotorLead; // Creates new talon motor for leading right drive
+    public static final int leftDriveMotorLead = 1;
+    public static final int rightDriveMotorLead = 2;
+    public static final int intakeMotorCanAddress = 5;
+    public static final int elevatorMotorLeadAddress = 6;
+    public static final int elevatorMotorFollowAddress = 7;
+    public static final int raiseClimbMotorAddress = 8;
+    public static final int telescopicClimbMotorAddress = 9;
+    public static final int shooterMotorCanAddress = 10; // creates can address for shooter motor
 
     public static DifferentialDrive robotDrive; // Creates new differential drive
+
+    public static final double lowShooterSpeed = 0.6; // creates the speed for the LowSpeedShooter
+    public static final double highShooterSpeed = 0.8; // creates the speed for the HighSpeedShooter
+
+    public static final double shooterMotorRPM = 5676.0; // constant that represents shooter R
   
     public static void init() {
 
