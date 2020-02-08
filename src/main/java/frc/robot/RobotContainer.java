@@ -24,7 +24,10 @@ import edu.wpi.first.wpilibj.SpeedController;
 //import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
 import frc.robot.commands.ExtendTelescopicClimb;
+import frc.robot.commands.SequenceClimb;
+import frc.robot.commands.DescendTelescopicClimb;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -48,6 +51,10 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   public static CANSparkMax raiseClimbMotor;
   //public  static Talon telescopicClimbMotor;
   public  static CANSparkMax telescopicClimbMotor;
+
+
+  public static DigitalInput limitSwitchDown;
+  public static DigitalInput limitSwitchUp;
 
 
   
@@ -89,11 +96,14 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     extendTelescopic.whileHeld(new ExtendTelescopicClimb(telescopicClimbMotor));
 
     descendTelescopic = new JoystickButton(joystickShooter, 5);
-
+    descendTelescopic.whileHeld(new DescendTelescopicClimb(telescopicClimbMotor));
 
     sequenceClimbButton = new JoystickButton(joystickShooter, 3);
+    sequenceClimbButton.whileHeld(new SequenceClimb(raiseClimbMotor));
 
-
+    //limit Switch to nre Digital input objects (figure out later)
+    limitSwitchDown = new DigitalInput(0);
+    //limitSwitchUp = new DigitalInput(0);
     
 
 

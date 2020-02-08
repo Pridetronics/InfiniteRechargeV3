@@ -8,40 +8,59 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
-import frc.robot.RobotContainer;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import com.revrobotics.CANSparkMax;
 
+import frc.robot.RobotContainer;
+
 import frc.robot.subsystems.Climb;
 
-import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Joystick;
 
-public class DescendTelescopicClimb extends CommandBase {
+public class SequenceClimb extends CommandBase {
   /**
-   * Creates a new RaiseTelescopicClimb.
+   * Creates a new SequenceClimb.
    */
-  public static CANSparkMax telescopicClimbMotor = Climb.telescopicClimbMotor;
-  
-  public DescendTelescopicClimb(CANSparkMax DescendMotor) {
+
+  public final DigitalInput limitSwitchDown = RobotContainer.limitSwitchDown;
+  public final DigitalInput limitSwitchUp = RobotContainer.limitSwitchUp;
+
+  public static CANSparkMax raiseClimbMotor = Climb.raiseClimbMotor;
+
+
+
+  public SequenceClimb(CANSparkMax raiseMotor) {
     // Use addRequirements() here to declare subsystem dependencies.
-    telescopicClimbMotor = DescendMotor;
+ 
+    raiseClimbMotor = raiseMotor;
+    
   }
+
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    Climb.raiseClimbMotor();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-  
-  //System.out.println("telescopicClimbMotor");
-
-  telescopicClimbMotor.set(-.55);
-
+/*  int output = JoystickButton.getY(); //Moves the joystick based on Y value
+    if (limitSwitchDown closed) 
+    limitSwitchUp.get();
+     //When pressed, value will be between -1 and 0
+     output = Math.min(output, 0);
   }
+  else {
+   limitSwitchDown.get(); //When pressed value with be between 0 and 1
+    output = Math.max(output, 0);
+    raiseClimbMotor.set(output);
+*/
+  raiseClimbMotor.set(.55);
+    }
 
   // Called once the command ends or is interrupted.
   @Override

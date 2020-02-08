@@ -8,6 +8,9 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import javax.print.event.PrintEvent;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.Joystick;
@@ -15,12 +18,28 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
+import edu.wpi.first.wpilibj.DigitalInput;
+
 
 
 public class Climb extends SubsystemBase {
   /**
    * Creates a new Climb.
    */
+
+  private final DigitalInput limitSwitchDown = RobotContainer.limitSwitchDown;
+  private final DigitalInput limitSwitchUp = RobotContainer.limitSwitchUp;
+
+
+  public boolean limitSwitchUpOpen() {
+    return limitSwitchUp.get();
+    
+  }
+
+  public boolean limitSwitchDownOpen() {
+    return limitSwitchDown.get();
+  }
+
 
     public static CANSparkMax raiseClimbMotor;
     //public  static Talon telescopicClimbMotor;
@@ -60,4 +79,8 @@ public class Climb extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
+public static void raiseClimbMotor() {
+} //SequenceClimb uses this
+
 }
