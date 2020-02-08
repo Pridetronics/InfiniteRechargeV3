@@ -25,10 +25,15 @@ public class ExtendTelescopicClimb extends CommandBase {
   public static CANSparkMax telescopicClimbMotor = Climb.telescopicClimbMotor;
 
 
-  public ExtendTelescopicClimb () {
+  public ExtendTelescopicClimb (CANSparkMax ClimbMotor) {
+
+    telescopicClimbMotor = ClimbMotor;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Climb);
+    //addRequirements(Climb.telescopicClimbMotor);
   }
+
+  //private void addRequirements(CANSparkMax telescopicClimbMotor) {
+ // }
 
   // Called when the command is initially scheduled.
   @Override
@@ -39,7 +44,9 @@ public class ExtendTelescopicClimb extends CommandBase {
   @Override
   public void execute() {
 
-   Climb.telescopicClimbMotor.set(55);
+  //System.out.println("Climb.telescopicClimbMotor");
+
+   telescopicClimbMotor.set(.55);
 
   }
 

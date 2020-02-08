@@ -66,6 +66,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     raiseClimbMotor.setInverted(false);
     raiseClimbMotor.set(0);
 
+    System.out.println("Work!");
+
     //telescopicClimbMotor = new Talon(1);
     telescopicClimbMotor = new CANSparkMax(2, MotorType.kBrushed);
     telescopicClimbMotor.setInverted(false);
@@ -77,14 +79,14 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
 
   
-    //shooterGamepad = joystickShooter;
+    //Joystick shooterGamepad = joystickShooter;
 
     robotDrive.setDefaultCommand(new DriveJoystick(joystickDriver, robotDrive));
     // This helps set the default command. It sets it to DriveJoystick so that way RobotContainer
     // can grab the information and utilize it for the given controller, in this case joystickDriver
 
     extendTelescopic = new JoystickButton(joystickShooter, 6);
-    extendTelescopic.whileHeld(new ExtendTelescopicClimb());
+    extendTelescopic.whileHeld(new ExtendTelescopicClimb(telescopicClimbMotor));
 
     descendTelescopic = new JoystickButton(joystickShooter, 5);
 
