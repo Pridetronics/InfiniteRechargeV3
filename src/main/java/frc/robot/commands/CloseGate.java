@@ -51,5 +51,6 @@ public class CloseGate extends CommandBase {
   @Override
   public boolean isFinished() {
     return false;
+    //testttttttt
   }
 }
