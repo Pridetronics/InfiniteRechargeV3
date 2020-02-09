@@ -16,18 +16,20 @@ import frc.robot.Constants; //Class -- These are currently unused
 import frc.robot.Robot;// Class
 import frc.robot.RobotContainer;//Class
 
-public class Intake extends SubsystemBase {
+public class Elevator extends SubsystemBase {
   /**
-   * Creates a new Intake.
+   * Creates a new Elevator.
    */
-  public static CANSparkMax intakeMotor = RobotContainer.intakeMotor; // Testing Motor: Creates an intake motor 
-  
-   ///private Talon intakeMotor = RobotContainer.intakeMotor; //Competition Motor--> Intake motor
+  public static CANSparkMax elevatorMotorLead = RobotContainer.elevatorMotorLead; //Testing Motor: Creates an elevator motor (leading motor)
+  public static CANSparkMax elevatorMotorFollow = RobotContainer.elevatorMotorFollow; //Testing Motor: Creates an elevator motor to follow the elevator motor lead
+ 
+  ///private Talon elevatorMotorLead = RobotContainer.elevatorMotorLead; //Competition Motor-->Elevator motor for elevator created(LEAD)
+  ///private Talon elevatorMotorFollow = RobotContainer.elevatorMotorFollow;//Competition Motor--> Elevator motor for elevator created (FOLLOW)
 
-   public Intake() {
-    //Collect power cell balls
-    
-   }
+  public Elevator() {
+   
+
+  }
 
   @Override
   public void periodic() {

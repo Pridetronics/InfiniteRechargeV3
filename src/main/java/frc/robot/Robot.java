@@ -16,7 +16,7 @@ import frc.robot.subsystems.Vision;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.TimedRobot;
-
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Joystick;
 
 //import frc.robot.subsystems.Autonomous;
@@ -37,6 +37,9 @@ public class Robot extends TimedRobot {
 
   public RobotContainer m_robotContainer;
 
+
+
+
    /* This function is run when the robot is first started up and should be used
    for any initialization code. */
   @Override
@@ -46,6 +49,14 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     
     m_robotContainer = new RobotContainer();
+
+    /*
+      Start of camera
+    */
+    CameraServer.getInstance().startAutomaticCapture(); // simple usb capture, no img processing
+
+    Vision.visionThread.setDaemon(true); // more complex usb capture, will be used for any img processing
+    Vision.visionThread.start();
     
   }
 
