@@ -14,21 +14,24 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.CloseGate;
 import frc.robot.commands.DriveJoystick;
 import frc.robot.subsystems.Drive;
-import frc.robot.commands.IntakeRun;
+//import frc.robot.commands.IntakeRun;
 import frc.robot.commands.LowSpeedShooter;
 import frc.robot.commands.ReleaseGate;
 import frc.robot.commands.ElevatorRun;
 import frc.robot.commands.HighSpeedShooter;
 import frc.robot.commands.IntakePneumaticExtend;
 import frc.robot.commands.IntakePneumaticRetract;
-import frc.robot.subsystems.Intake;
+//import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pneumatics;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Elevator;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
+import com.revrobotics.EncoderType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.button.JoystickButton; //Deals with the buttons on the controller
@@ -49,6 +52,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   // The container for the robot.  Contains subsystems, OI devices, and commands.
   public static CANSparkMax leftDriveMotorLead; // Creates new talon motor for leading left drive
   public static CANSparkMax rightDriveMotorLead; // Creates new talon motor for leading right drive
+  public static CANSparkMax leftDriveMotorFollow;
+  public static CANSparkMax rightDriveMotorFollow;
   
   public Joystick joystickDriver; //The name of the first controller, main driver
   public Joystick joystickShooter; //The name of the second controller, secondary driver
@@ -57,7 +62,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   public JoystickButton elevatorButton; //Button to run the intake Vertical
   public JoystickButton intakePneumaticExtendButton;
   public JoystickButton intakePneumaticRetractButton;
-  public static CANSparkMax intakeMotor;
+  //public static CANSparkMax intakeMotor;
   public static CANSparkMax elevatorMotorLead;
   public static CANSparkMax elevatorMotorFollow;
   public static CANSparkMax raiseClimbMotor;
@@ -78,6 +83,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   public static DoubleSolenoid controlPanelSpinnerDeploy;
 
   public static CANEncoder shooterMotorEncoder; // encoder to measure the speed of the shooterMotor
+  public static CANEncoder leftDriveMotorEncoder;
+  public static CANEncoder rightDriveMotorEncoder;
   
   public RobotContainer() {
     
@@ -89,13 +96,21 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     /*
       Start of driver section
     */
-    leftDriveMotorLead = new CANSparkMax(Constants.leftDriveMotorLead, MotorType.kBrushed); // Creates new talon motor for leading left drive
+    leftDriveMotorLead = new CANSparkMax(Constants.leftDriveMotorLead, MotorType.kBrushless); // Creates new talon motor for leading left drive
     leftDriveMotorLead.setInverted(false); // Inverts Left Drive Motor
     leftDriveMotorLead.set(0); // Sets speed to 0 (anywhere between -1 and 1)
+
+    leftDriveMotorFollow = new CANSparkMax(Constants.leftDriveMotorFollow, MotorType.kBrushless);
+    leftDriveMotorFollow.setInverted(false);
+    leftDriveMotorFollow.follow(leftDriveMotorLead); 
     
-    rightDriveMotorLead = new CANSparkMax(Constants.rightDriveMotorLead, MotorType.kBrushed); // Creates new talon motor for leading right drive
+    rightDriveMotorLead = new CANSparkMax(Constants.rightDriveMotorLead, MotorType.kBrushless); // Creates new talon motor for leading right drive
     rightDriveMotorLead.setInverted(false); // Inverts Right Drive Motor
     rightDriveMotorLead.set(0); // Sets speed to 0 (anywhere between -1 and 1)
+
+    rightDriveMotorFollow = new CANSparkMax(Constants.rightDriveMotorFollow, MotorType.kBrushless);
+    rightDriveMotorFollow.setInverted(false);
+    rightDriveMotorFollow.follow(rightDriveMotorLead);
 
     robotDrive = new Drive(); 
     // It sets a new drive and uses the ints 1 and 2. The order matters.
@@ -111,16 +126,16 @@ public class RobotContainer { // The robot's subsystems and commands are defined
       Start of intake section
     */
     
-    intakeMotor = new CANSparkMax(Constants.intakeMotorCanAddress, MotorType.kBrushless); //The motor (CANSparkMax) is defined with a type and port (port 5, and motor type = brushless)
-    ///intakeMotor =  new Talon(5); //Motor is defined as a specified motor under port five (Talon)
-    intakeMotor.set(0); //Initially sets motor value to 0, will not run without further command
+   // intakeMotor = new CANSparkMax(Constants.intakeMotorCanAddress, MotorType.kBrushless); //The motor (CANSparkMax) is defined with a type and port (port 5, and motor type = brushless)
+    ///intakeMotor =  new TalonSRX(5); //Motor is defined as a specified motor under port five (Talon)
+    //intakeMotor.set(0); //Initially sets motor value to 0, will not run without further command
 
     elevatorMotorLead = new CANSparkMax(Constants.elevatorMotorLeadAddress, MotorType.kBrushless); //Motor is defined under 6th port (CANSparkMax)
-    ///elevatorMotorLead = new Talon(6); //Motor is defined (Talon) under port six
+    ///elevatorMotorLead = new TalonSRX(6); //Motor is defined (Talon) under port six
     elevatorMotorLead.set(0); //Sets motor value (speed) to 0
 
     elevatorMotorFollow = new CANSparkMax(Constants.elevatorMotorFollowAddress, MotorType.kBrushless); //Motor is deinfed under 7th port (CANSparkMax)
-    ///elevatorMotorFollow = new Talon(7); // Motor is defined under port seven (Talon)
+    ///elevatorMotorFollow = new TalonSRX(7); // Motor is defined under port seven (Talon)
     elevatorMotorFollow.set(0); //Sets motor speed to 0
     elevatorMotorFollow.follow(elevatorMotorLead); // Vertical follow motor will do everthing the vertical lead motor does
 
@@ -131,10 +146,10 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     telescopicClimbMotor.set(0);
     // The numbers in the parenthesis represents the ports each controller goes to. 
     
-    intakeButton = new JoystickButton(joystickDriver, 6); // Right Upper Bumper, sets intake Button to a controller
-    intakeButton.whileHeld(new IntakeRun());//While the button is being held, the command is being run
+    //intakeButton = new JoystickButton(joystickDriver, 5); // Right Upper Bumper, sets intake Button to a controller
+    //intakeButton.whileHeld(new IntakeRun());//While the button is being held, the command is being run
   
-    elevatorButton = new JoystickButton(joystickDriver, 5); //Left Upper Bumper, elevator button  to a controller
+    elevatorButton = new JoystickButton(joystickDriver, 6); //Left Upper Bumper, elevator button  to a controller
     elevatorButton.whileHeld(new ElevatorRun());//While held, command is being run, references command from commands. Hence imports
     
     intakePneumaticExtendButton = new JoystickButton(joystickDriver, 7);
@@ -143,7 +158,9 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     intakePneumaticRetractButton = new JoystickButton(joystickDriver, 8);
     intakePneumaticRetractButton.whileHeld(new IntakePneumaticRetract());
     // Configure the button bindings
-
+    leftDriveMotorEncoder = new CANEncoder(leftDriveMotorLead, EncoderType.kQuadrature, Constants.leftDriveMotorLead);
+    rightDriveMotorEncoder = new CANEncoder(rightDriveMotorLead, EncoderType.kQuadrature, Constants.rightDriveMotorLead);
+    
     /*
       Start of shooter section
     */

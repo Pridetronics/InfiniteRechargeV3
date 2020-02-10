@@ -22,6 +22,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.SpeedController;
 
+import com.revrobotics.CANEncoder;
+
 public class Drive extends SubsystemBase { // Creates a new Drive.
    
   public DifferentialDrive robotDrive;
@@ -29,6 +31,10 @@ public class Drive extends SubsystemBase { // Creates a new Drive.
 
   private CANSparkMax leftDriveMotor;
   private CANSparkMax rightDriveMotor;
+
+  public static CANEncoder leftDriveMotorLeadEncoder = RobotContainer.leftDriveMotorEncoder;
+  public static CANEncoder rightDriveMotorLeadEncoder = RobotContainer.rightDriveMotorEncoder;
+
  
   public Drive() {
     // The ints inside the params of Drive () is called in RobotContainer
@@ -75,6 +81,13 @@ public void setDrive() {
     //test 1
   }
 
+  public static CANEncoder getleftDriveMotorEncoder(){
+    return leftDriveMotorLeadEncoder;
+  }
+
+  public static CANEncoder getrightDriveMotorEncoder(){
+    return rightDriveMotorLeadEncoder;
+  }
 
   public void tankDrive(double leftValue, double rightValue) {
     // This method was not here, it was created to run the axis values in DriveJoystick

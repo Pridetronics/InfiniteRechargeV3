@@ -44,6 +44,8 @@ import edu.wpi.first.wpilibj.Victor;
 public final class Constants {
     public static final int leftDriveMotorLead = 1;
     public static final int rightDriveMotorLead = 2;
+    public static final int leftDriveMotorFollow = 3;
+    public static final int rightDriveMotorFollow = 4;
     public static final int intakeMotorCanAddress = 5;
     public static final int elevatorMotorLeadAddress = 6;
     public static final int elevatorMotorFollowAddress = 7;

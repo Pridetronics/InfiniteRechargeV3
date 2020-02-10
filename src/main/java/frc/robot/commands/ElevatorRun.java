@@ -37,12 +37,7 @@ public class ElevatorRun extends CommandBase {
   @Override
   public void execute() {
     SmartDashboard.putBoolean("Elevator",  true);//Once this command is running, the dashboard will acknowledge it (Driver comfort?)
-    elevatorMotorLead.set(55);//Once this command is executed the motor will run a little over half speed
-  }
-  public void ElevatorRun(){
-
-    //SmartDashboard.putBoolean("Elevator",  true);
-    //elevatorMotorLead.set(55);
+    elevatorMotorLead.set(.55);//Once this command is executed the motor will run a little over half speed
   }
 
   // Called once the command ends or is interrupted.
