@@ -8,11 +8,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
 import com.revrobotics.CANSparkMax;
-
 import edu.wpi.first.wpilibj.Talon;
-
 import frc.robot.subsystems.Climb;
 
 public class ExtendTelescopicClimb extends CommandBase {
@@ -22,8 +19,7 @@ public class ExtendTelescopicClimb extends CommandBase {
 
   //public static Talon telescopicClimbMotor = Climb.telescopicClimbMotor;
 
-  public static CANSparkMax telescopicClimbMotor = Climb.telescopicClimbMotor;
-
+  private static CANSparkMax telescopicClimbMotor;
 
   public ExtendTelescopicClimb (CANSparkMax ClimbMotor) {
 
