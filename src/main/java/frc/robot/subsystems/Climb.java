@@ -8,6 +8,9 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import javax.print.event.PrintEvent;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.Joystick;
@@ -15,6 +18,8 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
+import edu.wpi.first.wpilibj.DigitalInput;
+
 
 
 public class Climb extends SubsystemBase {
@@ -22,27 +27,46 @@ public class Climb extends SubsystemBase {
    * Creates a new Climb.
    */
 
-    public CANSparkMax raiseClimbMotor;
-    public Talon telescopicClimbMotor;
+  private final DigitalInput limitSwitchDown = RobotContainer.limitSwitchDown;
+  private final DigitalInput limitSwitchUp = RobotContainer.limitSwitchUp;
 
-    public Joystick shooterGamepad;
-    public JoystickButton raiseTelescopic;
-    public JoystickButton descendTelescopic;
-    public JoystickButton sequenceClimbButton;
 
-  public Climb(Joystick joystickShooter) {
+  public boolean limitSwitchUpOpen() {
+    return limitSwitchUp.get();
+    
+  }
+
+  public boolean limitSwitchDownOpen() {
+    return limitSwitchDown.get();
+  }
+
+
+    public static CANSparkMax raiseClimbMotor;
+    //public  static Talon telescopicClimbMotor;
+    public  static CANSparkMax telescopicClimbMotor;
+
+ 
+    public static  JoystickButton raiseTelescopic;
+    public static JoystickButton descendTelescopic;
+    public static JoystickButton sequenceClimbButton;
+
+  public Climb() {
     //Lifts up, grabs bar, pulls self up
 
-    raiseClimbMotor = new CANSparkMax(3, MotorType.kBrushed);
-    raiseClimbMotor.setInverted(false);
-    raiseClimbMotor.set(0);
+    raiseClimbMotor = RobotContainer.raiseClimbMotor;
+
+    telescopicClimbMotor = RobotContainer.telescopicClimbMotor;
+
+    
+
+    //raiseTelescopic = new JoystickButton(shooterGamepad, 6);
 
 
-    telescopicClimbMotor = new Talon(3);
-    telescopicClimbMotor.setInverted(false);
-    telescopicClimbMotor.set(0);
+    //descendTelescopic = new JoystickButton(shooterGamepad, 5);
 
-    shooterGamepad = new Joystick(1);
+
+    //sequenceClimbButton = new JoystickButton(shooterGamepad, 3);
+  
   }
 
 
@@ -50,4 +74,8 @@ public class Climb extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
+public static void raiseClimbMotor() {
+} //SequenceClimb uses this
+
 }

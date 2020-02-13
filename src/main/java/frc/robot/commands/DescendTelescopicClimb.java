@@ -9,31 +9,24 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-import com.revrobotics.CANSparkMax;
+import frc.robot.RobotContainer;
 
-import edu.wpi.first.wpilibj.Talon;
+import com.revrobotics.CANSparkMax;
 
 import frc.robot.subsystems.Climb;
 
-public class ExtendTelescopicClimb extends CommandBase {
+import edu.wpi.first.wpilibj.Talon;
+
+public class DescendTelescopicClimb extends CommandBase {
   /**
-   * Creates a new LiftTelescopicClimb.
+   * Creates a new RaiseTelescopicClimb.
    */
-
-  //public static Talon telescopicClimbMotor = Climb.telescopicClimbMotor;
-
   public static CANSparkMax telescopicClimbMotor = Climb.telescopicClimbMotor;
-
-
-  public ExtendTelescopicClimb (CANSparkMax ClimbMotor) {
-
-    telescopicClimbMotor = ClimbMotor;
+  
+  public DescendTelescopicClimb(CANSparkMax DescendMotor) {
     // Use addRequirements() here to declare subsystem dependencies.
-    //addRequirements(Climb.telescopicClimbMotor);
+    telescopicClimbMotor = DescendMotor;
   }
-
-  //private void addRequirements(CANSparkMax telescopicClimbMotor) {
- // }
 
   // Called when the command is initially scheduled.
   @Override
@@ -43,10 +36,10 @@ public class ExtendTelescopicClimb extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+  
+  //System.out.println("telescopicClimbMotor");
 
-  //System.out.println("Climb.telescopicClimbMotor");
-
-   telescopicClimbMotor.set(.55);
+  telescopicClimbMotor.set(-.55);
 
   }
 

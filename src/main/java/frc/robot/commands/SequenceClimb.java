@@ -8,47 +8,59 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import com.revrobotics.CANSparkMax;
 
-import edu.wpi.first.wpilibj.Talon;
+import frc.robot.RobotContainer;
 
 import frc.robot.subsystems.Climb;
 
-public class ExtendTelescopicClimb extends CommandBase {
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Joystick;
+
+public class SequenceClimb extends CommandBase {
   /**
-   * Creates a new LiftTelescopicClimb.
+   * Creates a new SequenceClimb.
    */
 
-  //public static Talon telescopicClimbMotor = Climb.telescopicClimbMotor;
+  public final DigitalInput limitSwitchDown = RobotContainer.limitSwitchDown;
+  public final DigitalInput limitSwitchUp = RobotContainer.limitSwitchUp;
 
-  public static CANSparkMax telescopicClimbMotor = Climb.telescopicClimbMotor;
+  public static CANSparkMax raiseClimbMotor = Climb.raiseClimbMotor;
 
 
-  public ExtendTelescopicClimb (CANSparkMax ClimbMotor) {
 
-    telescopicClimbMotor = ClimbMotor;
+  public SequenceClimb(CANSparkMax raiseMotor) {
     // Use addRequirements() here to declare subsystem dependencies.
-    //addRequirements(Climb.telescopicClimbMotor);
+ 
+    raiseClimbMotor = raiseMotor;
+    
   }
 
-  //private void addRequirements(CANSparkMax telescopicClimbMotor) {
- // }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    Climb.raiseClimbMotor();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-  //System.out.println("Climb.telescopicClimbMotor");
-
-   telescopicClimbMotor.set(.55);
-
+/*  int output = JoystickButton.getY(); //Moves the joystick based on Y value
+    if (limitSwitchDown closed) 
+    limitSwitchUp.get();
+     //When pressed, value will be between -1 and 0
+     output = Math.min(output, 0);
   }
+  else {
+   limitSwitchDown.get(); //When pressed value with be between 0 and 1
+    output = Math.max(output, 0);
+    raiseClimbMotor.set(output);
+*/
+  raiseClimbMotor.set(.55);
+    }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -60,4 +72,8 @@ public class ExtendTelescopicClimb extends CommandBase {
   public boolean isFinished() {
     return false;
   }
+
+
+
+  //reeeeeeeeeeeeeeeee
 }
