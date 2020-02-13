@@ -24,7 +24,8 @@ import edu.wpi.first.wpilibj.SpeedController;
 //import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
 import frc.robot.commands.ExtendTelescopicClimb;
-import frc.robot.commands.SequenceClimb;
+import frc.robot.commands.DescendSequenceTelescopicClimb;
+import frc.robot.commands.RaisesRobotClimb;
 import frc.robot.commands.DescendTelescopicClimb;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -99,7 +100,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     descendTelescopic.whileHeld(new DescendTelescopicClimb(telescopicClimbMotor));
 
     sequenceClimbButton = new JoystickButton(joystickShooter, 3);
-    sequenceClimbButton.whileHeld(new SequenceClimb(raiseClimbMotor));
+    sequenceClimbButton.whileHeld(new DescendSequenceTelescopicClimb(telescopicClimbMotor));
+    sequenceClimbButton.whileHeld(new RaisesRobotClimb(raiseClimbMotor));
 
     //limit Switch to nre Digital input objects (figure out later)
     limitSwitchDown = new DigitalInput(0);
