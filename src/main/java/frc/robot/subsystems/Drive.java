@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.SpeedController;
@@ -27,19 +28,27 @@ public class Drive extends SubsystemBase { // Creates a new Drive.
   public DifferentialDrive robotDrive;
   public int driveMode;
 
-  private CANSparkMax leftDriveMotor;
-  private CANSparkMax rightDriveMotor;
- 
+  private CANSparkMax leftDriveMotorLead;
+  //private CANSparkMax leftDriveMotorFollow;
+
+  private CANSparkMax rightDriveMotorLead;
+  //private CANSparkMax rightDriveMotorFollow;
+
+  public static CANEncoder leftDriveMotorLeadEncoder = RobotContainer.leftDriveMotorLeadEncoder;
+  public static CANEncoder rightDriveMotorLeadEncoder = RobotContainer.rightDriveMotorLeadEncoder;
+
+  
   public Drive() {
     // The ints inside the params of Drive () is called in RobotContainer
     driveMode = 0;
  
-    leftDriveMotor = RobotContainer.leftDriveMotorLead; // references motors from RobotContainer
-    rightDriveMotor =  RobotContainer.rightDriveMotorLead;
+    leftDriveMotorLead = RobotContainer.leftDriveMotorLead; // references motors from RobotContainer
+    //leftDriveMotorFollow = RobotContainer.leftDriveMotorFollow;
+
+    rightDriveMotorLead =  RobotContainer.rightDriveMotorLead;
+    //rightDriveMotorFollow = RobotContainer.rightDriveMotorFollow;
     
-    
-    robotDrive = new DifferentialDrive(leftDriveMotor, rightDriveMotor);
-    // Constructs the differential drive with the motors
+    robotDrive = new DifferentialDrive(leftDriveMotorLead, rightDriveMotorLead); // Constructs the differential drive with the motors
 
     SmartDashboard.putString("Drive Mode:", "Tank");                                                                                                              
   }
@@ -75,6 +84,13 @@ public void setDrive() {
     //test 1
   }
 
+  public static CANEncoder getleftDriveMotorEncoder(){
+    return leftDriveMotorLeadEncoder;
+  }
+
+  public static CANEncoder getrightDriveMotorEncoder(){
+    return rightDriveMotorLeadEncoder;
+  }
 
   public void tankDrive(double leftValue, double rightValue) {
     // This method was not here, it was created to run the axis values in DriveJoystick

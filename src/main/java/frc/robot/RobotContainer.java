@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.CloseGate;
+import frc.robot.commands.DriveForwardThreeFeetAuton;
 import frc.robot.commands.DriveJoystick;
 import frc.robot.subsystems.Drive;
 import frc.robot.commands.IntakeRun;
@@ -27,6 +28,7 @@ import frc.robot.subsystems.Elevator;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
+import com.revrobotics.EncoderType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.button.JoystickButton; //Deals with the buttons on the controller
@@ -34,8 +36,10 @@ import edu.wpi.first.wpilibj.Joystick; //Allows gamepad/joystick referencing
 
 //import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 //import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 //import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -47,17 +51,22 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   // The container for the robot.  Contains subsystems, OI devices, and commands.
   public static CANSparkMax leftDriveMotorLead; // Creates new talon motor for leading left drive
   public static CANSparkMax rightDriveMotorLead; // Creates new talon motor for leading right drive
+  public static CANSparkMax leftDriveMotorFollow;
+  public static CANSparkMax rightDriveMotorFollow;
   
   public Joystick joystickDriver; //The name of the first controller, main driver
   public Joystick joystickShooter; //The name of the second controller, secondary driver
   
   public JoystickButton intakeButton; //Button to run the intake 
   public JoystickButton elevatorButton; //Button to run the intake Vertical
+  public JoystickButton autonDriveForw;
+
   public static CANSparkMax intakeMotor;
   public static CANSparkMax elevatorMotorLead;
   public static CANSparkMax elevatorMotorFollow;
   public static CANSparkMax raiseClimbMotor;
   public static CANSparkMax telescopicClimbMotor;
+
   public final Drive robotDrive;
 
   public JoystickButton lowSpeedShooterButton; // Button A
@@ -74,9 +83,12 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   public static DoubleSolenoid controlPanelSpinnerDeploy;
 
   public static CANEncoder shooterMotorEncoder; // encoder to measure the speed of the shooterMotor
+
+  public static CANEncoder leftDriveMotorLeadEncoder;
+  public static CANEncoder rightDriveMotorLeadEncoder;
   
   public RobotContainer() {
-    
+ 
     //Joystick+Controller Definitions 
     this.joystickDriver = new Joystick(0); // 'this.' Grabs a variable specifically
     this.joystickShooter = new Joystick(1); // ^^ Creates less confusion in the system
@@ -88,10 +100,25 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     leftDriveMotorLead = new CANSparkMax(Constants.leftDriveMotorLead, MotorType.kBrushed); // Creates new talon motor for leading left drive
     leftDriveMotorLead.setInverted(false); // Inverts Left Drive Motor
     leftDriveMotorLead.set(0); // Sets speed to 0 (anywhere between -1 and 1)
+
+    leftDriveMotorFollow = new CANSparkMax(Constants.leftDriveMotorFollow, MotorType.kBrushed);
+    leftDriveMotorFollow.setInverted(false);
     
+    leftDriveMotorFollow.follow(leftDriveMotorLead); // Marries the two left motors together
+
     rightDriveMotorLead = new CANSparkMax(Constants.rightDriveMotorLead, MotorType.kBrushed); // Creates new talon motor for leading right drive
     rightDriveMotorLead.setInverted(false); // Inverts Right Drive Motor
     rightDriveMotorLead.set(0); // Sets speed to 0 (anywhere between -1 and 1)
+
+    rightDriveMotorFollow = new CANSparkMax(Constants.rightDriveMotorFollow, MotorType.kBrushed);
+    rightDriveMotorFollow.setInverted(false);
+
+    rightDriveMotorFollow.follow(rightDriveMotorLead); // Marries the two right motors together
+
+    leftDriveMotorLeadEncoder = new CANEncoder(leftDriveMotorLead, EncoderType.kHallSensor, Constants.leftDriveMotorLead);
+    rightDriveMotorLeadEncoder = new CANEncoder(rightDriveMotorLead, EncoderType.kHallSensor, Constants.rightDriveMotorLead);
+
+    
 
     robotDrive = new Drive(); 
     // It sets a new drive and uses the ints 1 and 2. The order matters.
@@ -161,27 +188,32 @@ public class RobotContainer { // The robot's subsystems and commands are defined
       new ParallelDeadlineGroup(
         new LowSpeedShooter(this.joystickShooter, shooter),
         new ReleaseGate(this.joystickShooter, pneumatics, Constants.lowShooterSpeed)),
-      new CloseGate(this.joystickShooter, pneumatics)));
+        new CloseGate(this.joystickShooter, pneumatics)));
     /*
       The whenHeld method runs the low speed shooter command when the A button is held.
       The method requires an object of a command, such as new LowSpeedShooter
     */
-    
+     
     /*
       see the comment above lowSpeedShooterButton.whenHeld for an explanation
-    */
+    */ 
     highSpeedShooterButton = new JoystickButton(this.joystickShooter, 4); // creates the button for the high speed shooter
     highSpeedShooterButton.whenHeld(new SequentialCommandGroup(
-      new ParallelDeadlineGroup(
+      new ParallelDeadlineGroup( 
         new HighSpeedShooter(this.joystickShooter, shooter),
         new ReleaseGate(this.joystickShooter, pneumatics, Constants.highShooterSpeed)),
-      new CloseGate(this.joystickShooter, pneumatics)));
+        new CloseGate(this.joystickShooter, pneumatics)
+      )
+    );
     /*
       The whenHeld method runs the high speed shooter command when the Y button is held.
       The method requires an object of a command, such as new HighSpeedShooter
     */
 
-    
+    autonDriveForw = new JoystickButton(this.joystickShooter, 3);
+    autonDriveForw.whenHeld(new DriveForwardThreeFeetAuton(1, 2, robotDrive));
+
+
     configureButtonBindings();
 
   }
@@ -203,8 +235,12 @@ public class RobotContainer { // The robot's subsystems and commands are defined
    * 
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return getAutonomousCommand();
-  }
+
+  
+
+  // public Command getAutonomousCommand() {
+  //   // An ExampleCommand will run in autonomous
+  //   return getAutonomousCommand();
+  //   //return new DriveForwardThreeFeetAuton();
+  // }
 }

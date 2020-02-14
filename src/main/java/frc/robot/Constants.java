@@ -42,17 +42,27 @@ import edu.wpi.first.wpilibj.Victor;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    // DRIVE Section
     public static final int leftDriveMotorLead = 1;
     public static final int rightDriveMotorLead = 2;
-    public static final int intakeMotorCanAddress = 5;
-    public static final int elevatorMotorLeadAddress = 6;
-    public static final int elevatorMotorFollowAddress = 7;
-    public static final int raiseClimbMotorAddress = 8;
-    public static final int telescopicClimbMotorAddress = 9;
-    public static final int shooterMotorCanAddress = 10; // creates can address for shooter motor
+    public static final int leftDriveMotorFollow = 3;
+    public static final int rightDriveMotorFollow = 4;
 
     public static DifferentialDrive robotDrive; // Creates new differential drive
 
+    // INTAKE Section
+    public static final int intakeMotorCanAddress = 5;
+    public static final int elevatorMotorLeadAddress = 6;
+    public static final int elevatorMotorFollowAddress = 7;
+    
+
+    // CLIMB Section 
+    public static final int raiseClimbMotorAddress = 8;
+    public static final int telescopicClimbMotorAddress = 9;
+
+    // SHOOTER Section
+    public static final int shooterMotorCanAddress = 10; // creates can address for shooter motor
+    
     public static final double lowShooterSpeed = 0.6; // creates the speed for the LowSpeedShooter
     public static final double highShooterSpeed = 0.8; // creates the speed for the HighSpeedShooter
 

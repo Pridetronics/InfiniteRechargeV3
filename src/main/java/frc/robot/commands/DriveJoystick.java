@@ -15,6 +15,7 @@ import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 public class DriveJoystick extends CommandBase { //Creates a new DriveJoystick.
   
