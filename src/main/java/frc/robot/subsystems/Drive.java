@@ -32,8 +32,9 @@ public class Drive extends SubsystemBase { // Creates a new Drive.
   private CANSparkMax leftDriveMotor;
   private CANSparkMax rightDriveMotor;
 
-  public static CANEncoder leftDriveMotorLeadEncoder = RobotContainer.leftDriveMotorEncoder;
-  public static CANEncoder rightDriveMotorLeadEncoder = RobotContainer.rightDriveMotorEncoder;
+
+  public static CANEncoder leftDriveMotorLeadEncoder = RobotContainer.leftDriveMotorLeadEncoder;
+  public static CANEncoder rightDriveMotorLeadEncoder = RobotContainer.rightDriveMotorLeadEncoder;
 
  
   public Drive() {

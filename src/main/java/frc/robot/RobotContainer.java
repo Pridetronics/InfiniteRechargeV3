@@ -26,6 +26,8 @@ import frc.robot.subsystems.Pneumatics;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Elevator;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.revrobotics.CANEncoder;
+import frc.robot.commands.DriveForwardThreeFeetAuton;
 
 
 import com.revrobotics.CANEncoder;
@@ -33,6 +35,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.EncoderType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 
 import edu.wpi.first.wpilibj2.command.button.JoystickButton; //Deals with the buttons on the controller
 import edu.wpi.first.wpilibj.Joystick; //Allows gamepad/joystick referencing
@@ -55,6 +58,9 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   public static CANSparkMax leftDriveMotorFollow;
   public static CANSparkMax rightDriveMotorFollow;
   
+public static CANEncoder leftDriveMotorLeadEncoder;
+public static CANEncoder rightDriveMotorLeadEncoder;
+
   public Joystick joystickDriver; //The name of the first controller, main driver
   public Joystick joystickShooter; //The name of the second controller, secondary driver
   
@@ -62,6 +68,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   public JoystickButton elevatorButton; //Button to run the intake Vertical
   public JoystickButton intakePneumaticExtendButton;
   public JoystickButton intakePneumaticRetractButton;
+  public JoystickButton autonDriveForw;
   //public static CANSparkMax intakeMotor;
   public static CANSparkMax elevatorMotorLead;
   public static CANSparkMax elevatorMotorFollow;
@@ -83,8 +90,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   public static DoubleSolenoid controlPanelSpinnerDeploy;
 
   public static CANEncoder shooterMotorEncoder; // encoder to measure the speed of the shooterMotor
-  public static CANEncoder leftDriveMotorEncoder;
-  public static CANEncoder rightDriveMotorEncoder;
+
   
   public RobotContainer() {
     
@@ -111,6 +117,9 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     rightDriveMotorFollow = new CANSparkMax(Constants.rightDriveMotorFollow, MotorType.kBrushless);
     rightDriveMotorFollow.setInverted(false);
     rightDriveMotorFollow.follow(rightDriveMotorLead);
+
+    leftDriveMotorLeadEncoder = new CANEncoder(leftDriveMotorLead, EncoderType.kHallSensor, Constants.leftDriveMotorLead);
+    rightDriveMotorLeadEncoder = new CANEncoder(rightDriveMotorLead, EncoderType.kHallSensor, Constants.rightDriveMotorLead);
 
     robotDrive = new Drive(); 
     // It sets a new drive and uses the ints 1 and 2. The order matters.
@@ -158,8 +167,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     intakePneumaticRetractButton = new JoystickButton(joystickDriver, 8);
     intakePneumaticRetractButton.whileHeld(new IntakePneumaticRetract());
     // Configure the button bindings
-    leftDriveMotorEncoder = new CANEncoder(leftDriveMotorLead, EncoderType.kQuadrature, Constants.leftDriveMotorLead);
-    rightDriveMotorEncoder = new CANEncoder(rightDriveMotorLead, EncoderType.kQuadrature, Constants.rightDriveMotorLead);
+   
     
     /*
       Start of shooter section
@@ -208,7 +216,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
       The method requires an object of a command, such as new HighSpeedShooter
     */
 
-    
+    autonDriveForw = new JoystickButton(this.joystickShooter, 3);
+    autonDriveForw.whenHeld(new DriveForwardThreeFeetAuton(1, 2, robotDrive));
     configureButtonBindings();
 
   }
