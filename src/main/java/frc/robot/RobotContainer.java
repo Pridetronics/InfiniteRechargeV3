@@ -8,6 +8,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.DriveJoystick;
 import frc.robot.subsystems.Drive;
 import com.revrobotics.CANSparkMax;
@@ -26,7 +27,6 @@ import edu.wpi.first.wpilibj.SpeedController;
 import frc.robot.commands.ExtendTelescopicClimb;
 import frc.robot.commands.DescendSequenceTelescopicClimb;
 import frc.robot.commands.RaisesRobotClimb;
-import frc.robot.commands.DescendTelescopicClimb;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 /**
@@ -42,7 +42,6 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   public Joystick joystickShooter;
   
   public JoystickButton extendTelescopic;
-  public JoystickButton descendTelescopic;
   public JoystickButton sequenceClimbButton;
     
   public final Drive robotDrive;
@@ -54,8 +53,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   public  static CANSparkMax telescopicClimbMotor;
 
 
-  public static DigitalInput limitSwitchDown;
-  public static DigitalInput limitSwitchUp;
+  public static DigitalInput limitSwitchSequential;
 
 
   
@@ -81,11 +79,6 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     telescopicClimbMotor.setInverted(false);
     telescopicClimbMotor.set(0);
 
-
-
-
-
-
   
     //Joystick shooterGamepad = joystickShooter;
 
@@ -96,18 +89,17 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     extendTelescopic = new JoystickButton(joystickShooter, 6);
     extendTelescopic.whileHeld(new ExtendTelescopicClimb(telescopicClimbMotor));
 
-    descendTelescopic = new JoystickButton(joystickShooter, 5);
-    descendTelescopic.whileHeld(new DescendTelescopicClimb(telescopicClimbMotor));
-
     sequenceClimbButton = new JoystickButton(joystickShooter, 3);
     sequenceClimbButton.whileHeld(new DescendSequenceTelescopicClimb(telescopicClimbMotor));
     sequenceClimbButton.whileHeld(new RaisesRobotClimb(raiseClimbMotor));
 
     //limit Switch to nre Digital input objects (figure out later)
-    limitSwitchDown = new DigitalInput(0);
-    //limitSwitchUp = new DigitalInput(0);
-    
+    limitSwitchSequential = new DigitalInput(0);
 
+    new SequentialCommandGroup(
+      new DescendSequenceTelescopicClimb(telescopicClimbMotor), 
+      new RaisesRobotClimb(raiseClimbMotor)
+      );
 
 
     // Configure the button bindings

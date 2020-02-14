@@ -12,18 +12,20 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
 import frc.robot.subsystems.Climb;
-
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Talon;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANDigitalInput.LimitSwitch;
 
 public class DescendSequenceTelescopicClimb extends CommandBase {
   /**
    * Creates a new DescendSequenceTelescopicClimb.
    */
-  public static CANSparkMax telescopicClimbMotor = Climb.telescopicClimbMotor;
+  private static CANSparkMax telescopicClimbMotor = Climb.telescopicClimbMotor;
+  //private static DigitalInput limitSwitchSequential = Climb.limitSwitchSequential;
 
-  public DescendSequenceTelescopicClimb(CANSparkMax DescendSequenceMotor) {
+  public DescendSequenceTelescopicClimb(CANSparkMax DescendSequenceMotor, DigitalInput limitSwitchSequential) {
     // Use addRequirements() here to declare subsystem dependencies.
     telescopicClimbMotor = DescendSequenceMotor;
   }
@@ -42,6 +44,7 @@ public class DescendSequenceTelescopicClimb extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    //telescopicClimbMotor.set(0); = DigitalInput limitSwitchSequential.closed
   }
 
   // Returns true when the command should end.

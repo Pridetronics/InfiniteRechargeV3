@@ -27,17 +27,11 @@ public class Climb extends SubsystemBase {
    * Creates a new Climb.
    */
 
-  private final DigitalInput limitSwitchDown = RobotContainer.limitSwitchDown;
-  private final DigitalInput limitSwitchUp = RobotContainer.limitSwitchUp;
+  private final DigitalInput limitSwitchSequencial = RobotContainer.limitSwitchSequential;
 
-
-  public boolean limitSwitchUpOpen() {
-    return limitSwitchUp.get();
+  public boolean limitSwitchSquencial() {
+    return limitSwitchSequencial.get();
     
-  }
-
-  public boolean limitSwitchDownOpen() {
-    return limitSwitchDown.get();
   }
 
 
