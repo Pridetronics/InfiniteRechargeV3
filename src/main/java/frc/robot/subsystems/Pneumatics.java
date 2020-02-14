@@ -51,7 +51,8 @@ public class Pneumatics extends SubsystemBase {
   public void releaseGate() // This method will release the gate
   {
     // This reverses the air flow, which should release the gate
-    shooterBallRelease.set(Value.kReverse);
+    System.out.println(Value.kReverse);
+    shooterBallRelease.set(DoubleSolenoid.Value.kReverse);
   }
 
   public void retractGate() // This method will bring the gate back up again

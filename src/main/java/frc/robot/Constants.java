@@ -63,8 +63,8 @@ public final class Constants {
     public static final double shooterMotorRPM = 160.0; // constant that represents shooter RPM
 
     //These constants will be changed when I found out the actual channels
-    public static final int shooterGateForwardChannel = 1;
-    public static final int shooterGateReverseChannel = 2;
+    public static final int shooterGateForwardChannel = 5;
+    public static final int shooterGateReverseChannel = 4;
     
     public static final int lifeCamWidth = 640;
     public static final int lifeCamHeight = 480;

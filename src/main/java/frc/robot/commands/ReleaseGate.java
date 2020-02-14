@@ -48,24 +48,24 @@ public class ReleaseGate extends CommandBase {
   public void execute() {
     //m_pneumatics.releaseGate();
     //m_pneumatics.gateControl(ballRelease);
-    
+    //System.out.println(m_shooterMotorEncoder.getPosition());
     /*
       if statement to test whether the motor has gotten up to speed. When it is up to speed, it runs what is
       inside the if statement.
     */
-    if(m_shooterMotorEncoder.getVelocity() == m_shooterMotorRPM * m_speed)
-    {
-      if(ballRelease == ballReleasePiston.EXTENDED) // if the ballReleasePiston is extended, release the gate
-      {                                             // and change the state of the piston
+    //if(m_shooterMotorEncoder.getVelocity() == m_shooterMotorRPM * m_speed)
+    //{
+      //if(ballRelease == ballReleasePiston.EXTENDED) // if the ballReleasePiston is extended, release the gate
+      //{                                             // and change the state of the piston
         m_pneumatics.releaseGate();
         ballRelease = ballReleasePiston.RETRACTED;
-      }
+      /*}
       else                                          // if the ballReleasePiston is retract, close the gate
       {                                             // and change the state of the piston
        m_pneumatics.retractGate();
         ballRelease = ballReleasePiston.EXTENDED;
-      }
-    }
+      }*/
+    //}
     
     
   

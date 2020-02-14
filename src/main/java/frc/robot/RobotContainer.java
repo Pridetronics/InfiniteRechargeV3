@@ -71,11 +71,15 @@ lllloooooollllllooooooooooooooooooooooooooodocoOOkxxkkOOOOkkxddoooooodO0Okdooooc
 
 package frc.robot;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.ChangeCameraMode;
 import frc.robot.commands.CloseGate;
 import frc.robot.commands.DriveJoystick;
 import frc.robot.subsystems.Drive;
@@ -127,8 +131,9 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
   public JoystickButton lowSpeedShooterButton; // Button A
   public JoystickButton highSpeedShooterButton; // Button Y
+  public JoystickButton cameraModeButton;
 
-  public Shooter shooter; // shooter object to be used for shooter commands
+  public static Shooter shooter; // shooter object to be used for shooter commands
 
   public static CANSparkMax shooterMotor;
 
@@ -140,6 +145,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
   public static CANEncoder shooterMotorEncoder; // encoder to measure the speed of the shooterMotor
 
+  public static UsbCamera USBCamera1;
+  public static UsbCamera USBCamera2;
 
   public RobotContainer() {
     
@@ -195,11 +202,18 @@ public class RobotContainer { // The robot's subsystems and commands are defined
       and the ReleaseGate command run together. After this command is done, the CloseGate command is run,
       and when that finishes, the SequentialCommandGroup command ends.
     */
+    
+    if(this.joystickShooter.getRawButton(1))
+    {
+      shooterBallRelease.set(DoubleSolenoid.Value.kReverse);
+    }
+    /*
     lowSpeedShooterButton.whenHeld(new SequentialCommandGroup(
-      new ParallelDeadlineGroup(
+      new ParallelCommandGroup(
         new LowSpeedShooter(this.joystickShooter, shooter),
         new ReleaseGate(this.joystickShooter, pneumatics, Constants.lowShooterSpeed)),
       new CloseGate(this.joystickShooter, pneumatics)));
+      */
     /*
       The whenHeld method runs the low speed shooter command when the A button is held.
       The method requires an object of a command, such as new LowSpeedShooter
@@ -249,6 +263,18 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   
     elevatorButton = new JoystickButton(joystickDriver, 5); //Left Upper Bumper, elevator button  to a controller
     elevatorButton.whileHeld(new ElevatorRun());//While held, command is being run, references command from commands. Hence imports
+    
+    /*
+      Start of camera selection section
+    */
+    cameraModeButton = new JoystickButton(this.joystickDriver, 1);
+    USBCamera1 = CameraServer.getInstance().startAutomaticCapture(0);
+    USBCamera2 = CameraServer.getInstance().startAutomaticCapture(1);
+  
+    cameraModeButton.whenPressed(new ChangeCameraMode());
+
+    
+
     // Configure the button bindings
   
     
