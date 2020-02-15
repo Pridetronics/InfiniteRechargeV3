@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase; // Imports needed for this subsystem
 import edu.wpi.first.wpilibj.Talon;//Motor type (for competitions)
 import com.revrobotics.CANSparkMax;//Motor Type 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType; //Motor Type, specifically the certain CANSparkMaxes we will be using
 
 import frc.robot.Constants; //Class -- These are currently unused
@@ -23,8 +24,8 @@ public class Elevator extends SubsystemBase {
   public static CANSparkMax elevatorMotorLead = RobotContainer.elevatorMotorLead; //Testing Motor: Creates an elevator motor (leading motor)
   public static CANSparkMax elevatorMotorFollow = RobotContainer.elevatorMotorFollow; //Testing Motor: Creates an elevator motor to follow the elevator motor lead
  
-  ///private Talon elevatorMotorLead = RobotContainer.elevatorMotorLead; //Competition Motor-->Elevator motor for elevator created(LEAD)
-  ///private Talon elevatorMotorFollow = RobotContainer.elevatorMotorFollow;//Competition Motor--> Elevator motor for elevator created (FOLLOW)
+  ///private TalonSRX elevatorMotorLead = RobotContainer.elevatorMotorLead; //Competition Motor-->Elevator motor for elevator created(LEAD)
+  ///private TalonSRX elevatorMotorFollow = RobotContainer.elevatorMotorFollow;//Competition Motor--> Elevator motor for elevator created (FOLLOW)
 
   public Elevator() {
    

@@ -9,12 +9,13 @@ package frc.robot;
 
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Drive;
-import frc.robot.subsystems.Intake;
+//import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Vision;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -44,8 +45,9 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our
     // autonomous chooser on the dashboard.
-    
     m_robotContainer = new RobotContainer();
+    CameraServer.getInstance().startAutomaticCapture();
+
     
   }
 

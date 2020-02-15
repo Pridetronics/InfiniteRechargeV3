@@ -8,7 +8,9 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase; // Imports needed for this subsystem
-import edu.wpi.first.wpilibj.Talon;//Motor type (for competitions)
+/*import edu.wpi.first.wpilibj.Talon;//Motor type (for competitions)
+import edu.wpi.first.wpilibj.CAN;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;//Motor Type 
 import com.revrobotics.CANSparkMaxLowLevel.MotorType; //Motor Type, specifically the certain CANSparkMaxes we will be using
 
@@ -20,16 +22,17 @@ public class Intake extends SubsystemBase {
   /**
    * Creates a new Intake.
    */
-  public static CANSparkMax intakeMotor = RobotContainer.intakeMotor; // Testing Motor: Creates an intake motor 
+  //public static CANSparkMax intakeMotor = RobotContainer.intakeMotor; // Testing Motor: Creates an intake motor 
   
-   ///private Talon intakeMotor = RobotContainer.intakeMotor; //Competition Motor--> Intake motor
-
+   //public static TalonSRX intakeMotor = RobotContainer.intakeMotor; //Competition Motor--> Intake motor
+/*
    public Intake() {
     //Collect power cell balls
     
    }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
-}
+} */

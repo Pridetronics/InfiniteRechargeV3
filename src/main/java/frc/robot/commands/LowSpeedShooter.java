@@ -7,24 +7,25 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;// Below adds the necessary imports for the command
-/*import frc.robot.subsystems.Intake;//Subsystem this command interfaces with
-import edu.wpi.first.wpilibj.smartdashboard.*; //This is for the SmartDashboard to receive the values below
-import com.revrobotics.CANSparkMax;//Motor Type
-import edu.wpi.first.wpilibj.Talon;//Motor Type (for competitions)
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+import frc.robot.subsystems.Shooter;
 
-public class IntakeRun extends CommandBase {
+public class LowSpeedShooter extends CommandBase {
   /**
-   * Creates a new IntakeRun.
+   * Creates a new LowSpeedShooter.
    */
-  //References the intake subsystem to grab the motors to be used for the commands
-  /*
-  private CANSparkMax intakeMotor = Intake.intakeMotor; 
-  ///private Talon intakeMotor = Intake.intakeMotor; //Competition
+  private Shooter m_shooter; // new shooter variable to store shooter object in
+  private Joystick m_joystickShooter; // Joystick variable
+  private double m_lowShooterSpeed; // allows the low speed constant to be stored in a variable in this command
 
-  public IntakeRun() {
-   
+  public LowSpeedShooter(Joystick joystickShooter, Shooter shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
+    m_shooter = shooter; // stores shooter object from parameters
+    m_joystickShooter = joystickShooter; // stores the joystickShooter object from parameters
+  
+    addRequirements(shooter); // If you get an nullPointerException, neutralize this
   }
 
   // Called when the command is initially scheduled.
@@ -35,9 +36,11 @@ public class IntakeRun extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    SmartDashboard.putBoolean("Intake", true); //Once this command is running, the dashboard will acknowledge it (Driver comfort?)
-    intakeMotor.set(.55);//Once this command is executed the motor will run a little over half speed
+    m_lowShooterSpeed = Constants.lowShooterSpeed; // sets the low speed constant to the variable
+    m_shooter.shooterSpeed(m_lowShooterSpeed); // calls the shooterSpeed method on the shooter object
+  
   }
+
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
@@ -49,4 +52,3 @@ public class IntakeRun extends CommandBase {
     return false;
   }
 }
-*/

@@ -22,6 +22,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.SpeedController;
 
+import com.revrobotics.CANEncoder;
+
 public class Drive extends SubsystemBase { // Creates a new Drive.
    
   public DifferentialDrive robotDrive;
@@ -29,18 +31,19 @@ public class Drive extends SubsystemBase { // Creates a new Drive.
 
   private CANSparkMax leftDriveMotor;
   private CANSparkMax rightDriveMotor;
+
+
+  public static CANEncoder leftDriveMotorLeadEncoder = RobotContainer.leftDriveMotorLeadEncoder;
+  public static CANEncoder rightDriveMotorLeadEncoder = RobotContainer.rightDriveMotorLeadEncoder;
+
  
-  public Drive(int leftDriveMotorAddress, int rightDriveMotorAddress) {
+  public Drive() {
     // The ints inside the params of Drive () is called in RobotContainer
     driveMode = 0;
  
-    leftDriveMotor = new CANSparkMax(leftDriveMotorAddress, MotorType.kBrushless);
-    leftDriveMotor.setInverted(true); // Inverts Left Drive Motor
-    leftDriveMotor.set(0); // Sets speed to 0 (anywhere between -1 and 1)
-
-    rightDriveMotor = new CANSparkMax(rightDriveMotorAddress, MotorType.kBrushless); // Assigns Leading Right Drive Motor to Talon #2
-    rightDriveMotor.setInverted(true); // Inverts Right Drive Motor
-    rightDriveMotor.set(0); // Sets speed to 0 (anywhere between -1 and 1)
+    leftDriveMotor = RobotContainer.leftDriveMotorLead; // references motors from RobotContainer
+    rightDriveMotor =  RobotContainer.rightDriveMotorLead;
+    
     
     robotDrive = new DifferentialDrive(leftDriveMotor, rightDriveMotor);
     // Constructs the differential drive with the motors
@@ -79,13 +82,26 @@ public void setDrive() {
     //test 1
   }
 
+  public static CANEncoder getleftDriveMotorEncoder(){
+    return leftDriveMotorLeadEncoder;
+  }
+
+  public static CANEncoder getrightDriveMotorEncoder(){
+    return rightDriveMotorLeadEncoder;
+  }
 
   public void tankDrive(double leftValue, double rightValue) {
     // This method was not here, it was created to run the axis values in DriveJoystick
     // Defines the variables so that way tank can work
     // Located in Drive because the drivetrain is grabbed from this subsystem
-    
+    rightValue = driveSquare(rightValue, .5) * .75;
+    leftValue = driveSquare(leftValue, .5) * .75;
     robotDrive.tankDrive(leftValue, rightValue); // Grabs the raw axis from DriveJoystick    
+  }
+  
+  public double driveSquare(double input, double degree) {
+    double a = .2;
+    return (Math.pow(input, 3) + a * (degree * input)) / (a * degree + 1);
   }
   
 }
