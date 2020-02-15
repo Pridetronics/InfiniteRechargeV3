@@ -101,7 +101,7 @@ public void setDrive() {
   
   public double driveSquare(double input, double degree) {
     double a = .2;
-    return (Math.pow(input, 3) + a * (degree * input)) / (a * degree + 1);
+    return (Math.pow(input, 3) + a * (degree * input)) / (a * degree + 1); //Document Later
   }
   
 }
