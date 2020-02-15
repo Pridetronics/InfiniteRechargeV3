@@ -12,11 +12,15 @@ import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Vision;
+import frc.robot.RobotContainer;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoSink;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 
 //import frc.robot.subsystems.Autonomous;
@@ -31,14 +35,19 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class Robot extends TimedRobot {
   
-  public static final String RobotContainer = null;
+  /*
+    It is a bad idea to call this string RobotContainer because it was messing with me
+    I have sinced changed it RobotContainerString
+  */
+  public static final String RobotContainerString = null;
 
   private Command m_autonomousCommand;
 
   public RobotContainer m_robotContainer;
 
+  Joystick m_joystickDriver;
 
-
+  DoubleSolenoid m_shooterBallRelease;
 
    /* This function is run when the robot is first started up and should be used
    for any initialization code. */
@@ -50,13 +59,10 @@ public class Robot extends TimedRobot {
     
     m_robotContainer = new RobotContainer();
 
-    /*
-      Start of camera
-    */
-    CameraServer.getInstance().startAutomaticCapture(); // simple usb capture, no img processing
-
-    Vision.visionThread.setDaemon(true); // more complex usb capture, will be used for any img processing
-    Vision.visionThread.start();
+    
+    m_shooterBallRelease = RobotContainer.shooterBallRelease;
+    m_joystickDriver = RobotContainer.joystickDriver;
+    m_shooterBallRelease.set(DoubleSolenoid.Value.kReverse);
     
   }
 
@@ -128,12 +134,20 @@ public class Robot extends TimedRobot {
 
     CommandScheduler.getInstance().run();
     // This was not in here, add it. It runs doTeleop which is needed to operate player movement
+    /*
+    if (m_joystickDriver.getRawButton(2)) {
+      m_shooterBallRelease.set(DoubleSolenoid.Value.kForward);
+    } else if (m_joystickDriver.getRawButton(3)) {
+      m_shooterBallRelease.set(DoubleSolenoid.Value.kReverse);
+    }
+    */
   }
 
   @Override
   public void testInit() {
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
+
   }
 
   // This function is called periodically during test mode.

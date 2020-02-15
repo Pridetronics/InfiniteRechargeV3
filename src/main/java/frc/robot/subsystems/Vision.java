@@ -26,31 +26,6 @@ public class Vision extends SubsystemBase {
   {
     //Utilizes vision processing for better alignment when shooting and video with Limelight
     
-    visionThread = new Thread(() ->
-    {
-      UsbCamera lifeCam = CameraServer.getInstance().startAutomaticCapture();
-      lifeCam.setResolution(Constants.lifeCamWidth, Constants.lifeCamHeight);
-
-      CvSink cvsink = CameraServer.getInstance().getVideo();
-
-      CvSource outputStream = 
-        CameraServer.getInstance().putVideo("Front Camera", Constants.lifeCamWidth, Constants.lifeCamHeight);
-
-      Mat mat = new Mat();
-
-      while(!Thread.interrupted())
-      {
-        if(cvsink.grabFrame(mat) == 0)
-        {
-          outputStream.notifyError(cvsink.getError());
-          continue;
-        }
-        /*
-          Any image processing that may want to be done will be done here
-        */
-        outputStream.putFrame(mat);
-      }
-    });
     
   }
 

@@ -36,6 +36,8 @@ public class ReleaseGate extends CommandBase {
     m_shooterMotorEncoder = RobotContainer.shooterMotorEncoder; // references an encoder object
     m_speed = speed; // speed depending on which shooter is used(low or high)
     m_shooterMotorRPM = Constants.shooterMotorRPM; // represents shooter RPM
+
+    addRequirements(pneumatics);
   }
 
   // Called when the command is initially scheduled.
@@ -48,7 +50,7 @@ public class ReleaseGate extends CommandBase {
   public void execute() {
     //m_pneumatics.releaseGate();
     //m_pneumatics.gateControl(ballRelease);
-    
+    //System.out.println(m_shooterMotorEncoder.getPosition());
     /*
       if statement to test whether the motor has gotten up to speed. When it is up to speed, it runs what is
       inside the if statement.

@@ -71,9 +71,12 @@ lllloooooollllllooooooooooooooooooooooooooodocoOOkxxkkOOOOkkxddoooooodO0Okdooooc
 
 package frc.robot;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.CloseGate;
@@ -113,8 +116,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   public static CANSparkMax leftDriveMotorLead; // Creates new talon motor for leading left drive
   public static CANSparkMax rightDriveMotorLead; // Creates new talon motor for leading right drive
   
-  public Joystick joystickDriver; //The name of the first controller, main driver
-  public Joystick joystickShooter; //The name of the second controller, secondary driver
+  public static Joystick joystickDriver; //The name of the first controller, main driver
+  public static Joystick joystickShooter; //The name of the second controller, secondary driver
   
   public JoystickButton intakeButton; //Button to run the intake 
   public JoystickButton elevatorButton; //Button to run the intake Vertical
@@ -128,7 +131,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   public JoystickButton lowSpeedShooterButton; // Button A
   public JoystickButton highSpeedShooterButton; // Button Y
 
-  public Shooter shooter; // shooter object to be used for shooter commands
+  public static Shooter shooter; // shooter object to be used for shooter commands
 
   public static CANSparkMax shooterMotor;
 
@@ -195,11 +198,16 @@ public class RobotContainer { // The robot's subsystems and commands are defined
       and the ReleaseGate command run together. After this command is done, the CloseGate command is run,
       and when that finishes, the SequentialCommandGroup command ends.
     */
+    
+    
+    highSpeedShooterButton.whenHeld(new ParallelCommandGroup(new HighSpeedShooter(this.joystickShooter, shooter), new CloseGate(this.joystickShooter, pneumatics)));
+    
     lowSpeedShooterButton.whenHeld(new SequentialCommandGroup(
-      new ParallelDeadlineGroup(
+      new ParallelCommandGroup(
         new LowSpeedShooter(this.joystickShooter, shooter),
         new ReleaseGate(this.joystickShooter, pneumatics, Constants.lowShooterSpeed)),
       new CloseGate(this.joystickShooter, pneumatics)));
+      
     /*
       The whenHeld method runs the low speed shooter command when the A button is held.
       The method requires an object of a command, such as new LowSpeedShooter
@@ -208,11 +216,13 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     /*
       see the comment above lowSpeedShooterButton.whenHeld for an explanation
     */
+    /*
     highSpeedShooterButton.whenHeld(new SequentialCommandGroup(
       new ParallelDeadlineGroup(
         new HighSpeedShooter(this.joystickShooter, shooter),
         new ReleaseGate(this.joystickShooter, pneumatics, Constants.highShooterSpeed)),
       new CloseGate(this.joystickShooter, pneumatics)));
+      */
     /*
       The whenHeld method runs the high speed shooter command when the Y button is held.
       The method requires an object of a command, such as new HighSpeedShooter
@@ -224,6 +234,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
       Start of intake section
     */
     
+    /*
     intakeMotor = new CANSparkMax(Constants.intakeMotorCanAddress, MotorType.kBrushless); //The motor (CANSparkMax) is defined with a type and port (port 5, and motor type = brushless)
     ///intakeMotor =  new Talon(5); //Motor is defined as a specified motor under port five (Talon)
     intakeMotor.set(0); //Initially sets motor value to 0, will not run without further command
@@ -249,6 +260,11 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   
     elevatorButton = new JoystickButton(joystickDriver, 5); //Left Upper Bumper, elevator button  to a controller
     elevatorButton.whileHeld(new ElevatorRun());//While held, command is being run, references command from commands. Hence imports
+    */
+  
+
+    
+
     // Configure the button bindings
   
     
