@@ -6,29 +6,24 @@
 /*----------------------------------------------------------------------------*/
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.DriveJoystick;
-import frc.robot.subsystems.Drive;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import frc.robot.subsystems.Climb;
-
-import edu.wpi.first.wpilibj2.command.button.JoystickButton; //Deals with the buttons on the controller
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick; //Allows gamepad/joystick referencing
-
-//import edu.wpi.first.wpilibj.PWMVictorSPX;
-import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton; //Deals with the buttons on the controller
+import frc.robot.commands.DescendSequenceTelescopicClimb;
+import frc.robot.commands.DriveJoystick;
 //import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 //import edu.wpi.first.wpilibj.SpeedControllerGroup;
-
 import frc.robot.commands.ExtendTelescopicClimb;
-import frc.robot.commands.DescendSequenceTelescopicClimb;
 import frc.robot.commands.RaisesRobotClimb;
-
-import edu.wpi.first.wpilibj.DigitalInput;
+import frc.robot.subsystems.Climb;
+import frc.robot.subsystems.Drive;
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -41,24 +36,23 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   public Joystick joystickDriver;
   public Joystick joystickShooter;
   
-  public JoystickButton extendTelescopic;
+  public JoystickButton raiseTelescopicButton;
   public JoystickButton sequenceClimbButton;
     
   public final Drive robotDrive;
 
-  
+  public final Climb climber;
 
-  public static CANSparkMax raiseClimbMotor;
+  public static CANSparkMax robotClimbMotor;
   //public  static Talon telescopicClimbMotor;
   public  static CANSparkMax telescopicClimbMotor;
 
-
-  public static DigitalInput limitSwitchSequential;
+  public static DigitalInput limitSwitchTelescopic;
 
 
   
   public RobotContainer() { 
-
+    //CTOR
 
     this.joystickDriver = new Joystick(0); // 'this.' Grabs a variable specifically
     this.joystickShooter = new Joystick(1); // ^^ Creates less confusion in the system
@@ -68,38 +62,35 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     // It sets a new drive and uses the ints 1 and 2. The order matters.
     // 1 is assigned to leftDriveMotorAddress, whereas 2 is rightDriveMotorAddress
 
-    raiseClimbMotor = new CANSparkMax(1, MotorType.kBrushed);
-    raiseClimbMotor.setInverted(false);
-    raiseClimbMotor.set(0);
+    climber = new Climb (robotClimbMotor, telescopicClimbMotor, limitSwitchTelescopic, 
+      raiseTelescopicButton, sequenceClimbButton);
 
-    System.out.println("Work!");
+    robotClimbMotor = new CANSparkMax(1, MotorType.kBrushed);
+    robotClimbMotor.setInverted(false);
+    robotClimbMotor.set(0);
+
+    //System.out.println("Work!");
 
     //telescopicClimbMotor = new Talon(1);
     telescopicClimbMotor = new CANSparkMax(2, MotorType.kBrushed);
     telescopicClimbMotor.setInverted(false);
     telescopicClimbMotor.set(0);
 
-  
+    
     //Joystick shooterGamepad = joystickShooter;
 
     robotDrive.setDefaultCommand(new DriveJoystick(joystickDriver, robotDrive));
     // This helps set the default command. It sets it to DriveJoystick so that way RobotContainer
     // can grab the information and utilize it for the given controller, in this case joystickDriver
 
-    extendTelescopic = new JoystickButton(joystickShooter, 6);
-    extendTelescopic.whileHeld(new ExtendTelescopicClimb(telescopicClimbMotor));
+    raiseTelescopicButton = new JoystickButton(joystickShooter, 6);
+    raiseTelescopicButton.whileHeld(new ExtendTelescopicClimb(climber));
 
     sequenceClimbButton = new JoystickButton(joystickShooter, 3);
-    sequenceClimbButton.whileHeld(new DescendSequenceTelescopicClimb(telescopicClimbMotor));
-    sequenceClimbButton.whileHeld(new RaisesRobotClimb(raiseClimbMotor));
+    sequenceClimbButton.whileHeld(new SequentialCommandGroup());
 
     //limit Switch to nre Digital input objects (figure out later)
-    limitSwitchSequential = new DigitalInput(0);
-
-    new SequentialCommandGroup(
-      new DescendSequenceTelescopicClimb(telescopicClimbMotor), 
-      new RaisesRobotClimb(raiseClimbMotor)
-      );
+    limitSwitchTelescopic = new DigitalInput(0);
 
 
     // Configure the button bindings

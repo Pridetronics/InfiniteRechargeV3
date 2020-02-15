@@ -8,17 +8,34 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Climb;
+import frc.robot.commands.ExtendTelescopicClimb;
+import frc.robot.commands.DescendSequenceTelescopicClimb;
+import frc.robot.commands.RaisesRobotClimb;
 
-public class RaisesRobotClimb extends CommandBase {
+
+public class LiftRobot extends CommandBase {
   /**
-   * Creates a new RisesRobotClimb.
+   * Creates a new LiftRobot.
+   * This is the second part of the Climb.
    */
-  private static Climb robotClimbMotor;
 
-  public RaisesRobotClimb(Climb raiseMotor) {
+   private static Climb climber;
+   private static SequentialCommandGroup climbRobot;
+
+  public LiftRobot(Climb aClimber) {
+    //CTOR
+    climber = aClimber;
+    // Step 1: Motor lowers telescopic lift. 
+    // Step 2: Then telescopic lift hits limit switch which switches over to step 3.
+    // Step 3: A different motor then raises the robot.
+    climbRobot = new SequentialCommandGroup(
+      new DescendSequenceTelescopicClimb(climber), 
+      new RaisesRobotClimb(raiseMotor)
+      );
+      
     // Use addRequirements() here to declare subsystem dependencies.
-    robotClimbMotor = raiseMotor;
   }
 
   // Called when the command is initially scheduled.
@@ -29,13 +46,11 @@ public class RaisesRobotClimb extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    robotClimbMotor.getRobotClimbMotor().set(.55);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    robotClimbMotor.getRobotClimbMotor().set(0);
   }
 
   // Returns true when the command should end.

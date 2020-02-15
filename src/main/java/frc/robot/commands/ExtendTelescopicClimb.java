@@ -8,11 +8,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
-import com.revrobotics.CANSparkMax;
-
-import edu.wpi.first.wpilibj.Talon;
-
 import frc.robot.subsystems.Climb;
 
 public class ExtendTelescopicClimb extends CommandBase {
@@ -22,12 +17,12 @@ public class ExtendTelescopicClimb extends CommandBase {
 
   //public static Talon telescopicClimbMotor = Climb.telescopicClimbMotor;
 
-  public static CANSparkMax telescopicClimbMotor = Climb.telescopicClimbMotor;
+  private static Climb telescopicClimbMotor;
 
 
-  public ExtendTelescopicClimb (CANSparkMax ClimbMotor) {
+  public ExtendTelescopicClimb (Climb climbMotor) {
 
-    telescopicClimbMotor = ClimbMotor;
+    telescopicClimbMotor = climbMotor;
     // Use addRequirements() here to declare subsystem dependencies.
     //addRequirements(Climb.telescopicClimbMotor);
   }
@@ -46,13 +41,14 @@ public class ExtendTelescopicClimb extends CommandBase {
 
   //System.out.println("Climb.telescopicClimbMotor");
 
-   telescopicClimbMotor.set(.55);
+   telescopicClimbMotor.getTelescopicClimbMotor().set(.55);
 
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+
   }
 
   // Returns true when the command should end.
