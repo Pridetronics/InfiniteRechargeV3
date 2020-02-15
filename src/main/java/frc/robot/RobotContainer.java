@@ -21,9 +21,12 @@ import frc.robot.commands.DriveJoystick;
 //import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 //import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import frc.robot.commands.ExtendTelescopicClimb;
+import frc.robot.commands.LiftRobot;
 import frc.robot.commands.RaisesRobotClimb;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Drive;
+import frc.robot.commands.LiftRobot;
+import edu.wpi.first.wpilibj.SpeedController;
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -47,7 +50,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   //public  static Talon telescopicClimbMotor;
   public  static CANSparkMax telescopicClimbMotor;
 
-  public static DigitalInput limitSwitchTelescopic;
+  public static DigitalInput limitLowerTelescopic;
+  public static DigitalInput limitUpperRobot;
 
 
   
@@ -62,8 +66,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     // It sets a new drive and uses the ints 1 and 2. The order matters.
     // 1 is assigned to leftDriveMotorAddress, whereas 2 is rightDriveMotorAddress
 
-    climber = new Climb (robotClimbMotor, telescopicClimbMotor, limitSwitchTelescopic, 
-      raiseTelescopicButton, sequenceClimbButton);
+    climber = new Climb (robotClimbMotor, telescopicClimbMotor, limitLowerTelescopic, 
+    limitUpperRobot, raiseTelescopicButton, sequenceClimbButton);
 
     robotClimbMotor = new CANSparkMax(1, MotorType.kBrushed);
     robotClimbMotor.setInverted(false);
@@ -87,10 +91,11 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     raiseTelescopicButton.whileHeld(new ExtendTelescopicClimb(climber));
 
     sequenceClimbButton = new JoystickButton(joystickShooter, 3);
-    sequenceClimbButton.whileHeld(new SequentialCommandGroup());
+    sequenceClimbButton.whileHeld(new LiftRobot(climber));
 
     //limit Switch to nre Digital input objects (figure out later)
-    limitSwitchTelescopic = new DigitalInput(0);
+    limitLowerTelescopic = new DigitalInput(6);
+    limitUpperRobot = new DigitalInput(7);
 
 
     // Configure the button bindings

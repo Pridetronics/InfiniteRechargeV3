@@ -44,7 +44,7 @@ public class DescendSequenceTelescopicClimb extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(climbSystem.getlimitSwitchTelescopic()){
+    if(climbSystem.getlimitLowerTelescopic()){
       return true;
     }
     else{

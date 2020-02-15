@@ -28,7 +28,8 @@ public class Climb extends SubsystemBase {
    * Creates a new Climb.
    */
 
-    private DigitalInput limitSwitchTelescopic;
+    private DigitalInput limitLowerTelescopic;
+    private DigitalInput limitUpperRobot;
 
     private static SpeedController robotClimbMotor;
     //public static Talon telescopicClimbMotor;
@@ -39,7 +40,7 @@ public class Climb extends SubsystemBase {
     private static JoystickButton sequenceClimbButton;
 
   public Climb(SpeedController robotClimbMotor, SpeedController telescopicClimbMotor,
-    DigitalInput limitSwitchTelescopic, JoystickButton raiseTelescopicButton, 
+    DigitalInput limitLowerTelescopic, DigitalInput limitUpperRobot, JoystickButton raiseTelescopicButton, 
     JoystickButton sequenceClimbButton) {
     //CTOR
     //Lifts up, grabs bar, pulls self up
@@ -48,7 +49,9 @@ public class Climb extends SubsystemBase {
 
     this.telescopicClimbMotor = telescopicClimbMotor;
 
-    this.limitSwitchTelescopic = limitSwitchTelescopic;
+    this.limitLowerTelescopic = limitLowerTelescopic;
+
+    this.limitUpperRobot = limitUpperRobot;
     
     this.raiseTelescopicButton = raiseTelescopicButton;
 
@@ -66,8 +69,12 @@ public class Climb extends SubsystemBase {
 
   }
 
-  public boolean getlimitSwitchTelescopic() {
-    return limitSwitchTelescopic.get();
+  public boolean getlimitLowerTelescopic() {
+    return limitLowerTelescopic.get();
+  }
+
+  public boolean getlimitUpperRobot() {
+    return limitUpperRobot.get();
   }
 
   //Function/Method

@@ -10,7 +10,6 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Climb;
-import frc.robot.commands.ExtendTelescopicClimb;
 import frc.robot.commands.DescendSequenceTelescopicClimb;
 import frc.robot.commands.RaisesRobotClimb;
 
@@ -32,10 +31,14 @@ public class LiftRobot extends CommandBase {
     // Step 3: A different motor then raises the robot.
     climbRobot = new SequentialCommandGroup(
       new DescendSequenceTelescopicClimb(climber), 
-      new RaisesRobotClimb(raiseMotor)
+      new RaisesRobotClimb(climber)
       );
       
     // Use addRequirements() here to declare subsystem dependencies.
+  }
+
+  SequentialCommandGroup getSequence(){
+    return climbRobot;
   }
 
   // Called when the command is initially scheduled.
