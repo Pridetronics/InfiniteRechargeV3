@@ -79,6 +79,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.ChangeCameraMode;
 import frc.robot.commands.CloseGate;
 import frc.robot.commands.DriveJoystick;
 import frc.robot.subsystems.Drive;
@@ -130,6 +131,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
   public JoystickButton lowSpeedShooterButton; // Button A
   public JoystickButton highSpeedShooterButton; // Button Y
+  public JoystickButton cameraModeButton;
 
   public static Shooter shooter; // shooter object to be used for shooter commands
 
@@ -143,6 +145,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
   public static CANEncoder shooterMotorEncoder; // encoder to measure the speed of the shooterMotor
 
+  public static UsbCamera USBCamera1;
+  public static UsbCamera USBCamera2;
 
   public RobotContainer() {
     

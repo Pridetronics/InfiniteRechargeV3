@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import frc.robot.commands.ChangeCameraMode;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Intake;
