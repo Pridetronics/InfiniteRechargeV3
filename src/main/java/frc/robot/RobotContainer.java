@@ -97,21 +97,21 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     /*
       Start of driver section
     */
-    leftDriveMotorLead = new CANSparkMax(Constants.leftDriveMotorLead, MotorType.kBrushed); // Creates new talon motor for leading left drive
-    leftDriveMotorLead.setInverted(false); // Inverts Left Drive Motor
+    leftDriveMotorLead = new CANSparkMax(Constants.leftDriveMotorLead, MotorType.kBrushless); // Creates new talon motor for leading left drive
+    leftDriveMotorLead.setInverted(true); // Inverts Left Drive Motor
     leftDriveMotorLead.set(0); // Sets speed to 0 (anywhere between -1 and 1)
 
-    leftDriveMotorFollow = new CANSparkMax(Constants.leftDriveMotorFollow, MotorType.kBrushed);
-    leftDriveMotorFollow.setInverted(false);
+    leftDriveMotorFollow = new CANSparkMax(Constants.leftDriveMotorFollow, MotorType.kBrushless);
+    leftDriveMotorFollow.setInverted(true);
     
     leftDriveMotorFollow.follow(leftDriveMotorLead); // Marries the two left motors together
 
-    rightDriveMotorLead = new CANSparkMax(Constants.rightDriveMotorLead, MotorType.kBrushed); // Creates new talon motor for leading right drive
-    rightDriveMotorLead.setInverted(false); // Inverts Right Drive Motor
+    rightDriveMotorLead = new CANSparkMax(Constants.rightDriveMotorLead, MotorType.kBrushless); // Creates new talon motor for leading right drive
+    rightDriveMotorLead.setInverted(true); // Inverts Right Drive Motor
     rightDriveMotorLead.set(0); // Sets speed to 0 (anywhere between -1 and 1)
 
-    rightDriveMotorFollow = new CANSparkMax(Constants.rightDriveMotorFollow, MotorType.kBrushed);
-    rightDriveMotorFollow.setInverted(false);
+    rightDriveMotorFollow = new CANSparkMax(Constants.rightDriveMotorFollow, MotorType.kBrushless);
+    rightDriveMotorFollow.setInverted(true);
 
     rightDriveMotorFollow.follow(rightDriveMotorLead); // Marries the two right motors together
 

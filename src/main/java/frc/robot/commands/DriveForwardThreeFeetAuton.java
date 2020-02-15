@@ -61,7 +61,7 @@ public class DriveForwardThreeFeetAuton extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_robotDrive.tankDrive(m_speedAuton, m_speedAuton);
+    m_robotDrive.tankDrive(1, 2);
     
   }
 
