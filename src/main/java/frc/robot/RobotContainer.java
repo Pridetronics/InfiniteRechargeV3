@@ -79,7 +79,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.ChangeCameraMode;
 import frc.robot.commands.CloseGate;
 import frc.robot.commands.DriveJoystick;
 import frc.robot.subsystems.Drive;
@@ -188,6 +187,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     pneumatics = new Pneumatics(); //instantiates a new pneuamtics object
 
     shooterBallRelease = new DoubleSolenoid(Constants.shooterGateForwardChannel, Constants.shooterGateReverseChannel);
+    shooterBallRelease.set(DoubleSolenoid.Value.kOff);
     
     lowSpeedShooterButton = new JoystickButton(this.joystickShooter, 1); // creates the button for the low speed shooter
     highSpeedShooterButton = new JoystickButton(this.joystickShooter, 4); // creates the button for the high speed shooter
@@ -204,13 +204,9 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     */
     
     
-    highSpeedShooterButton.whenHeld(new ParallelCommandGroup(new HighSpeedShooter(this.joystickShooter, shooter), new CloseGate(this.joystickShooter, pneumatics)));
-    
-    lowSpeedShooterButton.whenHeld(new SequentialCommandGroup(
-      new ParallelCommandGroup(
-        new LowSpeedShooter(this.joystickShooter, shooter),
-        new ReleaseGate(this.joystickShooter, pneumatics, Constants.lowShooterSpeed)),
-      new CloseGate(this.joystickShooter, pneumatics)));
+    lowSpeedShooterButton.whenHeld(new ParallelCommandGroup(
+        new LowSpeedShooter(this.joystickShooter, shooter, pneumatics),
+        new ReleaseGate(this.joystickShooter, pneumatics, Constants.lowShooterSpeed)));
       
     /*
       The whenHeld method runs the low speed shooter command when the A button is held.
@@ -220,13 +216,9 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     /*
       see the comment above lowSpeedShooterButton.whenHeld for an explanation
     */
-    /*
-    highSpeedShooterButton.whenHeld(new SequentialCommandGroup(
-      new ParallelDeadlineGroup(
-        new HighSpeedShooter(this.joystickShooter, shooter),
-        new ReleaseGate(this.joystickShooter, pneumatics, Constants.highShooterSpeed)),
-      new CloseGate(this.joystickShooter, pneumatics)));
-      */
+    highSpeedShooterButton.whenHeld(new ParallelDeadlineGroup(
+        new HighSpeedShooter(this.joystickShooter, shooter, pneumatics),
+        new ReleaseGate(this.joystickShooter, pneumatics, Constants.highShooterSpeed)));
     /*
       The whenHeld method runs the high speed shooter command when the Y button is held.
       The method requires an object of a command, such as new HighSpeedShooter

@@ -5,6 +5,51 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+/*
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;,;;:codxOKKKXNNNNNWWWWWWWWNNNK00Okxoc:;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;coxOKXNNNWWWWNXXXXXKKKKXXXNNNWWWWWWWNX0Oxoc:;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;,;;;;;;;;;;cdkKNWWWNNXK0kxxolccc::::::ccllldkOO0XNWWWWWNKOdc:;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:
+;;;;;;;;;;;;;;;;;;;;;;;;;:cdOXNWWWNKkxolc;;,,,,,,,,,,,,,,,,,,,,,;:coxO0XNWWWNX0xl:;;;;;;;;;;;;;;;;;;;;;;;;;;;:
+;;;;;;;;;;;;;;;;;;;;;;;:oOXNWWNXOxo:;,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,;:ldkKNWWWNXOdc;;;;;;;;;;;;;;;;;;;;;;;;::
+;;;;;;;;;;;;;;;;;;;;;cd0NWWNX0xc;;;;;,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,;;;;;;;cokKNWWWN0dc;;;;;;;;;;;;;;;;;;;;::::
+;;;;;;;;;;;;;;;;;;;cxKNWWN0xl;;;;;;;;;,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,;;;;;;;;;coOXWWWNKxc;;;;;;;;;;;;;;;;;;;;;:
+;;:::::;;;;;;;;;;;o0NWWXOo:;;;;;;,,;;,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,;;,;;;;;;;;lkKWWWNKxc;;;;;;;;;;;;;;:;;;;:
+:::::::;;;;;;;;;cxKNNXOo:;;;;;;;;;;,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,;;;;;;;;cxXWWWNOl;;;;;;;;;;;;:::;;::
+::::::::;;;;;;;cOXNN0o:;;;;;;;,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,;;;;;;;;;lONWWWKd:;;;;;;;;;;;;;;;::
+::::::::;;;;;;lONNXOc;;;;;;;;;;,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,;;;;;;;;cdKNWWXxc:::;;;;;;;;;;:::
+::::::::;;;;;l0NNKd:;;;;;;;;;;;;,,,,,,,,,,,,;::;,,,,,,,,,,:lol:,,,,,,,,,,,,,,,,;;;;;;;:ckXWWNOl::;;;;;;;;;::::
+::::::::;;;;lONNKo;;;;;;;;;;;;;:;;;;;::ccccclxd:,,,,,,,,:d0XXx:,,,,,,,,,,cdoc;;;;;;;;;;;:dXWWNOc;;;:::;;::::::
+::::::::;;;ckNWKd:;;;;;;;;;;;lxo;:oxOKXXXXNXXNXkc,,,,,;cxNWN0dxkkkkxdoc;:xXN0l;;;;;;;;;;;:oKWWNx:;;;::;;;;::::
+:::::::::;:dXWXd:;;;;;;;;;;:oOOxOKNWWWWWWWWWWWWXo,,,,,;ckNWWWWWWWWWWWWXK0XWWNOl;;;;;;;;;;;;oKWWXd:;;;;;;;;::::
+:::::::::;l0WWOc;;;;;;;;;;;o0NNNWWWWWWWWWWWWWWWKl,,,,,cx0WWWWWWWWWWWWWWWWWWWWXo::;;;;;;;;;;:xNWW0l:::::;::::::
+::::::::::dXWXo;;;;;;;;;;;;oKNWWNNWWW0ddONWWWWWXo,,,,,cd0WWWWWWWWWX0XWWWWWWWWXxdxc,;;;;;;;;:o0WWXd::::::::::::
+::::::::::xNW0c;;;;;;;;;;;,:kXNNNWWWNx;;c0WWWWWXo,,,,,;lkNWWWWWWWKd:lKWWWWWWWKxlc:;;;;;;;;;:cxNWWOc:::::::::::
+::::::::;c0WNx:;;;;;;;;;;;,;cx0NWWWWWKl;oKWWWWWXo,,,,,,;l0WWWWWWNkccdXWWWWWWXd;;;;;;;;;;;;;:;oKWWKl;::::::::::
+::::::::;l0WXd;;;;;;;;;;;;,,;;:kNWWWWWX0XWWWWWWO:,,,,,,,;xNWWWWWWXOOKWWWWWWNk:,,,;;;;;;;;;;;;cOWWXd:;;::::::::
+::::::::;l0WXd;;;;;;;;;,,,,,,;:dKXNWWWWWWWWWNKxc,,,,,,,,,o0KNWWWWWWWWWWWWWWXo;,,,;;;;;;;;;;;;:xNWXd:;;::::::::
+::::::::;lKWXd;;;;;;;;;,,;,,;,;dKK0O0XNNXK0dl:,,,,,,,,,,,:oook0KNWWWWWWWWWWNx;;;,;;;;;;;;;;;;lONWNx:::::::::::
+::::::::;l0WNd;;;;;;;;;,;;;;;;;;cx00000Odc:,,,,,,,,,,,,,,,;::;;cd0XWWWWWWWXx:;;;;;;;;;;;;;;;cxXWWWk:;:::::::::
+::::::::;cOWNx:;;;;;;;;;;;;;;;,,,,;:::;,,,,,,,,,,,,,,;cooxkkxl:;:ldk0000Oxl;,;,;;;;;;;;;;;;:ok0WWNk:;:;;;:::::
+::::::::;:kNWOc;;;;;;;;;;;;;,,,,,,,,,,,,,,,,,,;codolokXNWWWWNKdc;,,,;;;;;,,,,,,;;;;;;;;;;:lookKWWXd:::::::::::
+::::::::::dXWKo;;;;;;;;;;;;;;,,,,,,,,,,,,,,,;oOXNWWNNWWWWWWWWWNKkc:::;;;,,,,,;;;;;;;;;;;:cxOOKWWW0l;::::::::::
+::::::::::c0WNx:;;;;;;;;;;;;;;;,,,,,,;;:clodkKWWWWWWWWWWWWWWWWWWNK0KOo:;;,,,,;;;;;;;;;;:okKNNWWWXd:;:;;:::::::
+:::::::::::xNW0o:;;;;;;;;;;;;;;;;;;ldk0XXNWWWWWWWWWWWWWWWWWWWWWWWWWWWNK0Oxdddddoooxdc:lkKNNWWWWW0l;;;;::;:::::
+:::::::::::cONW0l;;;;;;;;;;;;;;:clkXWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWNNNXXXNX00KNWWWWWWWNx:;;;;::::::::
+::::::::::::l0WNkc;;;;;;;;;;;;lk0KNWWWWWWWWWNNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW0l;;:;;;:;:::::
+:::::::::::::o0WXkc:;;;;;;;clcdKNWWWWWWNKOxdllodOKNNXXXXKOkxxKNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWKo:::;;;;;;:::::
+::::::::::::::oKWNOool::;;:cllldk0Okkkdo:,,,,,,,,:oollcc:;,,,:lx0NWWWWWWWWWWWWWWWWWWWWWWWWWWWXd::::::::;;:::::
+:::::::::::::::o0NNX0dlcccc:::;;:::;;,,,,,,,,,;cdOKK00000kdo:;;;:cxXWWWWWWWWWWWWWWWWWWWWWWWWKd:::::::::;;;::::
+::::::::::::::::lONWWX0kdoc::;;;;;;,,;,,,,,,,:kXWWWWWWWWWWWN0dc;;,;lkKNWWWWWWWWWWWWWWWWWWWN0o:;;;;::::::::::::
+:::::::::::::::::cxXWNNXKkdl:;;;;;;;;;,,,,,,,:d0XNXXNWWWWWWWNOl;;,;;;lkXNWWWWWWWWWWWWWWWWXkc;;;;;;;:::::::::::
+:::::::::::::::::::oOXWWWNX0dc:;;;;;;;;,,,,,,;;:llccldkxkO0Odl:;;;;;;cdOXWWWWWWWWWWWWWWN0o:;;;;;;;;;;;::;:::::
+:::::::::::::::::::::oOXNNNNNKOxoc;;:;;;;,,,,,,,;;;;;;;;;;:::::::ldxxO0KNWWWMWWWWWWWWWXxc;;;;;;;;;;;;;::;;;:::
+:::::::::::::::::::::::oOXNNNWWWNKOO0OkxxdololllllllllooooodxOOOOXNNNWWWWWWWMWWWWWWWKxl:;;;;;;;;;;;;;;:::;;:::
+:::::::::::::::::::::::;:lkKNNWWWWWWWWWWWWNNNNNNNNNNNNNNNNNWWWWWWWWWWWWWWWWWMWWWWXOdc;;;;;;;;;;;;;;;;;:::;;:::
+cc:::::::::::::::::::::;;;:cokKNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWNKko:;;;;;;;;;;;;;;;;;;;::::::::
+ccc:::::::::::::::::::;;;;;;;;cokKNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWXKkoc:;;;;;;;;;;;;;;;;;;;;;::::::::
+ccc:::::::::::::::::::;;;;;;;;;;:cdOXNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWNKkoc:;;;;;;;;;;;;;;;;;;;:::;;::::::::
+*/
+//This is how pneumatics makes me feel
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
