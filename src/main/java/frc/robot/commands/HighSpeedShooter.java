@@ -35,7 +35,7 @@ public class HighSpeedShooter extends CommandBase {
     m_pneumatics = pneumatics;
     
     addRequirements(m_shooter);
-    addRequirements(m_pneumatics);
+    
   }
 
   // Called when the command is initially scheduled.

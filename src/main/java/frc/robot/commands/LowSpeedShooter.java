@@ -23,14 +23,14 @@ public class LowSpeedShooter extends CommandBase {
   private Joystick m_joystickShooter; // Joystick variable
   private double m_lowShooterSpeed; // allows the low speed constant to be stored in a variable in this command
 
-  public LowSpeedShooter(Joystick joystickShooter, Shooter shooter, Pneumatics pneumatics) {
+  public LowSpeedShooter(Joystick joystickShooter, Shooter shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_shooter = shooter; // stores shooter object from parameters
     m_joystickShooter = joystickShooter; // stores the joystickShooter object from parameters
-    m_pneumatics = pneumatics;
+    //m_pneumatics = pneumatics;
     
     addRequirements(m_shooter); // This is probably useful. keep it or suffer
-    addRequirements(m_pneumatics);
+    
   }
 
   // Called when the command is initially scheduled.
@@ -50,8 +50,8 @@ public class LowSpeedShooter extends CommandBase {
   @Override
   public void end(boolean interrupted) 
   {
-    m_pneumatics.retractGate();
-    ReleaseGate.ballRelease = ballReleasePiston.EXTENDED;
+    m_shooter.retractGate();
+    //ReleaseGate.ballRelease = ballReleasePiston.EXTENDED;
   }
 
   // Returns true when the command should end.

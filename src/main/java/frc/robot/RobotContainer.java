@@ -95,6 +95,7 @@ import frc.robot.subsystems.Elevator;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
+import com.revrobotics.EncoderType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.button.JoystickButton; //Deals with the buttons on the controller
@@ -180,14 +181,16 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     
     shooterMotor = new CANSparkMax(Constants.shooterMotorCanAddress, MotorType.kBrushed); // instantiates new shooter motor with specific ID
 
-    shooterMotorEncoder = new CANEncoder(shooterMotor); // instantiates a new encoder for the shooterMotor
+    shooterMotorEncoder = new CANEncoder(shooterMotor, EncoderType.kHallSensor, 42); // instantiates a new encoder for the shooterMotor
+    
+    shooterBallRelease = new DoubleSolenoid(Constants.shooterGateForwardChannel, Constants.shooterGateReverseChannel);
     
     shooter = new Shooter(); // new Shooter object
     
-    pneumatics = new Pneumatics(); //instantiates a new pneuamtics object
+    //pneumatics = new Pneumatics(); //instantiates a new pneuamtics object
 
-    shooterBallRelease = new DoubleSolenoid(Constants.shooterGateForwardChannel, Constants.shooterGateReverseChannel);
-    shooterBallRelease.set(DoubleSolenoid.Value.kOff);
+    
+    
     
     lowSpeedShooterButton = new JoystickButton(this.joystickShooter, 1); // creates the button for the low speed shooter
     highSpeedShooterButton = new JoystickButton(this.joystickShooter, 4); // creates the button for the high speed shooter
@@ -205,8 +208,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     
     
     lowSpeedShooterButton.whenHeld(new ParallelCommandGroup(
-        new LowSpeedShooter(this.joystickShooter, shooter, pneumatics),
-        new ReleaseGate(this.joystickShooter, pneumatics, Constants.lowShooterSpeed)));
+        new LowSpeedShooter(this.joystickShooter, shooter),
+        new ReleaseGate(this.joystickShooter, shooter, Constants.lowShooterSpeed)));
       
     /*
       The whenHeld method runs the low speed shooter command when the A button is held.
@@ -216,9 +219,11 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     /*
       see the comment above lowSpeedShooterButton.whenHeld for an explanation
     */
-    highSpeedShooterButton.whenHeld(new ParallelDeadlineGroup(
+    /*
+    highSpeedShooterButton.whenHeld(new ParallelCommandGroup(
         new HighSpeedShooter(this.joystickShooter, shooter, pneumatics),
         new ReleaseGate(this.joystickShooter, pneumatics, Constants.highShooterSpeed)));
+        */
     /*
       The whenHeld method runs the high speed shooter command when the Y button is held.
       The method requires an object of a command, such as new HighSpeedShooter

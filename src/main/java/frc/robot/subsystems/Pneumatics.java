@@ -64,7 +64,7 @@ public class Pneumatics extends SubsystemBase {
    */
   
   // empty double solenoids to bring in from RobotContainer
-  private final DoubleSolenoid shooterBallRelease; 
+  private final DoubleSolenoid m_shooterBallRelease; 
   private final DoubleSolenoid intakeDeploy;
   private final DoubleSolenoid controlPanelSpinnerDeploy;
 
@@ -82,7 +82,7 @@ public class Pneumatics extends SubsystemBase {
   
    public Pneumatics() {
     // sets the double solenoids equal to the double solenoids form RobotContainer
-    shooterBallRelease = RobotContainer.shooterBallRelease; 
+    m_shooterBallRelease = RobotContainer.shooterBallRelease; 
     intakeDeploy = RobotContainer.intakeDeploy;
     controlPanelSpinnerDeploy = RobotContainer.controlPanelSpinnerDeploy;
   
@@ -96,12 +96,12 @@ public class Pneumatics extends SubsystemBase {
   public void releaseGate() // This method will release the gate
   {
     // This reverses the air flow, which should release the gate
-    shooterBallRelease.set(DoubleSolenoid.Value.kForward);
+    m_shooterBallRelease.set(DoubleSolenoid.Value.kReverse);
   }
 
   public void retractGate() // This method will bring the gate back up again
   {
     //This lets the air go through, which should close the gate
-    shooterBallRelease.set(DoubleSolenoid.Value.kReverse);
+    m_shooterBallRelease.set(DoubleSolenoid.Value.kForward);
   }
 }

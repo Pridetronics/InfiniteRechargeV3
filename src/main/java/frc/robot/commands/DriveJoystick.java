@@ -46,7 +46,7 @@ public class DriveJoystick extends CommandBase { //Creates a new DriveJoystick.
   public void execute() {
 
     if (driveMode == 0) {
-      System.out.println("Tank Drive");
+      //System.out.println("Tank Drive");
 
       double rightValue, leftValue; // Sets these up as doubles, allows to make it into axis
       rightValue = m_joystickDriver.getRawAxis(5); // Right Joystick verticle axis
