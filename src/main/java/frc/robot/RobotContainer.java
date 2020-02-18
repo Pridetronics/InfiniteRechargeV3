@@ -145,8 +145,6 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
   public static CANEncoder shooterMotorEncoder; // encoder to measure the speed of the shooterMotor
 
-  public static UsbCamera USBCamera1;
-  public static UsbCamera USBCamera2;
 
   public RobotContainer() {
     
@@ -219,11 +217,11 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     /*
       see the comment above lowSpeedShooterButton.whenHeld for an explanation
     */
-    /*
+    
     highSpeedShooterButton.whenHeld(new ParallelCommandGroup(
-        new HighSpeedShooter(this.joystickShooter, shooter, pneumatics),
-        new ReleaseGate(this.joystickShooter, pneumatics, Constants.highShooterSpeed)));
-        */
+        new HighSpeedShooter(this.joystickShooter, shooter),
+        new ReleaseGate(this.joystickShooter, shooter, Constants.highShooterSpeed)));
+        
     /*
       The whenHeld method runs the high speed shooter command when the Y button is held.
       The method requires an object of a command, such as new HighSpeedShooter

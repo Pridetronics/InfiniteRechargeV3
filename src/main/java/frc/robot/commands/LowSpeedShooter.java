@@ -18,7 +18,7 @@ public class LowSpeedShooter extends CommandBase {
   /**
    * Creates a new LowSpeedShooter.
    */
-  private Pneumatics m_pneumatics;
+  //private Pneumatics m_pneumatics;
   private Shooter m_shooter; // new shooter variable to store shooter object in
   private Joystick m_joystickShooter; // Joystick variable
   private double m_lowShooterSpeed; // allows the low speed constant to be stored in a variable in this command

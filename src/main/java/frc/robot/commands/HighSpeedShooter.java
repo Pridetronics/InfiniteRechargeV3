@@ -23,16 +23,16 @@ public class HighSpeedShooter extends CommandBase {
   /**
    * Creates a new LowSpeedShooter.
    */
-  private Pneumatics m_pneumatics;
+  //private Pneumatics m_pneumatics;
   private Shooter m_shooter; // new shooter variable to store shooter object in
   private Joystick m_joystickShooter; // Joystick variable
   private double m_highShooterSpeed; // allows the low speed constant to be stored in a variable in this command
 
-  public HighSpeedShooter(Joystick joystickShooter , Shooter shooter, Pneumatics pneumatics) {
+  public HighSpeedShooter(Joystick joystickShooter , Shooter shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_shooter = shooter;// stores shooter object from parameters
     m_joystickShooter = joystickShooter; // stores the joystickShooter object from parameters
-    m_pneumatics = pneumatics;
+    //m_pneumatics = pneumatics;
     
     addRequirements(m_shooter);
     
@@ -55,8 +55,8 @@ public class HighSpeedShooter extends CommandBase {
   @Override
   public void end(boolean interrupted) 
   {
-    m_pneumatics.retractGate();
-    ReleaseGate.ballRelease = ballReleasePiston.EXTENDED;
+    m_shooter.retractGate();
+    //ReleaseGate.ballRelease = ballReleasePiston.EXTENDED;
   }
 
   // Returns true when the command should end.
