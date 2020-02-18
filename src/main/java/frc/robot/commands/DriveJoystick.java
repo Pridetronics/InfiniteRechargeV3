@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
-
+import com.revrobotics.CANEncoder;
 import edu.wpi.first.wpilibj.Joystick;
 
 public class DriveJoystick extends CommandBase { //Creates a new DriveJoystick.
@@ -21,14 +21,20 @@ public class DriveJoystick extends CommandBase { //Creates a new DriveJoystick.
   private Joystick m_joystickDriver;
  
   public Drive m_robotDrive;
+  public static double leftDriveMotorLeadDistance;
+  public static double rightDriveMotorLeadDistance;
 
   private int driveMode;
+  public static CANEncoder leftDriveMotorLeadEncoder = RobotContainer.leftDriveMotorLeadEncoder;
+  public static CANEncoder rightDriveMotorLeadEncoder = RobotContainer.rightDriveMotorLeadEncoder;
 
   public DriveJoystick(Joystick joystickDriver, Drive robotDrive) {
     //driveMode = Robot.driveMode;
     // Use addRequirements() here to declare subsystem dependencies.
     m_joystickDriver = joystickDriver; // Grabs the joystick from RobotContainer
     m_robotDrive = robotDrive; //Grabs robotDrive from Drive
+    // leftDriveMotorLeadDistance = (6 * 3.14);
+    // rightDriveMotorLeadDistance = (6 * 3.14);
     
     addRequirements(robotDrive); 
     // Allows the default command (this file) to talk to the main subsystem
@@ -46,14 +52,16 @@ public class DriveJoystick extends CommandBase { //Creates a new DriveJoystick.
   public void execute() {
 
     if (driveMode == 0) {
-      System.out.println("Tank Drive");
 
       double rightValue, leftValue; // Sets these up as doubles, allows to make it into axis
       rightValue = m_joystickDriver.getRawAxis(5); // Right Joystick verticle axis
       leftValue = m_joystickDriver.getRawAxis(1); // Left joystick verticle axis
 
       m_robotDrive.tankDrive(leftValue, rightValue);
-      // Defines how the joysticks will operate     
+      // Defines how the joysticks will operate    
+      
+      leftDriveMotorLeadEncoder.getCountsPerRevolution();
+      rightDriveMotorLeadEncoder.getCountsPerRevolution(); 
     } 
     /*
     else {

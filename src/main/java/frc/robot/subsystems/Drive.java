@@ -32,7 +32,6 @@ public class Drive extends SubsystemBase { // Creates a new Drive.
   private CANSparkMax leftDriveMotor;
   private CANSparkMax rightDriveMotor;
 
-
   public static CANEncoder leftDriveMotorLeadEncoder = RobotContainer.leftDriveMotorLeadEncoder;
   public static CANEncoder rightDriveMotorLeadEncoder = RobotContainer.rightDriveMotorLeadEncoder;
 
@@ -43,12 +42,14 @@ public class Drive extends SubsystemBase { // Creates a new Drive.
  
     leftDriveMotor = RobotContainer.leftDriveMotorLead; // references motors from RobotContainer
     rightDriveMotor =  RobotContainer.rightDriveMotorLead;
-    
+
+    leftDriveMotorLeadEncoder.setPosition(0);
+    rightDriveMotorLeadEncoder.setPosition(0);
     
     robotDrive = new DifferentialDrive(leftDriveMotor, rightDriveMotor);
     // Constructs the differential drive with the motors
-
-    SmartDashboard.putString("Drive Mode:", "Tank");                                                                                                              
+    
+    //SmartDashboard.putString("Drive Mode:", "Tank");                                                                                                              
   }
 
 
@@ -65,6 +66,8 @@ public void setDrive() {
       SmartDashboard.putString("Drive Mode", "Tank");
     }
     */
+
+    
   }
 
 
@@ -80,6 +83,7 @@ public void setDrive() {
 
   public void doTeleop() {    
     //test 1
+    
   }
 
   public static CANEncoder getleftDriveMotorEncoder(){
@@ -96,7 +100,10 @@ public void setDrive() {
     // Located in Drive because the drivetrain is grabbed from this subsystem
     rightValue = driveSquare(rightValue, .5) * .75;
     leftValue = driveSquare(leftValue, .5) * .75;
-    robotDrive.tankDrive(leftValue, rightValue); // Grabs the raw axis from DriveJoystick    
+    robotDrive.tankDrive(leftValue, rightValue); // Grabs the raw axis from DriveJoystick   
+    // System.out.println(leftDriveMotorLeadEncoder.getCountsPerRevolution());
+    // System.out.println(rightDriveMotorLeadEncoder.getCountsPerRevolution());
+
   }
   
   public double driveSquare(double input, double degree) {

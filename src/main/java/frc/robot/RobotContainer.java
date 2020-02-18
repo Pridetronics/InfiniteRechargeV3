@@ -39,7 +39,8 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.button.JoystickButton; //Deals with the buttons on the controller
 import edu.wpi.first.wpilibj.Joystick; //Allows gamepad/joystick referencing
-
+import frc.robot.subsystems.Drive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.SpeedController;
 //import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -118,10 +119,12 @@ public static CANEncoder rightDriveMotorLeadEncoder;
     rightDriveMotorFollow.setInverted(true);
     rightDriveMotorFollow.follow(rightDriveMotorLead);
 
-    leftDriveMotorLeadEncoder = new CANEncoder(leftDriveMotorLead, EncoderType.kHallSensor, Constants.leftDriveMotorLead);
-    rightDriveMotorLeadEncoder = new CANEncoder(rightDriveMotorLead, EncoderType.kHallSensor, Constants.rightDriveMotorLead);
+    leftDriveMotorLeadEncoder = new CANEncoder(leftDriveMotorLead, EncoderType.kHallSensor, 4096);
+    rightDriveMotorLeadEncoder = new CANEncoder(rightDriveMotorLead, EncoderType.kHallSensor, 4096);
 
-    robotDrive = new Drive(); 
+    robotDrive = new Drive();
+    autonDriveForw = new JoystickButton(this.joystickDriver, 3);
+    autonDriveForw.whenHeld(new DriveForwardThreeFeetAuton(1,2, robotDrive));
     // It sets a new drive and uses the ints 1 and 2. The order matters.
     // 1 is assigned to leftDriveMotorAddress, whereas 2 is rightDriveMotorAddress
 
@@ -215,10 +218,6 @@ public static CANEncoder rightDriveMotorLeadEncoder;
       The whenHeld method runs the high speed shooter command when the Y button is held.
       The method requires an object of a command, such as new HighSpeedShooter
     */
-
-    autonDriveForw = new JoystickButton(this.joystickShooter, 3);
-    autonDriveForw.whenHeld(new DriveForwardThreeFeetAuton(1, 2, robotDrive));
-    configureButtonBindings();
 
   }
 
