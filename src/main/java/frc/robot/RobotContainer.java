@@ -66,9 +66,6 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     // It sets a new drive and uses the ints 1 and 2. The order matters.
     // 1 is assigned to leftDriveMotorAddress, whereas 2 is rightDriveMotorAddress
 
-    climber = new Climb (robotClimbMotor, telescopicClimbMotor, limitLowerTelescopic, 
-    limitUpperRobot, raiseTelescopicButton, sequenceClimbButton);
-
     robotClimbMotor = new CANSparkMax(1, MotorType.kBrushed);
     robotClimbMotor.setInverted(false);
     robotClimbMotor.set(0);
@@ -87,17 +84,19 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     // This helps set the default command. It sets it to DriveJoystick so that way RobotContainer
     // can grab the information and utilize it for the given controller, in this case joystickDriver
 
+    //limit Switch to nre Digital input objects (figure out later)
+    limitLowerTelescopic = new DigitalInput(6);
+    limitUpperRobot = new DigitalInput(7);
+
+    climber = new Climb (robotClimbMotor, telescopicClimbMotor, limitLowerTelescopic, 
+    limitUpperRobot, raiseTelescopicButton, sequenceClimbButton);
+
     raiseTelescopicButton = new JoystickButton(joystickShooter, 6);
     raiseTelescopicButton.whileHeld(new ExtendTelescopicClimb(climber));
 
     sequenceClimbButton = new JoystickButton(joystickShooter, 3);
     sequenceClimbButton.whileHeld(new LiftRobot(climber));
-
-    //limit Switch to nre Digital input objects (figure out later)
-    limitLowerTelescopic = new DigitalInput(6);
-    limitUpperRobot = new DigitalInput(7);
-
-
+    
     // Configure the button bindings
     configureButtonBindings();
   }
