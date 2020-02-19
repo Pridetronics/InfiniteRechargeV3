@@ -39,7 +39,7 @@ public class Climb extends SubsystemBase {
     private static JoystickButton raiseTelescopicButton;
     private static JoystickButton sequenceClimbButton;
 
-  public Climb(SpeedController robotClimbMotor, SpeedController telescopicClimbMotor,
+  public Climb(CANSparkMax robotClimbMotor, CANSparkMax telescopicClimbMotor,
     DigitalInput limitLowerTelescopic, DigitalInput limitUpperRobot, JoystickButton raiseTelescopicButton, 
     JoystickButton sequenceClimbButton) {
     //CTOR

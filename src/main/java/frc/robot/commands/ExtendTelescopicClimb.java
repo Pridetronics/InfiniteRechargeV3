@@ -39,9 +39,9 @@ public class ExtendTelescopicClimb extends CommandBase {
   @Override
   public void execute() {
 
-  //System.out.println("Climb.telescopicClimbMotor");
+  //ystem.out.println("Climb.telescopicClimbMotor");
 
-   telescopicClimbMotor.getTelescopicClimbMotor().set(.55);
+   telescopicClimbMotor.set(.55);
 
   }
 
