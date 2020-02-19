@@ -60,8 +60,7 @@ public class DriveJoystick extends CommandBase { //Creates a new DriveJoystick.
       m_robotDrive.tankDrive(leftValue, rightValue);
       // Defines how the joysticks will operate    
       
-      leftDriveMotorLeadEncoder.getCountsPerRevolution();
-      rightDriveMotorLeadEncoder.getCountsPerRevolution(); 
+    
     } 
     /*
     else {

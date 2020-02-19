@@ -103,6 +103,7 @@ public static CANEncoder rightDriveMotorLeadEncoder;
     /*
       Start of driver section
     */
+
     leftDriveMotorLead = new CANSparkMax(Constants.leftDriveMotorLead, MotorType.kBrushless); // Creates new talon motor for leading left drive
     leftDriveMotorLead.setInverted(true); // Inverts Left Drive Motor
     leftDriveMotorLead.set(0); // Sets speed to 0 (anywhere between -1 and 1)
@@ -119,14 +120,13 @@ public static CANEncoder rightDriveMotorLeadEncoder;
     rightDriveMotorFollow.setInverted(true);
     rightDriveMotorFollow.follow(rightDriveMotorLead);
 
-    leftDriveMotorLeadEncoder = new CANEncoder(leftDriveMotorLead, EncoderType.kHallSensor, 4096);
-    rightDriveMotorLeadEncoder = new CANEncoder(rightDriveMotorLead, EncoderType.kHallSensor, 4096);
-
+    leftDriveMotorLeadEncoder = new CANEncoder(leftDriveMotorLead);
+    rightDriveMotorLeadEncoder = new CANEncoder(rightDriveMotorLead);
+    
     robotDrive = new Drive();
-    autonDriveForw = new JoystickButton(this.joystickDriver, 3);
-    autonDriveForw.whenHeld(new DriveForwardThreeFeetAuton(1,2, robotDrive));
     // It sets a new drive and uses the ints 1 and 2. The order matters.
     // 1 is assigned to leftDriveMotorAddress, whereas 2 is rightDriveMotorAddress
+ 
 
     robotDrive.setDefaultCommand(new DriveJoystick(joystickDriver, robotDrive));
     // This helps set the default command. It sets it to DriveJoystick so that way RobotContainer
@@ -171,7 +171,9 @@ public static CANEncoder rightDriveMotorLeadEncoder;
     intakePneumaticRetractButton.whileHeld(new IntakePneumaticRetract());
     // Configure the button bindings
    
-    
+       
+    autonDriveForw = new JoystickButton(joystickDriver, 3);
+    autonDriveForw.whileHeld(new DriveForwardThreeFeetAuton(1,2, robotDrive));
     /*
       Start of shooter section
     */

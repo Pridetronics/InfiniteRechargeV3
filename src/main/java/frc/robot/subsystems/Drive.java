@@ -32,8 +32,9 @@ public class Drive extends SubsystemBase { // Creates a new Drive.
   private CANSparkMax leftDriveMotor;
   private CANSparkMax rightDriveMotor;
 
-  public static CANEncoder leftDriveMotorLeadEncoder = RobotContainer.leftDriveMotorLeadEncoder;
-  public static CANEncoder rightDriveMotorLeadEncoder = RobotContainer.rightDriveMotorLeadEncoder;
+  public static CANEncoder leftDriveMotorEncoder = RobotContainer.leftDriveMotorLeadEncoder;
+  public static CANEncoder rightDriveMotorEncoder = RobotContainer.rightDriveMotorLeadEncoder;
+  
 
  
   public Drive() {
@@ -43,8 +44,9 @@ public class Drive extends SubsystemBase { // Creates a new Drive.
     leftDriveMotor = RobotContainer.leftDriveMotorLead; // references motors from RobotContainer
     rightDriveMotor =  RobotContainer.rightDriveMotorLead;
 
-    leftDriveMotorLeadEncoder.setPosition(0);
-    rightDriveMotorLeadEncoder.setPosition(0);
+  
+    rightDriveMotorEncoder.setPositionConversionFactor(2.579);
+    leftDriveMotorEncoder.setPositionConversionFactor(2.579);
     
     robotDrive = new DifferentialDrive(leftDriveMotor, rightDriveMotor);
     // Constructs the differential drive with the motors
@@ -87,11 +89,11 @@ public void setDrive() {
   }
 
   public static CANEncoder getleftDriveMotorEncoder(){
-    return leftDriveMotorLeadEncoder;
+    return leftDriveMotorEncoder;
   }
 
   public static CANEncoder getrightDriveMotorEncoder(){
-    return rightDriveMotorLeadEncoder;
+    return rightDriveMotorEncoder;
   }
 
   public void tankDrive(double leftValue, double rightValue) {
