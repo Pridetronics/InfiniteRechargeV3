@@ -7,14 +7,26 @@
 
 package frc.robot.subsystems;
 
+import org.opencv.core.Mat;
+
+import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.CvSource;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Vision extends SubsystemBase {
   /**
    * Creates a new Vision.
    */
-  public Vision() {
+  public static Thread visionThread;
+  
+  public Vision() 
+  {
     //Utilizes vision processing for better alignment when shooting and video with Limelight
+    
+    
   }
 
   @Override

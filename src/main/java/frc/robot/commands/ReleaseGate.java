@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Pneumatics;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Pneumatics.ballReleasePiston;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -23,19 +24,23 @@ public class ReleaseGate extends CommandBase {
    */
    private double m_speed;
    private Joystick m_joystickShooter; // empty variables to bring in objects
-   private Pneumatics m_pneumatics;
+   //private Pneumatics m_pneumatics;
    public static ballReleasePiston ballRelease; // creates new ballReleasePiston enum
    private CANEncoder m_shooterMotorEncoder; // creates empty encoder object
    private double m_shooterMotorRPM; // variable represents the rpm of the shooter motor
+   private Shooter m_shooter;
 
-  public ReleaseGate(Joystick joystickShooter, Pneumatics pneumatics, double speed) {
+  public ReleaseGate(Joystick joystickShooter, Shooter shooter, double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_joystickShooter = joystickShooter; // instantiation of empty objects
-    m_pneumatics = pneumatics;
-    ballRelease = ballReleasePiston.EXTENDED; // sets the default state of the piston to extended
+    //m_pneumatics = pneumatics;
+    //ballRelease = ballReleasePiston.EXTENDED; // sets the default state of the piston to extended
     m_shooterMotorEncoder = RobotContainer.shooterMotorEncoder; // references an encoder object
     m_speed = speed; // speed depending on which shooter is used(low or high)
     m_shooterMotorRPM = Constants.shooterMotorRPM; // represents shooter RPM
+    m_shooter = shooter;
+
+    //addRequirements(m_shooter);
   }
 
   // Called when the command is initially scheduled.
@@ -46,13 +51,14 @@ public class ReleaseGate extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //m_pneumatics.releaseGate();
-    //m_pneumatics.gateControl(ballRelease);
+    
+    
     
     /*
       if statement to test whether the motor has gotten up to speed. When it is up to speed, it runs what is
       inside the if statement.
     */
+    /*
     if(m_shooterMotorEncoder.getVelocity() == m_shooterMotorRPM * m_speed)
     {
       if(ballRelease == ballReleasePiston.EXTENDED) // if the ballReleasePiston is extended, release the gate
@@ -66,20 +72,28 @@ public class ReleaseGate extends CommandBase {
         ballRelease = ballReleasePiston.EXTENDED;
       }
     }
+    */
     
     
-  
   
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
+  public void end(boolean interrupted) 
+  {
+    m_shooter.releaseGate();
+    //ballRelease = ballReleasePiston.RETRACTED;
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    boolean commandState = false;
+    if(m_shooterMotorEncoder.getVelocity() == 0.0)
+    {
+      commandState = true;
+    }
+    return commandState;
   }
 }

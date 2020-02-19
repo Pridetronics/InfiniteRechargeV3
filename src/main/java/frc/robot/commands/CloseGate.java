@@ -25,6 +25,7 @@ public class CloseGate extends CommandBase {
     m_joystickShooter = joystickShooter; // instantiates inside empty variables
     m_pneumatics = pneumatics;
     //ballRelease = ReleaseGate.ballRelease;
+    addRequirements(m_pneumatics);
 
   }
 
@@ -36,10 +37,10 @@ public class CloseGate extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    
     m_pneumatics.retractGate(); // retracts the gate
     ReleaseGate.ballRelease = ballReleasePiston.EXTENDED; // changes the state of the piston
-
-  
+    
   }
 
   // Called once the command ends or is interrupted.
