@@ -16,21 +16,24 @@ import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 //import frc.robot.subsystems.RobotContainer;
 
-public class Shooter extends SubsystemBase {
+public class Shooter extends SubsystemBase 
+{
   /**
    * Creates a new Shooter.
    */
   private CANSparkMax shooterMotor; // creates a new motor variable
   private final DoubleSolenoid m_shooterBallRelease; 
   
-  public Shooter() {
+  public Shooter() 
+  {
     //Launches power cells (balls) into the goals (levels 1, 2, and 3).
     shooterMotor = RobotContainer.shooterMotor; // references shooter motor from RobotContainer
     m_shooterBallRelease = RobotContainer.shooterBallRelease;
   }
 
   @Override
-  public void periodic() {
+  public void periodic() 
+  {
     // This method will be called once per scheduler run
   }
   /*allows the speed of the motor to be set and then run the motor at that speed

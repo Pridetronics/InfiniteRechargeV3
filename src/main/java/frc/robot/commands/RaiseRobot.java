@@ -7,34 +7,53 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+import frc.robot.subsystems.Climb;
 
-public class RaiseClimb extends CommandBase {
+public class RaiseRobot extends CommandBase 
+{
   /**
-   * Creates a new RaiseClimb.
+   * Creates a new RaiseRobot.
    */
-  public RaiseClimb() {
+  private Climb m_climb;
+  private Joystick m_joystickShooter;
+  
+  public RaiseRobot(Joystick joystickShooter, Climb climb) 
+  {
     // Use addRequirements() here to declare subsystem dependencies.
+    m_joystickShooter = joystickShooter;
+    m_climb = climb;
+
+    addRequirements(m_climb);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
+  public void initialize() 
+  {
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
+  public void execute() 
+  {
+    m_climb.spoolWinch(Constants.WINCH_MOTOR_SPEED);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
+  public void end(boolean interrupted) 
+  {
+    m_climb.spoolWinch(0.0);
   }
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished() {
+  public boolean isFinished() 
+  {
     return false;
   }
 }

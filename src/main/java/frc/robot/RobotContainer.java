@@ -73,20 +73,25 @@ package frc.robot;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.Counter;
+import edu.wpi.first.wpilibj.CounterBase;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.CloseGate;
+import frc.robot.commands.DescendTelescopicClimb;
 import frc.robot.commands.DriveJoystick;
+import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Drive;
 import frc.robot.commands.IntakeRun;
 import frc.robot.commands.LowSpeedShooter;
+import frc.robot.commands.RaiseRobot;
 import frc.robot.commands.ReleaseGate;
 import frc.robot.commands.ElevatorRun;
-import frc.robot.commands.HighSpeedShooter;
+import frc.robot.commands.ExtendTelescopicClimb;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pneumatics;
 import frc.robot.subsystems.Shooter;
@@ -125,8 +130,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   public static CANSparkMax intakeMotor;
   public static CANSparkMax elevatorMotorLead;
   public static CANSparkMax elevatorMotorFollow;
-  public static CANSparkMax raiseClimbMotor;
-  public static CANSparkMax telescopicClimbMotor;
+  public static CANSparkMax raiseRodMotor;
+  public static CANSparkMax spoolWinchMotor;
   public final Drive robotDrive;
 
   public JoystickButton lowSpeedShooterButton; // Button A
@@ -137,7 +142,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
   public static CANSparkMax shooterMotor;
 
-  public Pneumatics pneumatics; // creates a pneumatic object
+  //public Pneumatics pneumatics; // creates a pneumatic object
   
   public static DoubleSolenoid shooterBallRelease; // represents the solenoids for the different intake systems
   public static DoubleSolenoid intakeDeploy;
@@ -145,6 +150,17 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
   public static CANEncoder shooterMotorEncoder; // encoder to measure the speed of the shooterMotor
 
+  public JoystickButton raiseTelescopicRodButton;
+  public JoystickButton liftRobotButton;
+
+  public static Climb climb;
+  
+  public DigitalInput intakeLimitSwitch;
+  public DigitalInput shooterLimitSwitch;
+  public static DigitalInput upperClimbLimitSwitch;
+  public static DigitalInput lowerClimbLimitSwitch;
+
+  public Counter ballCounter;
 
   public RobotContainer() {
     
@@ -191,7 +207,6 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     
     
     lowSpeedShooterButton = new JoystickButton(this.joystickShooter, 1); // creates the button for the low speed shooter
-    highSpeedShooterButton = new JoystickButton(this.joystickShooter, 4); // creates the button for the high speed shooter
     
     /*
       I'm using a command group to run through the shooter code. Since a command group is recognized as a
@@ -218,9 +233,6 @@ public class RobotContainer { // The robot's subsystems and commands are defined
       see the comment above lowSpeedShooterButton.whenHeld for an explanation
     */
     
-    highSpeedShooterButton.whenHeld(new ParallelCommandGroup(
-        new HighSpeedShooter(this.joystickShooter, shooter),
-        new ReleaseGate(this.joystickShooter, shooter, Constants.highShooterSpeed)));
         
     /*
       The whenHeld method runs the high speed shooter command when the Y button is held.
@@ -233,7 +245,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
       Start of intake section
     */
     
-    /*
+    
     intakeMotor = new CANSparkMax(Constants.intakeMotorCanAddress, MotorType.kBrushless); //The motor (CANSparkMax) is defined with a type and port (port 5, and motor type = brushless)
     ///intakeMotor =  new Talon(5); //Motor is defined as a specified motor under port five (Talon)
     intakeMotor.set(0); //Initially sets motor value to 0, will not run without further command
@@ -247,21 +259,41 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     elevatorMotorFollow.set(0); //Sets motor speed to 0
     elevatorMotorFollow.follow(elevatorMotorLead); // Vertical follow motor will do everthing the vertical lead motor does
 
-    raiseClimbMotor = new CANSparkMax(Constants.raiseClimbMotorAddress, MotorType.kBrushless);
-    raiseClimbMotor.set(0);
-
-    telescopicClimbMotor = new CANSparkMax(Constants.telescopicClimbMotorAddress, MotorType.kBrushless);
-    telescopicClimbMotor.set(0);
-    // The numbers in the parenthesis represents the ports each controller goes to. 
-    
     intakeButton = new JoystickButton(joystickDriver, 6); // Right Upper Bumper, sets intake Button to a controller
     intakeButton.whileHeld(new IntakeRun());//While the button is being held, the command is being run
   
     elevatorButton = new JoystickButton(joystickDriver, 5); //Left Upper Bumper, elevator button  to a controller
     elevatorButton.whileHeld(new ElevatorRun());//While held, command is being run, references command from commands. Hence imports
-    */
-  
 
+    /*
+      Start of climb section
+    */
+
+    raiseRodMotor = new CANSparkMax(Constants.raiseClimbMotorAddress, MotorType.kBrushless);
+    //raiseClimbMotor.set(0);
+
+    spoolWinchMotor = new CANSparkMax(Constants.telescopicClimbMotorAddress, MotorType.kBrushless);
+    //telescopicClimbMotor.set(0);
+    // The numbers in the parenthesis represents the ports each controller goes to. 
+
+    raiseTelescopicRodButton = new JoystickButton(this.joystickShooter, 6);
+    liftRobotButton = new JoystickButton(this.joystickShooter, 5);
+
+    climb = new Climb();
+
+    raiseTelescopicRodButton.whileHeld(new ExtendTelescopicClimb(this.joystickShooter, climb));
+
+    liftRobotButton.whileHeld(new SequentialCommandGroup(
+        new DescendTelescopicClimb(this.joystickShooter, climb),
+        new RaiseRobot(this.joystickShooter, climb)));
+
+    upperClimbLimitSwitch = new DigitalInput(Constants.upperClimbLimitChannel);
+    lowerClimbLimitSwitch = new DigitalInput(Constants.lowerClimbLimitChannel);
+    
+    intakeLimitSwitch = new DigitalInput(Constants.intakeLimitSwitchChannel);
+    shooterLimitSwitch = new DigitalInput(Constants.shooterLimitSwitchChannel);
+
+    ballCounter = new Counter(CounterBase.EncodingType.k2X, intakeLimitSwitch, shooterLimitSwitch, false);
     
 
     // Configure the button bindings

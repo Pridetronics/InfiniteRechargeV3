@@ -56,18 +56,22 @@ public final class Constants {
 
     public static DifferentialDrive robotDrive; // Creates new differential drive
 
-    public static final double lowShooterSpeed = 0.6; // creates the speed for the LowSpeedShooter
-    public static final double highShooterSpeed = 0.8; // creates the speed for the HighSpeedShooter
-
-    //changed for testing
-    public static final double shooterMotorRPM = 160.0; // constant that represents shooter RPM
+    public static final double lowShooterSpeed = 0.; // creates the speed for the LowSpeedShooter
 
     //These constants will be changed when I found out the actual channels
     public static final int shooterGateForwardChannel = 5;
     public static final int shooterGateReverseChannel = 4;
-    
-    public static final int lifeCamWidth = 640;
-    public static final int lifeCamHeight = 480;
+
+    public static final int intakeLimitSwitchChannel = 1;
+    public static final int shooterLimitSwitchChannel = 1;
+    public static final int upperClimbLimitChannel = 6;
+    public static final int lowerClimbLimitChannel = 5;
+
+    public static final double TELESCOPIC_ROD_MOTOR_SPEED = 0.6;
+    public static final double INVERSE_TELESCOPIC_MOTOR_SPEED = -0.6;
+    public static final double WINCH_MOTOR_SPEED = 0.5;
+
+    public final double shooterSpeed = 3300.0/5676.0;
 
     public static void init() {
 

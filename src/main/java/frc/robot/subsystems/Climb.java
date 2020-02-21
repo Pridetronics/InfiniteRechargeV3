@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase; // Imports needed for this subsystem
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Talon;//Motor type (for competitions)
 import com.revrobotics.CANSparkMax;//Motor Type 
 import com.revrobotics.CANSparkMaxLowLevel.MotorType; //Motor Type, specifically the certain CANSparkMaxes we will be using
@@ -16,21 +17,48 @@ import frc.robot.Constants; //Class -- These are currently unused
 import frc.robot.Robot;// Class
 import frc.robot.RobotContainer;//Class
 
-public class Climb extends SubsystemBase {
+public class Climb extends SubsystemBase 
+{
   /**
    * Creates a new Climb.
    */
-  public static CANSparkMax raiseClimbMotor = RobotContainer.raiseClimbMotor; 
-  //public static Talon telescopicClimbMotor = RobotContainer.telescopicClimbMotor;
-  public static CANSparkMax telescopicClimbMotor =  RobotContainer.telescopicClimbMotor;
+  private CANSparkMax m_spoolWinchMotor;
+  private CANSparkMax m_raiseRodMotor;
+  private DigitalInput m_upperClimbLimitSwitch;
+  private DigitalInput m_lowerClimbLimitSwitch;
 
-  public Climb() {
-    //Lifts up, grabs bar, pulls self up
+  public Climb() 
+  {
+    m_raiseRodMotor = RobotContainer.raiseRodMotor;
+    m_spoolWinchMotor = RobotContainer.spoolWinchMotor;
+    m_upperClimbLimitSwitch = RobotContainer.upperClimbLimitSwitch;
+    m_lowerClimbLimitSwitch = RobotContainer.lowerClimbLimitSwitch;
  
   }
 
   @Override
-  public void periodic() {
+  public void periodic() 
+  {
     // This method will be called once per scheduler run
+  }
+
+  public void raiseTelescopicRod(double speed)
+  {
+    m_raiseRodMotor.set(speed);
+  }
+
+  public void spoolWinch(double speed)
+  {
+    m_spoolWinchMotor.set(speed);
+  }
+
+  public boolean upperClimbLimitOpen()
+  {
+    return m_upperClimbLimitSwitch.get();
+  }
+  
+  public boolean lowerClimbLimitOpen()
+  {
+    return m_lowerClimbLimitSwitch.get();
   }
 }
