@@ -172,8 +172,8 @@ public static CANEncoder rightDriveMotorLeadEncoder;
     // Configure the button bindings
    
        
-    autonDriveForw = new JoystickButton(joystickDriver, 3);
-    autonDriveForw.whileHeld(new DriveForwardThreeFeetAuton(1,2, robotDrive));
+    // autonDriveForw = new JoystickButton(joystickDriver, 3);
+    // autonDriveForw.whileHeld(new DriveForwardThreeFeetAuton(1,2, robotDrive));
     /*
       Start of shooter section
     */
@@ -240,8 +240,8 @@ public static CANEncoder rightDriveMotorLeadEncoder;
    * 
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
+  public Command getDriveThreeFeetAuton() {
     // An ExampleCommand will run in autonomous
-    return getAutonomousCommand();
+    return getDriveThreeFeetAuton();
   }
 }

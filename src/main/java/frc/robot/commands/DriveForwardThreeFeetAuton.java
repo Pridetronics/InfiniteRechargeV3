@@ -29,7 +29,9 @@ public class DriveForwardThreeFeetAuton extends CommandBase {
   public DriveForwardThreeFeetAuton (int i, int j, Drive robotDrive) {
     // Use addRequirements() here to declare subsystem dependencies.
 
-
+    rightDriveMotorEncoder = RobotContainer.rightDriveMotorLeadEncoder;
+    leftDriveMotorEncoder = RobotContainer.leftDriveMotorLeadEncoder;
+    m_robotDrive = robotDrive;
     addRequirements(robotDrive);
 
   }
@@ -49,8 +51,9 @@ public class DriveForwardThreeFeetAuton extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_robotDrive.tankDrive(0.55 , 0.55);
-
+    m_robotDrive.tankDrive(-.85 , -.85);
+    System.out.println(leftDriveMotorEncoder.getPosition());
+    System.out.println(rightDriveMotorEncoder.getPosition());
   }
 
   // Called once the command ends or is interrupted.

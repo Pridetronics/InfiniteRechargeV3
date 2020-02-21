@@ -15,6 +15,7 @@ import frc.robot.subsystems.Vision;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.DriveForwardThreeFeetAuton;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 
@@ -34,7 +35,7 @@ public class Robot extends TimedRobot {
   
   public static final String RobotContainer = null;
 
-  private Command m_autonomousCommand;
+  private Command DriveForwardThreeFeetAuton;
 
   public RobotContainer m_robotContainer;
 
@@ -86,13 +87,13 @@ public class Robot extends TimedRobot {
   //This autonomous runs the autonomous command selected by your {@link RobotContainer} class.
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    DriveForwardThreeFeetAuton = m_robotContainer.getDriveThreeFeetAuton();
 
     // schedule the autonomous command (example)
-    if (m_autonomousCommand != null)    {
+    if (DriveForwardThreeFeetAuton != null)    {
 
 
-      m_autonomousCommand.schedule(); // This was all pre-created, worry about this later
+      DriveForwardThreeFeetAuton.schedule(); // This was all pre-created, worry about this later
     }
   }
 
@@ -108,8 +109,8 @@ public class Robot extends TimedRobot {
     // continue until interrupted by another command, remove
     // this line or comment it out.
 
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
+    if (DriveForwardThreeFeetAuton != null) {
+      DriveForwardThreeFeetAuton.cancel();
     }
   }
 
