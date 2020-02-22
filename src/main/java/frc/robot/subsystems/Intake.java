@@ -16,21 +16,29 @@ import frc.robot.Constants; //Class -- These are currently unused
 import frc.robot.Robot;// Class
 import frc.robot.RobotContainer;//Class
 
-public class Intake extends SubsystemBase {
+/*
+  0,1 for intake solenoid. 2,3 for shooter solenoid
+*/
+public class Intake extends SubsystemBase 
+{
   /**
    * Creates a new Intake.
    */
-  public static CANSparkMax intakeMotor = RobotContainer.intakeMotor; // Testing Motor: Creates an intake motor 
+  private CANSparkMax m_intakeMotor;
+  private CANSparkMax m_elevatorMotor; 
   
    ///private Talon intakeMotor = RobotContainer.intakeMotor; //Competition Motor--> Intake motor
 
-   public Intake() {
+   public Intake() 
+   {
     //Collect power cell balls
-    
+    m_intakeMotor = RobotContainer.intakeMotor; // Testing Motor: Creates an intake motor
+    m_elevatorMotor = RobotContainer.elevatorMotor;
    }
 
   @Override
-  public void periodic() {
+  public void periodic() 
+  {
     // This method will be called once per scheduler run
   }
 }

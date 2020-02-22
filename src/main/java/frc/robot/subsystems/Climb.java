@@ -10,6 +10,9 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase; // Imports needed for this subsystem
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Talon;//Motor type (for competitions)
+
+import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;//Motor Type 
 import com.revrobotics.CANSparkMaxLowLevel.MotorType; //Motor Type, specifically the certain CANSparkMaxes we will be using
 
@@ -23,7 +26,7 @@ public class Climb extends SubsystemBase
    * Creates a new Climb.
    */
   private CANSparkMax m_spoolWinchMotor;
-  private CANSparkMax m_raiseRodMotor;
+  private TalonSRX m_raiseRodMotor;
   private DigitalInput m_upperClimbLimitSwitch;
   private DigitalInput m_lowerClimbLimitSwitch;
 
@@ -44,7 +47,7 @@ public class Climb extends SubsystemBase
 
   public void raiseTelescopicRod(double speed)
   {
-    m_raiseRodMotor.set(speed);
+    m_raiseRodMotor.set(TalonSRXControlMode.PercentOutput, speed);
   }
 
   public void spoolWinch(double speed)

@@ -8,25 +8,25 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.command.TimedCommand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Climb;
 
-public class RaiseRobot extends CommandBase 
+public class RaiseRobot extends TimedCommand 
 {
   /**
    * Creates a new RaiseRobot.
    */
   private Climb m_climb;
-  private Joystick m_joystickShooter;
   
-  public RaiseRobot(Joystick joystickShooter, Climb climb) 
+  
+  public RaiseRobot(double timeout, Climb climb) 
   {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_joystickShooter = joystickShooter;
+    super(timeout);
     m_climb = climb;
-
-    addRequirements(m_climb);
+    
   }
 
   // Called when the command is initially scheduled.
@@ -45,7 +45,7 @@ public class RaiseRobot extends CommandBase
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) 
+  public void end() 
   {
     m_climb.spoolWinch(0.0);
   }

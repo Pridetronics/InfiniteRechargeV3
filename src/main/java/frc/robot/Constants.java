@@ -64,12 +64,14 @@ public final class Constants {
 
     public static final int intakeLimitSwitchChannel = 1;
     public static final int shooterLimitSwitchChannel = 1;
-    public static final int upperClimbLimitChannel = 6;
-    public static final int lowerClimbLimitChannel = 5;
+    public static final int upperClimbLimitChannel = 0;
+    public static final int lowerClimbLimitChannel = 1;
 
-    public static final double TELESCOPIC_ROD_MOTOR_SPEED = 0.6;
-    public static final double INVERSE_TELESCOPIC_MOTOR_SPEED = -0.6;
-    public static final double WINCH_MOTOR_SPEED = 0.5;
+    public static final double TELESCOPIC_ROD_MOTOR_SPEED = 0.2;
+    public static final double INVERSE_TELESCOPIC_MOTOR_SPEED = -0.2;
+    public static final double WINCH_MOTOR_SPEED = 0.2;
+
+    public static final double WINCH_TIMEOUT = 5.0;
 
     public final double shooterSpeed = 3300.0/5676.0;
 
