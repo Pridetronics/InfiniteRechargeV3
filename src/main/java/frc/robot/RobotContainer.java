@@ -100,6 +100,7 @@ import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANEncoder;
+import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.EncoderType;
@@ -115,21 +116,22 @@ import edu.wpi.first.wpilibj.SpeedController;
 //import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
 /**
- * This class is where the bulk of the robot should be declared.  Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
- * (including subsystems, commands, and button mappings) should be declared here.
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a "declarative" paradigm, very little robot logic should
+ * actually be handled in the {@link Robot} periodic methods (other than the
+ * scheduler calls). Instead, the structure of the robot (including subsystems,
+ * commands, and button mappings) should be declared here.
  */
 public class RobotContainer { // The robot's subsystems and commands are defined here...
-  // The container for the robot.  Contains subsystems, OI devices, and commands.
+  // The container for the robot. Contains subsystems, OI devices, and commands.
   public static CANSparkMax leftDriveMotorLead; // Creates new talon motor for leading left drive
   public static CANSparkMax rightDriveMotorLead; // Creates new talon motor for leading right drive
-  
-  public static Joystick joystickDriver; //The name of the first controller, main driver
-  public static Joystick joystickShooter; //The name of the second controller, secondary driver
-  
-  public JoystickButton intakeButton; //Button to run the intake 
-  public JoystickButton intakeExtendRetractButton; //Button to run the intake Vertical
+
+  public static Joystick joystickDriver; // The name of the first controller, main driver
+  public static Joystick joystickShooter; // The name of the second controller, secondary driver
+
+  public JoystickButton intakeButton; // Button to run the intake
+  public JoystickButton intakeExtendRetractButton; // Button to run the intake Vertical
   public static CANSparkMax intakeMotor;
   public static CANSparkMax elevatorMotor;
   public static TalonSRX raiseRodMotor;
@@ -143,9 +145,10 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   public static Shooter shooter; // shooter object to be used for shooter commands
 
   public static CANSparkMax shooterMotor;
+  public static CANPIDController shooter_pid;
 
-  //public Pneumatics pneumatics; // creates a pneumatic object
-  
+  // public Pneumatics pneumatics; // creates a pneumatic object
+
   public static DoubleSolenoid shooterBallRelease; // represents the solenoids for the different intake systems
   public static DoubleSolenoid intakeDeploy;
   public static DoubleSolenoid controlPanelSpinnerDeploy;
@@ -156,7 +159,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   public JoystickButton liftRobotButton;
 
   public static Climb climb;
-  
+
   public DigitalInput intakeLimitSwitch;
   public DigitalInput shooterLimitSwitch;
   public static DigitalInput upperClimbLimitSwitch;
@@ -171,42 +174,52 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   public Counter ballCounter;
 
   public RobotContainer() {
-    
-    //Joystick+Controller Definitions 
+
+    // Joystick+Controller Definitions
     this.joystickDriver = new Joystick(0); // 'this.' Grabs a variable specifically
     this.joystickShooter = new Joystick(1); // ^^ Creates less confusion in the system
-    // The numbers in the parenthesis represents the ports each controller goes to. 
-    
+    // The numbers in the parenthesis represents the ports each controller goes to.
+
     /*
-      Start of driver section
-    */
-    
-    leftDriveMotorLead = new CANSparkMax(Constants.leftDriveMotorLead, MotorType.kBrushed); // Creates new talon motor for leading left drive
+     * Start of driver section
+     */
+
+    leftDriveMotorLead = new CANSparkMax(Constants.leftDriveMotorLead, MotorType.kBrushed); // Creates new talon motor
+                                                                                            // for leading left drive
     leftDriveMotorLead.setInverted(false); // Inverts Left Drive Motor
     leftDriveMotorLead.set(0); // Sets speed to 0 (anywhere between -1 and 1)
-    
-    rightDriveMotorLead = new CANSparkMax(Constants.rightDriveMotorLead, MotorType.kBrushed); // Creates new talon motor for leading right drive
+
+    rightDriveMotorLead = new CANSparkMax(Constants.rightDriveMotorLead, MotorType.kBrushed); // Creates new talon motor
+                                                                                              // for leading right drive
     rightDriveMotorLead.setInverted(false); // Inverts Right Drive Motor
     rightDriveMotorLead.set(0); // Sets speed to 0 (anywhere between -1 and 1)
 
-    robotDrive = new Drive(); 
+    robotDrive = new Drive();
     // It sets a new drive and uses the ints 1 and 2. The order matters.
     // 1 is assigned to leftDriveMotorAddress, whereas 2 is rightDriveMotorAddress
 
     robotDrive.setDefaultCommand(new DriveJoystick(joystickDriver, robotDrive));
-    // This helps set the default command. It sets it to DriveJoystick so that way RobotContainer
-    // can grab the information and utilize it for the given controller, in this case joystickDriver
-    
-    /*
-    Start of Shooter section
-    */
-    
-    shooterMotor = new CANSparkMax(Constants.shooterMotorCanAddress, MotorType.kBrushed); // instantiates new shooter motor with specific ID
+    // This helps set the default command. It sets it to DriveJoystick so that way
+    // RobotContainer
+    // can grab the information and utilize it for the given controller, in this
+    // case joystickDriver
 
-    shooterMotorEncoder = new CANEncoder(shooterMotor, EncoderType.kHallSensor, 42); // instantiates a new encoder for the shooterMotor
-    
+    /*
+     * Start of Shooter section
+     */
+
+    shooterMotor = new CANSparkMax(Constants.shooterMotorCanAddress, MotorType.kBrushed); // instantiates new shooter
+                                                                                          // motor with specific ID
+    // Shooter PID Setup
+    shooter_pid = shooterMotor.getPIDController();
+    shooter_pid.setP(Constants.Kp);
+    shooter_pid.setI(Constants.Ki);
+    shooter_pid.setD(Constants.Kd);
+
+    shooterMotorEncoder = new CANEncoder(shooterMotor, EncoderType.kHallSensor, 42); // instantiates a new encoder for
+                                                                                     // the shooterMotor
     shooterBallRelease = new DoubleSolenoid(Constants.shooterGateForwardChannel, Constants.shooterGateReverseChannel);
-    
+
     shooter = new Shooter(); // new Shooter object
     
     //pneumatics = new Pneumatics(); //instantiates a new pneuamtics object
