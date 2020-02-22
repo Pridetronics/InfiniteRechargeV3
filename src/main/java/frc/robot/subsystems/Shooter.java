@@ -24,14 +24,14 @@ public class Shooter extends SubsystemBase
   /**
    * Creates a new Shooter.
    */
-  private CANSparkMax shooterMotor; // creates a new motor variable
+  // private CANSparkMax shooterMotor; // creates a new motor variable
   private final DoubleSolenoid m_shooterBallRelease; 
   private CANPIDController shooter_pid;
   
   public Shooter() 
   {
     //Launches power cells (balls) into the goals (levels 1, 2, and 3).
-    shooterMotor = RobotContainer.shooterMotor; // references shooter motor from RobotContainer
+    // shooterMotor = RobotContainer.shooterMotor; // references shooter motor from RobotContainer
     shooter_pid = RobotContainer.shooter_pid;
     m_shooterBallRelease = RobotContainer.shooterBallRelease;
   }
@@ -47,8 +47,8 @@ public class Shooter extends SubsystemBase
   {
       // @param speed - Speed in RPM's
       double shooterSpeed = speed; // declares a variable that is set to the speed parameter
-      shooter_pid.setReference(shooterSpeed, ControlType.kVelocity);
-      // shooterMotor.set(shooterSpeed); // runs the motor at the speed of the parameter
+      shooter_pid.setReference(shooterSpeed, ControlType.kVelocity); // sets the PID loop to the speed under the Velocity type
+      // shooterMotor.set(shooterSpeed); // runs the motor at the speed of the parameter, old
 
   }
 
@@ -60,7 +60,7 @@ public class Shooter extends SubsystemBase
 
   public void retractGate() // This method will bring the gate back up again
   {
-    //This lets the air go through, which should close the gate
+    //This lets the air release, which should close the gate
     m_shooterBallRelease.set(DoubleSolenoid.Value.kReverse);
   }
 }
