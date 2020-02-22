@@ -115,6 +115,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   // The container for the robot. Contains subsystems, OI devices, and commands.
   public static CANSparkMax leftDriveMotorLead; // Creates new talon motor for leading left drive
   public static CANSparkMax rightDriveMotorLead; // Creates new talon motor for leading right drive
+  public static CANSparkMax leftDriveMotorFollow;
+  public static CANSparkMax rightDriveMotorFollow;
   public static CANSparkMax intakeMotor;
   public static CANSparkMax elevatorMotor;
   public static TalonSRX raiseRodMotor;
@@ -186,13 +188,19 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     */
     /********************************************************************************************/
     
-    leftDriveMotorLead = new CANSparkMax(Constants.LEFT_DRIVE_MOTOR_LEAD, MotorType.kBrushed); // Creates new talon motor for leading left drive
-    leftDriveMotorLead.setInverted(false); // Inverts Left Drive Motor
+    leftDriveMotorLead = new CANSparkMax(Constants.LEFT_DRIVE_MOTOR_LEAD, MotorType.kBrushless); // Creates new talon motor for leading left drive
+    leftDriveMotorLead.setInverted(true); // Inverts Left Drive Motor
     leftDriveMotorLead.set(0); // Sets speed to 0 (anywhere between -1 and 1)
+
+    leftDriveMotorFollow = new CANSparkMax(Constants.LEFT_DRIVE_MOTOR_FOLLOW, MotorType.kBrushless);
+    leftDriveMotorFollow.follow(leftDriveMotorLead);
     
-    rightDriveMotorLead = new CANSparkMax(Constants.RIGHT_DRIVE_MOTOR_LEAD, MotorType.kBrushed); // Creates new talon motor for leading right drive
-    rightDriveMotorLead.setInverted(false); // Inverts Right Drive Motor
+    rightDriveMotorLead = new CANSparkMax(Constants.RIGHT_DRIVE_MOTOR_LEAD, MotorType.kBrushless); // Creates new talon motor for leading right drive
+    rightDriveMotorLead.setInverted(true); // Inverts Right Drive Motor
     rightDriveMotorLead.set(0); // Sets speed to 0 (anywhere between -1 and 1)
+
+    rightDriveMotorFollow = new CANSparkMax(Constants.RIGHT_DRIVE_MOTOR_FOLLOW, MotorType.kBrushless);
+    rightDriveMotorFollow.follow(rightDriveMotorLead);
 
     leftDrive_pid = leftDriveMotorLead.getPIDController();
     rightDrive_pid = rightDriveMotorLead.getPIDController();

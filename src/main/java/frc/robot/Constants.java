@@ -20,6 +20,8 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 public final class Constants {
     public static final int LEFT_DRIVE_MOTOR_LEAD = 1;
     public static final int RIGHT_DRIVE_MOTOR_LEAD = 2;
+    public static final int LEFT_DRIVE_MOTOR_FOLLOW = 3;
+    public static final int RIGHT_DRIVE_MOTOR_FOLLOW = 4;
     public static final int INTAKE_MOTOR_CAN_ADDRESS = 5;
     public static final int ELEVATOR_MOTOR_CAN_ADDRESS = 7;
     public static final int RAISE_CLIMB_MOTOR_ADDRESS = 8;
