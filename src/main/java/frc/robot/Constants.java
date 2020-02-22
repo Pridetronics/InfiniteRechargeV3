@@ -44,30 +44,30 @@ import edu.wpi.first.wpilibj.Victor;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final int leftDriveMotorLead = 1;
-    public static final int rightDriveMotorLead = 2;
-    public static final int intakeMotorCanAddress = 5;
-    public static final int elevatorMotorLeadAddress = 6;
-    public static final int elevatorMotorFollowAddress = 7;
-    public static final int raiseClimbMotorAddress = 8;
-    public static final int telescopicClimbMotorAddress = 9;
+    public static final int LEFT_DRIVE_MOTOR_LEAD = 1;
+    public static final int RIGHT_DRIVE_MOTOR_LEAD = 2;
+    public static final int INTAKE_MOTOR_CAN_ADDRESS = 5;
+    //public static final int ELEVATOR_MOTOR_LEAD_ADDRESS = 6;
+    public static final int ELEVATOR_MOTOR_CAN_ADDRESS = 7;
+    public static final int RAISE_CLIMB_MOTOR_ADDRESS = 8;
+    public static final int TELESCOPIC_CLIMB_MOTOR_ADDRESS = 9;
     //changed for testing
-    public static final int shooterMotorCanAddress = 2; // creates can address for shooter motor
+    public static final int SHOOTER_MOTOR_CAN_ADDRESS = 2; // creates can address for shooter motor
 
     public static DifferentialDrive robotDrive; // Creates new differential drive
 
     public static final double lowShooterSpeed = 0.; // creates the speed for the LowSpeedShooter
 
     //These constants will be changed when I found out the actual channels
-    public static final int shooterGateForwardChannel = 5;
-    public static final int shooterGateReverseChannel = 4;
+    public static final int SHOOTER_GATE_FORWARD_CHANNEL = 5;
+    public static final int SHOOTER_GATE_RELEASE_CHANNEL = 4;
     public static final int INTAKE_SOLENOID_FORWARD_CHANNEL = 0;
     public static final int INTAKE_SOLENOID_REVERSE_CHANNEL = 1;
 
-    public static final int intakeLimitSwitchChannel = 1;
-    public static final int shooterLimitSwitchChannel = 1;
-    public static final int upperClimbLimitChannel = 0;
-    public static final int lowerClimbLimitChannel = 1;
+    public static final int INTAKE_LIMIT_SWITCH_CHANNEL = 1;
+    public static final int SHOOTER_LIMIT_SWITCH_CHANNEL = 1;
+    public static final int UPPER_CLIMB_LIMIT_CHANNEL = 0;
+    public static final int LOWER_CLIMB_LIMIT_CHANNEL = 1;
 
     public static final double INTAKE_MOTOR_SPEED = 0.55;
     public static final double TELESCOPIC_ROD_MOTOR_SPEED = 0.2;
@@ -76,7 +76,9 @@ public final class Constants {
 
     public static final double WINCH_TIMEOUT = 5.0;
 
-    public final double shooterSpeed = 3300.0/5676.0;
+    //public static final int 
+
+    //public final double shooterSpeed = 3300.0/5676.0;
 
     public static void init() {
 

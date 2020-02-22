@@ -181,11 +181,11 @@ public class RobotContainer { // The robot's subsystems and commands are defined
       Start of driver section
     */
     
-    leftDriveMotorLead = new CANSparkMax(Constants.leftDriveMotorLead, MotorType.kBrushed); // Creates new talon motor for leading left drive
+    leftDriveMotorLead = new CANSparkMax(Constants.LEFT_DRIVE_MOTOR_LEAD, MotorType.kBrushed); // Creates new talon motor for leading left drive
     leftDriveMotorLead.setInverted(false); // Inverts Left Drive Motor
     leftDriveMotorLead.set(0); // Sets speed to 0 (anywhere between -1 and 1)
     
-    rightDriveMotorLead = new CANSparkMax(Constants.rightDriveMotorLead, MotorType.kBrushed); // Creates new talon motor for leading right drive
+    rightDriveMotorLead = new CANSparkMax(Constants.RIGHT_DRIVE_MOTOR_LEAD, MotorType.kBrushed); // Creates new talon motor for leading right drive
     rightDriveMotorLead.setInverted(false); // Inverts Right Drive Motor
     rightDriveMotorLead.set(0); // Sets speed to 0 (anywhere between -1 and 1)
 
@@ -201,11 +201,11 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     Start of Shooter section
     */
     
-    shooterMotor = new CANSparkMax(Constants.shooterMotorCanAddress, MotorType.kBrushed); // instantiates new shooter motor with specific ID
+    shooterMotor = new CANSparkMax(Constants.SHOOTER_MOTOR_CAN_ADDRESS, MotorType.kBrushed); // instantiates new shooter motor with specific ID
 
     shooterMotorEncoder = new CANEncoder(shooterMotor, EncoderType.kHallSensor, 42); // instantiates a new encoder for the shooterMotor
     
-    shooterBallRelease = new DoubleSolenoid(Constants.shooterGateForwardChannel, Constants.shooterGateReverseChannel);
+    shooterBallRelease = new DoubleSolenoid(Constants.SHOOTER_GATE_FORWARD_CHANNEL, Constants.SHOOTER_GATE_RELEASE_CHANNEL);
     
     shooter = new Shooter(); // new Shooter object
     
@@ -255,11 +255,11 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     
     intakeExtendRetract = new DoubleSolenoid(Constants.INTAKE_SOLENOID_FORWARD_CHANNEL, Constants.INTAKE_SOLENOID_REVERSE_CHANNEL);
     
-    intakeMotor = new CANSparkMax(Constants.intakeMotorCanAddress, MotorType.kBrushless); //The motor (CANSparkMax) is defined with a type and port (port 5, and motor type = brushless)
+    intakeMotor = new CANSparkMax(Constants.INTAKE_MOTOR_CAN_ADDRESS, MotorType.kBrushless); //The motor (CANSparkMax) is defined with a type and port (port 5, and motor type = brushless)
     ///intakeMotor =  new Talon(5); //Motor is defined as a specified motor under port five (Talon)
     intakeMotor.set(0); //Initially sets motor value to 0, will not run without further command
 
-    elevatorMotor = new CANSparkMax(Constants.elevatorMotorFollowAddress, MotorType.kBrushless); //Motor is deinfed under 7th port (CANSparkMax)
+    elevatorMotor = new CANSparkMax(Constants.ELEVATOR_MOTOR_CAN_ADDRESS, MotorType.kBrushless); //Motor is deinfed under 7th port (CANSparkMax)
     ///elevatorMotorFollow = new Talon(7); // Motor is defined under port seven (Talon)
     elevatorMotor.set(0); //Sets motor speed to 0
     elevatorMotor.follow(intakeMotor); // Vertical follow motor will do everthing the vertical lead motor does
@@ -276,18 +276,18 @@ public class RobotContainer { // The robot's subsystems and commands are defined
       Start of climb section
     */
 
-    upperClimbLimitSwitch = new DigitalInput(Constants.upperClimbLimitChannel);
-    lowerClimbLimitSwitch = new DigitalInput(Constants.lowerClimbLimitChannel);
+    upperClimbLimitSwitch = new DigitalInput(Constants.UPPER_CLIMB_LIMIT_CHANNEL);
+    lowerClimbLimitSwitch = new DigitalInput(Constants.LOWER_CLIMB_LIMIT_CHANNEL);
     /*
       If the limit switch is closed, the value is 0. If the limit switch is open, the value is 1
     */
     
-    raiseRodMotor = new WPI_TalonSRX(Constants.raiseClimbMotorAddress);
+    raiseRodMotor = new WPI_TalonSRX(Constants.RAISE_CLIMB_MOTOR_ADDRESS);
     raiseRodMotor.setNeutralMode(NeutralMode.Brake);
     //talonMotorController = new BaseMotor(Constants.raiseClimbMotorAddress, );
     //raiseClimbMotor.set(0);
 
-    spoolWinchMotor = new CANSparkMax(Constants.telescopicClimbMotorAddress, MotorType.kBrushless);
+    spoolWinchMotor = new CANSparkMax(Constants.TELESCOPIC_CLIMB_MOTOR_ADDRESS, MotorType.kBrushless);
     spoolWinchMotor.setIdleMode(IdleMode.kBrake);
     //telescopicClimbMotor.set(0);
     // The numbers in the parenthesis represents the ports each controller goes to. 
@@ -304,8 +304,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
         new DescendTelescopicClimb(joystickShooter, climb),
         new RaiseRobot(Constants.WINCH_TIMEOUT, climb)));
     
-    intakeLimitSwitch = new DigitalInput(Constants.intakeLimitSwitchChannel);
-    shooterLimitSwitch = new DigitalInput(Constants.shooterLimitSwitchChannel);
+    intakeLimitSwitch = new DigitalInput(Constants.INTAKE_LIMIT_SWITCH_CHANNEL);
+    shooterLimitSwitch = new DigitalInput(Constants.SHOOTER_LIMIT_SWITCH_CHANNEL);
 
     ballCounter = new Counter(CounterBase.EncodingType.k2X, intakeLimitSwitch, shooterLimitSwitch, false);
     
