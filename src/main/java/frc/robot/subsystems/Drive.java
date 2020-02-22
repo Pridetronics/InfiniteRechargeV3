@@ -8,10 +8,14 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.ControlType;
 
 public class Drive extends SubsystemBase { // Creates a new Drive.
    
@@ -20,6 +24,12 @@ public class Drive extends SubsystemBase { // Creates a new Drive.
 
   private CANSparkMax leftDriveMotor;
   private CANSparkMax rightDriveMotor;
+
+  private CANPIDController m_leftDrive_pid;
+  private CANPIDController m_rightDrive_pid;
+
+  private double leftDriveMotorRPM;
+  private double rightDriveMotorRPM;
  
   public Drive() {
     // The ints inside the params of Drive () is called in RobotContainer
@@ -27,7 +37,9 @@ public class Drive extends SubsystemBase { // Creates a new Drive.
  
     leftDriveMotor = RobotContainer.leftDriveMotorLead; // references motors from RobotContainer
     rightDriveMotor =  RobotContainer.rightDriveMotorLead;
-    
+
+    m_leftDrive_pid = RobotContainer.leftDrive_pid;
+    m_rightDrive_pid = RobotContainer.rightDrive_pid;
     
     robotDrive = new DifferentialDrive(leftDriveMotor, rightDriveMotor);
     // Constructs the differential drive with the motors
@@ -72,7 +84,12 @@ public void setDrive() {
     // Defines the variables so that way tank can work
     // Located in Drive because the drivetrain is grabbed from this subsystem
     
-    robotDrive.tankDrive(leftValue, rightValue); // Grabs the raw axis from DriveJoystick    
+    //robotDrive.tankDrive(leftValue, rightValue); // Grabs the raw axis from DriveJoystick
+    leftDriveMotorRPM = leftValue * Constants.MAX_SHOOTER_RPM;
+    rightDriveMotorRPM = rightValue * Constants.MAX_SHOOTER_RPM;
+
+    m_leftDrive_pid.setReference(leftDriveMotorRPM, ControlType.kVelocity);
+    m_rightDrive_pid.setReference(rightDriveMotorRPM, ControlType.kVelocity);
   }
   
 }

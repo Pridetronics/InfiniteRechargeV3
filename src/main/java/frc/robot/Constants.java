@@ -49,7 +49,7 @@ public final class Constants {
 
     public static final double MAX_SHOOTER_RPM = 5676.0;
 
-    // PID Setup
+    // Shooter PID Setup
     public static final double lowShooterSpeed = 3300.; // creates the speed for the LowSpeedShooter
     public static final double Kp = 0.0002;
     public static final double Ki = 0.000001;
@@ -58,6 +58,16 @@ public final class Constants {
     // public static final double kFF = 0.000156; 
     // public static final double kMaxOutput = 1; 
     // public static final double kMinOutput = -1;
+
+    //Left Drive PID Setup
+    public static final double LEFT_DRIVE_kP = 0.03;
+    public static final double LEFT_DRIVE_kI = 0.0;
+    public static final double LEFT_DRIVE_kD = 0.0;
+
+    //Right Drive PID Setup
+    public static final double RIGHT_DRIVE_kP = 0.03;
+    public static final double RIGHT_DRIVE_kI = 0.0;
+    public static final double RIGHT_DRIVE_kD = 0.0;
 
     public static void init() {
 

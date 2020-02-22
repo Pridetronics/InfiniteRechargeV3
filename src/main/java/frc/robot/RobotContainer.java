@@ -142,6 +142,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   public static DigitalInput lowerClimbLimitSwitch;
 
   public static CANPIDController shooter_pid;
+  public static CANPIDController leftDrive_pid;
+  public static CANPIDController rightDrive_pid;
 
   public static CANEncoder shooterMotorEncoder; // encoder to measure the speed of the shooterMotor
   
@@ -191,6 +193,17 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     rightDriveMotorLead = new CANSparkMax(Constants.RIGHT_DRIVE_MOTOR_LEAD, MotorType.kBrushed); // Creates new talon motor for leading right drive
     rightDriveMotorLead.setInverted(false); // Inverts Right Drive Motor
     rightDriveMotorLead.set(0); // Sets speed to 0 (anywhere between -1 and 1)
+
+    leftDrive_pid = leftDriveMotorLead.getPIDController();
+    rightDrive_pid = rightDriveMotorLead.getPIDController();
+
+    leftDrive_pid.setP(Constants.LEFT_DRIVE_kP);
+    leftDrive_pid.setI(Constants.LEFT_DRIVE_kI);
+    leftDrive_pid.setD(Constants.LEFT_DRIVE_kD);
+
+    rightDrive_pid.setP(Constants.RIGHT_DRIVE_kP);
+    rightDrive_pid.setI(Constants.RIGHT_DRIVE_kI);
+    rightDrive_pid.setD(Constants.RIGHT_DRIVE_kD);
 
     robotDrive = new Drive();
     // It sets a new drive and uses the ints 1 and 2. The order matters.
