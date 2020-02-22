@@ -240,8 +240,8 @@ public static CANEncoder rightDriveMotorLeadEncoder;
    * 
    * @return the command to run in autonomous
    */
-  public Command getDriveThreeFeetAuton() {
+  public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return getDriveThreeFeetAuton();
+    return getAutonomousCommand();
   }
 }

@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
   
   public static final String RobotContainer = null;
 
-  private Command DriveForwardThreeFeetAuton;
+  private Command autonomousCommand;
 
   public RobotContainer m_robotContainer;
 
@@ -87,13 +87,13 @@ public class Robot extends TimedRobot {
   //This autonomous runs the autonomous command selected by your {@link RobotContainer} class.
   @Override
   public void autonomousInit() {
-    DriveForwardThreeFeetAuton = m_robotContainer.getDriveThreeFeetAuton();
+    autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
-    if (DriveForwardThreeFeetAuton != null)    {
+    if (autonomousCommand != null)    {
 
 
-      DriveForwardThreeFeetAuton.schedule(); // This was all pre-created, worry about this later
+      autonomousCommand.schedule(); // This was all pre-created, worry about this later
     }
   }
 
@@ -109,8 +109,8 @@ public class Robot extends TimedRobot {
     // continue until interrupted by another command, remove
     // this line or comment it out.
 
-    if (DriveForwardThreeFeetAuton != null) {
-      DriveForwardThreeFeetAuton.cancel();
+    if (autonomousCommand != null) {
+      autonomousCommand.cancel();
     }
   }
 
