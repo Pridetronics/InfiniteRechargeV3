@@ -12,9 +12,7 @@ import com.revrobotics.CANEncoder;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.Pneumatics;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.Pneumatics.ballReleasePiston;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -24,8 +22,6 @@ public class ReleaseGate extends CommandBase {
    */
    private double m_speed;
    private Joystick m_joystickShooter; // empty variables to bring in objects
-   //private Pneumatics m_pneumatics;
-   public static ballReleasePiston ballRelease; // creates new ballReleasePiston enum
    private CANEncoder m_shooterMotorEncoder; // creates empty encoder object
    private double m_shooterMotorRPM; // variable represents the rpm of the shooter motor
    private Shooter m_shooter;

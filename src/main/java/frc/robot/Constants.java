@@ -61,12 +61,15 @@ public final class Constants {
     //These constants will be changed when I found out the actual channels
     public static final int shooterGateForwardChannel = 5;
     public static final int shooterGateReverseChannel = 4;
+    public static final int INTAKE_SOLENOID_FORWARD_CHANNEL = 0;
+    public static final int INTAKE_SOLENOID_REVERSE_CHANNEL = 1;
 
     public static final int intakeLimitSwitchChannel = 1;
     public static final int shooterLimitSwitchChannel = 1;
     public static final int upperClimbLimitChannel = 0;
     public static final int lowerClimbLimitChannel = 1;
 
+    public static final double INTAKE_MOTOR_SPEED = 0.55;
     public static final double TELESCOPIC_ROD_MOTOR_SPEED = 0.2;
     public static final double INVERSE_TELESCOPIC_MOTOR_SPEED = -0.2;
     public static final double WINCH_MOTOR_SPEED = 0.2;

@@ -90,12 +90,10 @@ import frc.robot.commands.IntakeRun;
 import frc.robot.commands.LowSpeedShooter;
 import frc.robot.commands.RaiseRobot;
 import frc.robot.commands.ReleaseGate;
-import frc.robot.commands.ElevatorRun;
+import frc.robot.commands.ExtendRetractIntake;
 import frc.robot.commands.ExtendTelescopicClimb;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Pneumatics;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.Elevator;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
@@ -131,7 +129,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   public static Joystick joystickShooter; //The name of the second controller, secondary driver
   
   public JoystickButton intakeButton; //Button to run the intake 
-  public JoystickButton elevatorButton; //Button to run the intake Vertical
+  public JoystickButton intakeExtendRetractButton; //Button to run the intake Vertical
   public static CANSparkMax intakeMotor;
   public static CANSparkMax elevatorMotor;
   public static TalonSRX raiseRodMotor;
@@ -165,6 +163,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   public static DigitalInput lowerClimbLimitSwitch;
 
   public static DoubleSolenoid intakeExtendRetract;
+
+  public static Intake intake;
 
   public BaseMotorController talonMotorController;
 
@@ -253,7 +253,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
       Start of intake section
     */
     
-    intakeExtendRetract
+    intakeExtendRetract = new DoubleSolenoid(Constants.INTAKE_SOLENOID_FORWARD_CHANNEL, Constants.INTAKE_SOLENOID_REVERSE_CHANNEL);
     
     intakeMotor = new CANSparkMax(Constants.intakeMotorCanAddress, MotorType.kBrushless); //The motor (CANSparkMax) is defined with a type and port (port 5, and motor type = brushless)
     ///intakeMotor =  new Talon(5); //Motor is defined as a specified motor under port five (Talon)
@@ -264,12 +264,14 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     elevatorMotor.set(0); //Sets motor speed to 0
     elevatorMotor.follow(intakeMotor); // Vertical follow motor will do everthing the vertical lead motor does
 
-    intakeButton = new JoystickButton(joystickDriver, 6); // Right Upper Bumper, sets intake Button to a controller
-    intakeButton.whileHeld(new IntakeRun());//While the button is being held, the command is being run
-  
-    elevatorButton = new JoystickButton(joystickDriver, 5); //Left Upper Bumper, elevator button  to a controller
-    elevatorButton.whileHeld(new ElevatorRun());//While held, command is being run, references command from commands. Hence imports
+    intakeButton = new JoystickButton(joystickDriver, 5); // Right Upper Bumper, sets intake Button to a controller
+    intakeExtendRetractButton = new JoystickButton(joystickDriver, 7); //Left Upper Bumper, elevator button  to a controller
+    
+    intake = new Intake();
 
+    intakeExtendRetractButton.whenPressed(new ExtendRetractIntake(intake));//While held, command is being run, references command from commands. Hence imports
+    intakeButton.whenHeld(new IntakeRun(intake));//While the button is being held, the command is being run
+    
     /*
       Start of climb section
     */
@@ -297,11 +299,11 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
     raiseTelescopicRodButton.whileHeld(new ExtendTelescopicClimb(joystickShooter, climb));
 
+    /*
     liftRobotButton.whileHeld(new SequentialCommandGroup(
         new DescendTelescopicClimb(joystickShooter, climb),
-        new RaiseRobot(Constants.WINCH_TIMEOUT, climb)
-        ));
-    
+        new RaiseRobot(Constants.WINCH_TIMEOUT, climb)));
+    */
     intakeLimitSwitch = new DigitalInput(Constants.intakeLimitSwitchChannel);
     shooterLimitSwitch = new DigitalInput(Constants.shooterLimitSwitchChannel);
 
