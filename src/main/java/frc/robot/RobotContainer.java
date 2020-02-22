@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.Autonomous;
 import frc.robot.commands.CloseGate;
 import frc.robot.commands.DriveJoystick;
 import frc.robot.subsystems.Drive;
@@ -28,7 +27,7 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Elevator;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANEncoder;
-import frc.robot.commands.DriveForwardThreeFeetAuton;
+import frc.robot.commands.DriveTwoSeconds;
 import frc.robot.Robot;
 
 
@@ -97,7 +96,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   public static CANEncoder shooterMotorEncoder; // encoder to measure the speed of the shooterMotor
 
   //private final Drive m_robotDrive = new Drive();
-  private final Autonomous m_auton;
+  private final DriveTwoSeconds m_auton;
 
   
   public RobotContainer() {
@@ -130,7 +129,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     rightDriveMotorLeadEncoder = new CANEncoder(rightDriveMotorLead);
     
     robotDrive = new Drive();
-    m_auton = new Autonomous(robotDrive);
+    m_auton = new DriveTwoSeconds(robotDrive);
     // It sets a new drive and uses the ints 1 and 2. The order matters.
     // 1 is assigned to leftDriveMotorAddress, whereas 2 is rightDriveMotorAddress
  

@@ -51,7 +51,7 @@ public class DriveForwardThreeFeetAuton extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_robotDrive.tankDrive(-.85 , -.85);
+    m_robotDrive.tankDrive(-.95 , -.95);
     System.out.println(leftDriveMotorEncoder.getPosition());
     System.out.println(rightDriveMotorEncoder.getPosition());
   }
@@ -68,7 +68,7 @@ public class DriveForwardThreeFeetAuton extends CommandBase {
   @Override
   public boolean isFinished() {
     double averageDistance = leftDriveMotorEncoder.getPosition() + rightDriveMotorEncoder.getPosition()/2.0;
-   if (averageDistance > 36){
+   if (averageDistance > 72){
     return false;
    }
 

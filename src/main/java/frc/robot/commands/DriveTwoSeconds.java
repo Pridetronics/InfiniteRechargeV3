@@ -14,7 +14,7 @@ import frc.robot.RobotContainer;
 import frc.robot.Constants;
 import com.revrobotics.CANSparkMax;
 
-public class Autonomous extends CommandBase {
+public class DriveTwoSeconds  extends CommandBase {
   private CANSparkMax leftDriveMotorLead;
   private CANSparkMax rightDriveMotorLead;
 
@@ -24,7 +24,7 @@ public class Autonomous extends CommandBase {
   /**
    * Creates a new Autonomous.
    */
-  public Autonomous(Drive robotDrive) {
+  public DriveTwoSeconds (Drive robotDrive) {
     // Use addRequirements() here to declare subsystem dependencies.
     leftDriveMotorLead = RobotContainer.leftDriveMotorLead;
     rightDriveMotorLead = RobotContainer.rightDriveMotorLead;
@@ -44,7 +44,7 @@ public class Autonomous extends CommandBase {
   public void execute() {
     double time = Timer.getFPGATimestamp();
 
-    if (time - startTime < 3){
+    if (time - startTime < 1){
       leftDriveMotorLead.set(-0.25);
       rightDriveMotorLead.set(0.25);
     } else{

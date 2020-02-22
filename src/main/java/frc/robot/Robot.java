@@ -15,7 +15,7 @@ import frc.robot.subsystems.Vision;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.Autonomous;
+import frc.robot.commands.DriveTwoSeconds;
 import frc.robot.commands.DriveForwardThreeFeetAuton;
 
 import com.revrobotics.CANSparkMax;
