@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.Autonomous;
 import frc.robot.commands.CloseGate;
 import frc.robot.commands.DriveJoystick;
 import frc.robot.subsystems.Drive;
@@ -28,6 +29,7 @@ import frc.robot.subsystems.Elevator;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANEncoder;
 import frc.robot.commands.DriveForwardThreeFeetAuton;
+import frc.robot.Robot;
 
 
 import com.revrobotics.CANEncoder;
@@ -54,13 +56,14 @@ import edu.wpi.first.wpilibj.SpeedController;
  */
 public class RobotContainer { // The robot's subsystems and commands are defined here...
   // The container for the robot.  Contains subsystems, OI devices, and commands.
+  
   public static CANSparkMax leftDriveMotorLead; // Creates new talon motor for leading left drive
   public static CANSparkMax rightDriveMotorLead; // Creates new talon motor for leading right drive
   public static CANSparkMax leftDriveMotorFollow;
   public static CANSparkMax rightDriveMotorFollow;
   
-public static CANEncoder leftDriveMotorLeadEncoder;
-public static CANEncoder rightDriveMotorLeadEncoder;
+  public static CANEncoder leftDriveMotorLeadEncoder;
+  public static CANEncoder rightDriveMotorLeadEncoder;
 
   public Joystick joystickDriver; //The name of the first controller, main driver
   public Joystick joystickShooter; //The name of the second controller, secondary driver
@@ -84,6 +87,7 @@ public static CANEncoder rightDriveMotorLeadEncoder;
 
   public static CANSparkMax shooterMotor;
 
+
   public Pneumatics pneumatics; // creates a pneumatic object
   
   public static DoubleSolenoid shooterBallRelease; // represents the solenoids for the different intake systems
@@ -92,14 +96,16 @@ public static CANEncoder rightDriveMotorLeadEncoder;
 
   public static CANEncoder shooterMotorEncoder; // encoder to measure the speed of the shooterMotor
 
+  //private final Drive m_robotDrive = new Drive();
+  private final Autonomous m_auton;
+
   
   public RobotContainer() {
-    
     //Joystick+Controller Definitions 
     this.joystickDriver = new Joystick(0); // 'this.' Grabs a variable specifically
     this.joystickShooter = new Joystick(1); // ^^ Creates less confusion in the system
     // The numbers in the parenthesis represents the ports each controller goes to. 
-    
+   
     /*
       Start of driver section
     */
@@ -124,6 +130,7 @@ public static CANEncoder rightDriveMotorLeadEncoder;
     rightDriveMotorLeadEncoder = new CANEncoder(rightDriveMotorLead);
     
     robotDrive = new Drive();
+    m_auton = new Autonomous(robotDrive);
     // It sets a new drive and uses the ints 1 and 2. The order matters.
     // 1 is assigned to leftDriveMotorAddress, whereas 2 is rightDriveMotorAddress
  
@@ -234,14 +241,17 @@ public static CANEncoder rightDriveMotorLeadEncoder;
 
   }
 
+public Command getAutonomousCommand() {
+ 	return m_auton;
+}
+
+
+
 
   /*
    * Use this to pass the autonomous command to the main {@link Robot} class.
    * 
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return getAutonomousCommand();
-  }
+  
 }

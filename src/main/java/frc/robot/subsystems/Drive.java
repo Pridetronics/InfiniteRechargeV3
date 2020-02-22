@@ -44,12 +44,10 @@ public class Drive extends SubsystemBase { // Creates a new Drive.
     leftDriveMotor = RobotContainer.leftDriveMotorLead; // references motors from RobotContainer
     rightDriveMotor =  RobotContainer.rightDriveMotorLead;
 
-  
-    rightDriveMotorEncoder.setPositionConversionFactor(2.579);
-    leftDriveMotorEncoder.setPositionConversionFactor(2.579);
-    
     robotDrive = new DifferentialDrive(leftDriveMotor, rightDriveMotor);
     // Constructs the differential drive with the motors
+    rightDriveMotorEncoder.setPositionConversionFactor(2.579);
+    leftDriveMotorEncoder.setPositionConversionFactor(2.579);
     
     //SmartDashboard.putString("Drive Mode:", "Tank");                                                                                                              
   }
