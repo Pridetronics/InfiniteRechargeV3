@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Climb;
 
-public class RaiseRobot extends TimedCommand 
+public class RaiseRobot extends CommandBase 
 {
   /**
    * Creates a new RaiseRobot.
@@ -24,7 +24,7 @@ public class RaiseRobot extends TimedCommand
   public RaiseRobot(double timeout, Climb climb) 
   {
     // Use addRequirements() here to declare subsystem dependencies.
-    super(timeout);
+    withTimeout(timeout);
     m_climb = climb;
     
   }
@@ -45,7 +45,7 @@ public class RaiseRobot extends TimedCommand
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end() 
+  public void end(boolean interrupted) 
   {
     m_climb.spoolWinch(0.0);
   }

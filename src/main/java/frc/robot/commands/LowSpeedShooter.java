@@ -18,13 +18,11 @@ public class LowSpeedShooter extends CommandBase {
    */
   //private Pneumatics m_pneumatics;
   private Shooter m_shooter; // new shooter variable to store shooter object in
-  private Joystick m_joystickShooter; // Joystick variable
   private double m_lowShooterSpeed; // allows the low speed constant to be stored in a variable in this command
 
-  public LowSpeedShooter(Joystick joystickShooter, Shooter shooter) {
+  public LowSpeedShooter(Shooter shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_shooter = shooter; // stores shooter object from parameters
-    m_joystickShooter = joystickShooter; // stores the joystickShooter object from parameters
     //m_pneumatics = pneumatics;
     
     addRequirements(m_shooter); // This is probably useful. keep it or suffer
