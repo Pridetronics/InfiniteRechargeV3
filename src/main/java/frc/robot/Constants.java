@@ -47,6 +47,8 @@ public final class Constants {
 
     public static final double SHOOTER_DESIRED_RPM = 3300.0/5767.0;
 
+    public static final double MAX_SHOOTER_RPM = 5676.0;
+
     // PID Setup
     public static final double lowShooterSpeed = 3300.; // creates the speed for the LowSpeedShooter
     public static final double Kp = 0.0002;
