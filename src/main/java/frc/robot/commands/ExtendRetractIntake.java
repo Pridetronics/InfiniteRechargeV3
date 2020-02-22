@@ -17,6 +17,7 @@ public class ExtendRetractIntake extends CommandBase
    */
   private Intake m_intake;
   boolean isIntakeExtended = false;
+  //intake is originally retracted, so it is originally false
 
   public ExtendRetractIntake(Intake intake) 
   {

@@ -229,7 +229,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     
     
     lowSpeedShooterButton.whenHeld(new ParallelCommandGroup(
-        new LowSpeedShooter(this.joystickShooter, shooter),
+        new LowSpeedShooter(shooter),
         new ReleaseGate(this.joystickShooter, shooter, Constants.lowShooterSpeed)));
       
     /*
@@ -299,11 +299,11 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
     raiseTelescopicRodButton.whileHeld(new ExtendTelescopicClimb(joystickShooter, climb));
 
-    /*
+    
     liftRobotButton.whileHeld(new SequentialCommandGroup(
         new DescendTelescopicClimb(joystickShooter, climb),
         new RaiseRobot(Constants.WINCH_TIMEOUT, climb)));
-    */
+    
     intakeLimitSwitch = new DigitalInput(Constants.intakeLimitSwitchChannel);
     shooterLimitSwitch = new DigitalInput(Constants.shooterLimitSwitchChannel);
 
