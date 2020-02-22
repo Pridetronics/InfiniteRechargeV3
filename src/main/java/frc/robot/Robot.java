@@ -135,12 +135,6 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
     // This was not in here, add it. It runs doTeleop which is needed to operate player movement
     
-    if (m_joystickDriver.getRawButton(2)) {
-      m_shooterBallRelease.set(DoubleSolenoid.Value.kForward);
-    } else if (m_joystickDriver.getRawButton(3)) {
-      m_shooterBallRelease.set(DoubleSolenoid.Value.kReverse);
-    }
-    
   }
 
   @Override

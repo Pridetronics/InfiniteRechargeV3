@@ -11,34 +11,44 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
+
+import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
+import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 //import frc.robot.subsystems.RobotContainer;
 
-public class Shooter extends SubsystemBase {
+public class Shooter extends SubsystemBase 
+{
   /**
    * Creates a new Shooter.
    */
-  private CANSparkMax shooterMotor; // creates a new motor variable
+  // private CANSparkMax shooterMotor; // creates a new motor variable
   private final DoubleSolenoid m_shooterBallRelease; 
+  private CANPIDController shooter_pid;
   
-  public Shooter() {
+  public Shooter() 
+  {
     //Launches power cells (balls) into the goals (levels 1, 2, and 3).
-    shooterMotor = RobotContainer.shooterMotor; // references shooter motor from RobotContainer
+    // shooterMotor = RobotContainer.shooterMotor; // references shooter motor from RobotContainer
+    shooter_pid = RobotContainer.shooter_pid;
     m_shooterBallRelease = RobotContainer.shooterBallRelease;
   }
 
   @Override
-  public void periodic() {
+  public void periodic() 
+  {
     // This method will be called once per scheduler run
   }
   /*allows the speed of the motor to be set and then run the motor at that speed
   */
   public void shooterSpeed(double speed)
   {
+      // @param speed - Speed in RPM's
       double shooterSpeed = speed; // declares a variable that is set to the speed parameter
-      shooterMotor.set(shooterSpeed); // runs the motor at the speed of the parameter
+      shooter_pid.setReference(shooterSpeed, ControlType.kVelocity); // sets the PID loop to the speed under the Velocity type
+      // shooterMotor.set(shooterSpeed); // runs the motor at the speed of the parameter, old
 
   }
 
@@ -50,7 +60,7 @@ public class Shooter extends SubsystemBase {
 
   public void retractGate() // This method will bring the gate back up again
   {
-    //This lets the air go through, which should close the gate
+    //This lets the air release, which should close the gate
     m_shooterBallRelease.set(DoubleSolenoid.Value.kReverse);
   }
 }

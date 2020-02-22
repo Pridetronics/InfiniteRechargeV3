@@ -8,48 +8,53 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;// Below adds the necessary imports for the command
+import frc.robot.Constants;
 import frc.robot.subsystems.Intake;//Subsystem this command interfaces with
 import edu.wpi.first.wpilibj.smartdashboard.*; //This is for the SmartDashboard to receive the values below
 import com.revrobotics.CANSparkMax;//Motor Type
 import edu.wpi.first.wpilibj.Talon;//Motor Type (for competitions)
 
-public class IntakeRun extends CommandBase {
+public class IntakeRun extends CommandBase 
+{
   /**
    * Creates a new IntakeRun.
    */
   //References the intake subsystem to grab the motors to be used for the commands
-  private CANSparkMax intakeMotor = Intake.intakeMotor; 
-  ///private Talon intakeMotor = Intake.intakeMotor; //Competition
+  private Intake m_intake;
 
-  public IntakeRun() {
-   
+  public IntakeRun(Intake intake) 
+  {
     // Use addRequirements() here to declare subsystem dependencies.
+    m_intake = intake;
+
+    addRequirements(m_intake);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
+  public void initialize() 
+  {
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    SmartDashboard.putBoolean("Intake", true); //Once this command is running, the dashboard will acknowledge it (Driver comfort?)
-    intakeMotor.set(55);//Once this command is executed the motor will run a little over half speed
-  }
-  public void intakeRun()
+  public void execute() 
   {
-    //SmartDashboard.putBoolean("Intake", true);
-    //intakeMotor.set(55);
+    SmartDashboard.putBoolean("Intake", true); //Once this command is running, the dashboard will acknowledge it (Driver comfort?)
+    m_intake.runIntakeMotors(Constants.INTAKE_MOTOR_SPEED);//Once this command is executed the motor will run a little over half speed
   }
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
+  public void end(boolean interrupted) 
+  {
+
   }
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished() {
+  public boolean isFinished() 
+  {
     return false;
   }
 }

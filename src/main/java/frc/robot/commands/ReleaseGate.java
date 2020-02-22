@@ -12,9 +12,7 @@ import com.revrobotics.CANEncoder;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.Pneumatics;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.Pneumatics.ballReleasePiston;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -24,8 +22,6 @@ public class ReleaseGate extends CommandBase {
    */
    private double m_speed;
    private Joystick m_joystickShooter; // empty variables to bring in objects
-   //private Pneumatics m_pneumatics;
-   public static ballReleasePiston ballRelease; // creates new ballReleasePiston enum
    private CANEncoder m_shooterMotorEncoder; // creates empty encoder object
    private double m_shooterMotorRPM; // variable represents the rpm of the shooter motor
    private Shooter m_shooter;
@@ -37,7 +33,7 @@ public class ReleaseGate extends CommandBase {
     //ballRelease = ballReleasePiston.EXTENDED; // sets the default state of the piston to extended
     m_shooterMotorEncoder = RobotContainer.shooterMotorEncoder; // references an encoder object
     m_speed = speed; // speed depending on which shooter is used(low or high)
-    m_shooterMotorRPM = Constants.shooterMotorRPM; // represents shooter RPM
+    m_shooterMotorRPM = Constants.lowShooterSpeed; // represents shooter RPM
     m_shooter = shooter;
 
     //addRequirements(m_shooter);
@@ -90,7 +86,7 @@ public class ReleaseGate extends CommandBase {
   @Override
   public boolean isFinished() {
     boolean commandState = false;
-    if(m_shooterMotorEncoder.getVelocity() == 0.0)
+    if(m_shooterMotorEncoder.getVelocity() == 5676 * m_speed)
     {
       commandState = true;
     }

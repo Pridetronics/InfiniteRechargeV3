@@ -56,18 +56,35 @@ public final class Constants {
 
     public static DifferentialDrive robotDrive; // Creates new differential drive
 
-    public static final double lowShooterSpeed = 0.6; // creates the speed for the LowSpeedShooter
-    public static final double highShooterSpeed = 0.8; // creates the speed for the HighSpeedShooter
-
-    //changed for testing
-    public static final double shooterMotorRPM = 160.0; // constant that represents shooter RPM
-
     //These constants will be changed when I found out the actual channels
     public static final int shooterGateForwardChannel = 5;
     public static final int shooterGateReverseChannel = 4;
-    
-    public static final int lifeCamWidth = 640;
-    public static final int lifeCamHeight = 480;
+    public static final int INTAKE_SOLENOID_FORWARD_CHANNEL = 0;
+    public static final int INTAKE_SOLENOID_REVERSE_CHANNEL = 1;
+
+    public static final int intakeLimitSwitchChannel = 1;
+    public static final int shooterLimitSwitchChannel = 1;
+    public static final int upperClimbLimitChannel = 0;
+    public static final int lowerClimbLimitChannel = 1;
+
+    public static final double INTAKE_MOTOR_SPEED = 0.55;
+    public static final double TELESCOPIC_ROD_MOTOR_SPEED = 0.2;
+    public static final double INVERSE_TELESCOPIC_MOTOR_SPEED = -0.2;
+    public static final double WINCH_MOTOR_SPEED = 0.2;
+
+    public static final double WINCH_TIMEOUT = 5.0;
+
+
+    //public final double shooterSpeed = 3300.0/5676.0;
+    // PID Setup
+    public static final double lowShooterSpeed = 3300.; // creates the speed for the LowSpeedShooter
+    public static final double Kp = 0.0002;
+    public static final double Ki = 0.000001;
+    public static final double Kd = 0.0004;
+    // public static final double kIz = 0; 
+    // public static final double kFF = 0.000156; 
+    // public static final double kMaxOutput = 1; 
+    // public static final double kMinOutput = -1;
 
     public static void init() {
 

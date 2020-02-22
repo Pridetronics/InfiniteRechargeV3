@@ -10,23 +10,19 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.Pneumatics;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.Pneumatics.ballReleasePiston;
 
 public class LowSpeedShooter extends CommandBase {
   /**
    * Creates a new LowSpeedShooter.
    */
-  private Pneumatics m_pneumatics;
+  //private Pneumatics m_pneumatics;
   private Shooter m_shooter; // new shooter variable to store shooter object in
-  private Joystick m_joystickShooter; // Joystick variable
   private double m_lowShooterSpeed; // allows the low speed constant to be stored in a variable in this command
 
-  public LowSpeedShooter(Joystick joystickShooter, Shooter shooter) {
+  public LowSpeedShooter(Shooter shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_shooter = shooter; // stores shooter object from parameters
-    m_joystickShooter = joystickShooter; // stores the joystickShooter object from parameters
     //m_pneumatics = pneumatics;
     
     addRequirements(m_shooter); // This is probably useful. keep it or suffer
@@ -43,7 +39,6 @@ public class LowSpeedShooter extends CommandBase {
   public void execute() {
     m_lowShooterSpeed = Constants.lowShooterSpeed; // sets the low speed constant to the variable
     m_shooter.shooterSpeed(m_lowShooterSpeed); // calls the shooterSpeed method on the shooter object
-  
   }
 
   // Called once the command ends or is interrupted.
