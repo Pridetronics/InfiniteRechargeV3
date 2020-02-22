@@ -7,33 +7,7 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-
-//import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-//import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANSparkMax;
-/* import com.revrobotics.CANSparkMax.IdleMode;
-import edu.wpi.first.wpilibj.*;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANSparkMax;
- import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMax.*;
-import com.revrobotics.CANSparkMaxLowLevel.*;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Victor; 
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.Victor; 
-
-//import com.revrobotics.CANPIDController;
-
-//import com.revrobotics.ControlType;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -47,16 +21,13 @@ public final class Constants {
     public static final int LEFT_DRIVE_MOTOR_LEAD = 1;
     public static final int RIGHT_DRIVE_MOTOR_LEAD = 2;
     public static final int INTAKE_MOTOR_CAN_ADDRESS = 5;
-    //public static final int ELEVATOR_MOTOR_LEAD_ADDRESS = 6;
     public static final int ELEVATOR_MOTOR_CAN_ADDRESS = 7;
     public static final int RAISE_CLIMB_MOTOR_ADDRESS = 8;
     public static final int TELESCOPIC_CLIMB_MOTOR_ADDRESS = 9;
-    //changed for testing
     public static final int SHOOTER_MOTOR_CAN_ADDRESS = 2; // creates can address for shooter motor
 
     public static DifferentialDrive robotDrive; // Creates new differential drive
 
-    //These constants will be changed when I found out the actual channels
     public static final int SHOOTER_GATE_FORWARD_CHANNEL = 5;
     public static final int SHOOTER_GATE_RELEASE_CHANNEL = 4;
     public static final int INTAKE_SOLENOID_FORWARD_CHANNEL = 0;
@@ -74,8 +45,8 @@ public final class Constants {
 
     public static final double WINCH_TIMEOUT = 5.0;
 
+    public static final double SHOOTER_DESIRED_RPM = 3300.0/5767.0;
 
-    //public final double shooterSpeed = 3300.0/5676.0;
     // PID Setup
     public static final double lowShooterSpeed = 3300.; // creates the speed for the LowSpeedShooter
     public static final double Kp = 0.0002;

@@ -8,12 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-//import edu.wpi.first.wpilibj.drive.RobotDriveBase;
-
 import frc.robot.subsystems.Drive;
-import frc.robot.Robot;
-import frc.robot.RobotContainer;
-
 import edu.wpi.first.wpilibj.Joystick;
 
 public class DriveJoystick extends CommandBase { //Creates a new DriveJoystick.

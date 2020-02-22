@@ -7,7 +7,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Climb;
@@ -18,12 +17,10 @@ public class ExtendTelescopicClimb extends CommandBase
    * Creates a new ExtendTelescopicClimb.
    */
   private Climb m_climb;
-  private Joystick m_joystickShooter;
 
-  public ExtendTelescopicClimb(Joystick joystickShooter, Climb climb) 
+  public ExtendTelescopicClimb(Climb climb) 
   {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_joystickShooter = joystickShooter;
     m_climb = climb;
 
     addRequirements(m_climb);
