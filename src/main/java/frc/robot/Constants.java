@@ -56,8 +56,6 @@ public final class Constants {
 
     public static DifferentialDrive robotDrive; // Creates new differential drive
 
-    public static final double lowShooterSpeed = 0.; // creates the speed for the LowSpeedShooter
-
     //These constants will be changed when I found out the actual channels
     public static final int SHOOTER_GATE_FORWARD_CHANNEL = 5;
     public static final int SHOOTER_GATE_RELEASE_CHANNEL = 4;
@@ -76,9 +74,17 @@ public final class Constants {
 
     public static final double WINCH_TIMEOUT = 5.0;
 
-    //public static final int 
 
     //public final double shooterSpeed = 3300.0/5676.0;
+    // PID Setup
+    public static final double lowShooterSpeed = 3300.; // creates the speed for the LowSpeedShooter
+    public static final double Kp = 0.0002;
+    public static final double Ki = 0.000001;
+    public static final double Kd = 0.0004;
+    // public static final double kIz = 0; 
+    // public static final double kFF = 0.000156; 
+    // public static final double kMaxOutput = 1; 
+    // public static final double kMinOutput = -1;
 
     public static void init() {
 

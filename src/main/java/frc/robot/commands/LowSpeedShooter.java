@@ -39,7 +39,6 @@ public class LowSpeedShooter extends CommandBase {
   public void execute() {
     m_lowShooterSpeed = Constants.lowShooterSpeed; // sets the low speed constant to the variable
     m_shooter.shooterSpeed(m_lowShooterSpeed); // calls the shooterSpeed method on the shooter object
-  
   }
 
   // Called once the command ends or is interrupted.
