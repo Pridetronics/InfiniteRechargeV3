@@ -26,13 +26,13 @@ public class Shooter extends SubsystemBase
    */
   // private CANSparkMax shooterMotor; // creates a new motor variable
   private final DoubleSolenoid m_shooterBallRelease; 
-  private CANPIDController shooter_pid;
+  private CANPIDController shooterMotor_pid;
   
   public Shooter() 
   {
     //Launches power cells (balls) into the goals (levels 1, 2, and 3).
     // shooterMotor = RobotContainer.shooterMotor; // references shooter motor from RobotContainer
-    shooter_pid = RobotContainer.shooter_pid;
+    shooterMotor_pid = RobotContainer.shooterMotor_pid;
     m_shooterBallRelease = RobotContainer.shooterBallRelease;
   }
 
@@ -47,7 +47,7 @@ public class Shooter extends SubsystemBase
   {
       // @param speed - Speed in RPM's
       double shooterSpeed = speed; // declares a variable that is set to the speed parameter
-      shooter_pid.setReference(shooterSpeed, ControlType.kVelocity); // sets the PID loop to the speed under the Velocity type
+      shooterMotor_pid.setReference(shooterSpeed, ControlType.kVelocity); // sets the PID loop to the speed under the Velocity type
       // shooterMotor.set(shooterSpeed); // runs the motor at the speed of the parameter, old
 
   }

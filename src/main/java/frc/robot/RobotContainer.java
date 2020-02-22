@@ -77,6 +77,8 @@ import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -100,6 +102,7 @@ import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
@@ -127,6 +130,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   // The container for the robot. Contains subsystems, OI devices, and commands.
   public static CANSparkMax leftDriveMotorLead; // Creates new talon motor for leading left drive
   public static CANSparkMax rightDriveMotorLead; // Creates new talon motor for leading right drive
+  public static CANPIDController leftDrive_pid;
+  public static CANPIDController rightDrive_pid;
 
   public static Joystick joystickDriver; // The name of the first controller, main driver
   public static Joystick joystickShooter; // The name of the second controller, secondary driver
@@ -146,7 +151,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   public static Shooter shooter; // shooter object to be used for shooter commands
 
   public static CANSparkMax shooterMotor;
-  public static CANPIDController shooter_pid;
+  public static CANPIDController shooterMotor_pid;
 
   // public Pneumatics pneumatics; // creates a pneumatic object
 
@@ -176,7 +181,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   public Counter ballCounter;
 
   // Sets up the NAVX object for robot orientation
-  public AHRS navX;
+  
 
   public RobotContainer() {
 
@@ -215,11 +220,15 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
     shooterMotor = new CANSparkMax(Constants.shooterMotorCanAddress, MotorType.kBrushed); // instantiates new shooter
                                                                                           // motor with specific ID
+    // Drive PID Drive Setup
+    leftDrive_pid = leftDriveMotorLead.getPIDController();
+    rightDrive_pid = rightDriveMotorLead.getPIDController();
+
     // Shooter PID Setup
-    shooter_pid = shooterMotor.getPIDController();
-    shooter_pid.setP(Constants.Kp);
-    shooter_pid.setI(Constants.Ki);
-    shooter_pid.setD(Constants.Kd);
+    shooterMotor_pid = shooterMotor.getPIDController();
+    shooterMotor_pid.setP(Constants.SHOOTER_kP);
+    shooterMotor_pid.setI(Constants.SHOOTER_kI);
+    shooterMotor_pid.setD(Constants.SHOOTER_kD);
 
     shooterMotorEncoder = new CANEncoder(shooterMotor, EncoderType.kHallSensor, 42); // instantiates a new encoder for
                                                                                      // the shooterMotor
