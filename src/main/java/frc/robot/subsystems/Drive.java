@@ -22,14 +22,16 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 
-public class Drive extends SubsystemBase { // Creates a new Drive.
+public class Drive extends PIDSubsystem { // Creates a new Drive.
   // NavX Import
   public AHRS navX;
-  public int rotateToAngleRate = 0;
+  private double rotateToAngleRate = 0;
 
   public DifferentialDrive robotDrive;
   public MecanumDrive mecanumRobotDrive;
@@ -38,10 +40,15 @@ public class Drive extends SubsystemBase { // Creates a new Drive.
 
   private CANSparkMax leftDriveMotor;
   private CANSparkMax rightDriveMotor;
+  private CANEncoder leftDriveMotorEncoder;
+  private CANEncoder rightDriveMotorEncoder;
  
   public Drive() {
-    // The ints inside the params of Drive () is called in RobotContainer
-    driveMode = 0;
+    // Sets up the rotation PID controller
+    super(new PIDController(Constants.TURN_kP, Constants.TURN_kI, Constants.TURN_kD));
+    getController().setTolerance(Constants.TURN_TOLERANCE, Constants.TURN_PS_TOLERANCE); // Sets the tolerance to 5 degrees and the TPS tolerance to 10 degrees
+    getController().enableContinuousInput(-180, 180); // Sets the controller to continuous because its an angle controller
+
     //NavX Setup
     try {
       /* Communicate w/navX-MXP via the MXP SPI Bus.                                     */
@@ -51,37 +58,21 @@ public class Drive extends SubsystemBase { // Creates a new Drive.
       DriverStation.reportError("Error instantiating navX-MXP:  " + ex.getMessage(), true);
     }
 
+    // Sets up the drive motors
     leftDriveMotor = RobotContainer.leftDriveMotorLead; // references motors from RobotContainer
     rightDriveMotor =  RobotContainer.rightDriveMotorLead;
     
-    // Drive Setup
+    // Encoder Setup
+    leftDriveMotorEncoder = leftDriveMotor.getEncoder();
+    rightDriveMotorEncoder = rightDriveMotor.getEncoder();
+    /* Sets the gear ratio for the encoders */
+    leftDriveMotorEncoder.setPositionConversionFactor(Constants.MAIN_MOTOR_RATIO);
+    rightDriveMotorEncoder.setPositionConversionFactor(Constants.MAIN_MOTOR_RATIO);
+
+    // DifferentialDrive Setup
     robotDrive = new DifferentialDrive(leftDriveMotor, rightDriveMotor);
-    robotDrive.setExpiration(0.1);
-
-    // Auto Drive Setup
-    turnPID = new PIDController(Constants.TURN_kP, Constants.TURN_kI, Constants.TURN_kD);
-    turnPID.setTolerance(Constants.TURN_TOLERANCE);
-
-    // Puts the drive mode on the smart dashboard
-    SmartDashboard.putString("Drive Mode:", "Tank");                                                                                                              
+    robotDrive.setExpiration(0.1);    
   }
-
-
-  public void setDrive() {
-      /*
-      if (driveMode == 0) {
-        driveMode = 1;
-        SmartDashboard.putString("Drive Mode", "Arcade");
-      } 
-
-      
-      else {
-        driveMode = 0;
-        SmartDashboard.putString("Drive Mode", "Tank");
-      }
-      */
-  }
-
 
   public void initDefaultCommand() {
     // setDefaultCommand(new DriveTeleop());
@@ -105,16 +96,28 @@ public class Drive extends SubsystemBase { // Creates a new Drive.
     robotDrive.tankDrive(leftValue, rightValue); // Grabs the raw axis from DriveJoystick    
   }
 
-  public void driveDistance(double distance) {
-    // @param distance - Distance to travel in feet
-
+  public void resetAngle() {
+    /* Resets the yaw to 0 to wherever the robot is pointed */
+    /* Only reccomended to press once at the start of the match to calibrate */
+    navX.zeroYaw();
   }
-  public void goToAngle(double angle) {
-    // @param angle - Angle to turn to in degrees
-    turnPID.setSetpoint(angle);
-    rotateToAngleRate = 0;
-    
 
+  public double getRotationRate(){
+    return rotateToAngleRate;
+  }
+
+  public void zeroRotationRate(){
+    rotateToAngleRate = 0;
+  }
+
+    @Override
+  public void useOutput(double output, double setpoint){
+    rotateToAngleRate = output;
+  }
+
+    @Override
+  public double getMeasurement() {
+    return navX.getYaw();
   }
   
 }
