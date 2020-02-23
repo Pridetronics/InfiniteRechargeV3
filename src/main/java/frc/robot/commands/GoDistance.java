@@ -12,6 +12,7 @@ import com.revrobotics.CANPIDController;
 import com.revrobotics.ControlType;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
 
 public class GoDistance extends CommandBase {
@@ -53,10 +54,9 @@ public class GoDistance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // Sets the motor to go the specified distance
-    // Don't need to convert setDistance from feet because of encoder position conversion factor set in RobotContainer
-    leftDrivePID.setReference(setDistance, ControlType.kPosition);
-    rightDrivePID.setReference(setDistance, ControlType.kPosition);
+    double leftStickValue = Constants.AUTO_TRAVEL_SPEED + m_Robotdrive.getRotationRate(); // Adds the rotation rate to ensure the robot drives straight
+    double rightStickValue = Constants.AUTO_TRAVEL_SPEED - m_Robotdrive.getRotationRate(); // Adds the rotation rate to ensure the robot drives straight
+    m_Robotdrive.tankDrive(leftStickValue, rightStickValue, false);
   }
 
   // Called once the command ends or is interrupted.
@@ -70,6 +70,7 @@ public class GoDistance extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    // Don't need to convert setDistance from feet because of encoder position conversion factor set in RobotContainer
     double averageDistance = (leftDriveEncoder.getPosition() + rightDriveEncoder.getPosition()) / 2.0f;
     if (averageDistance >= setDistance) {
       return true;

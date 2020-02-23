@@ -47,10 +47,12 @@ public final class Constants {
 
     public static final double WINCH_TIMEOUT = 5.0f;
 
+    // Auto Setup
+    public static final double AUTO_TRAVEL_SPEED = 0.3f; // Don't put above 0.75, needs some room for turning corrections
     // Gear Ratios
     public static final double MAIN_MOTOR_RATIO = 7.31f; // 1 : 7.31 gear ratio
     // Distance Calculations Setup
-    public static final double WHEEL_CIRCUMFERENCE = 0.5f * Math.PI; // In Feet
+    public static final double WHEEL_CIRCUMFERENCE = 0.5f * Math.PI; // 6 in diameter * 1/12feet * PI = Wheel Circumfrence in feet
     // Drive Turning PID Setup
     public static final double TURN_kP = 0.0001f;
     public static final double TURN_kI = 0.000001f;
