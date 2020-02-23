@@ -29,6 +29,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 public class Drive extends SubsystemBase { // Creates a new Drive.
   // NavX Import
   public AHRS navX;
+  public int rotateToAngleRate = 0;
 
   public DifferentialDrive robotDrive;
   public MecanumDrive mecanumRobotDrive;
@@ -59,7 +60,7 @@ public class Drive extends SubsystemBase { // Creates a new Drive.
 
     // Auto Drive Setup
     turnPID = new PIDController(Constants.TURN_kP, Constants.TURN_kI, Constants.TURN_kD);
-
+    turnPID.setTolerance(Constants.TURN_TOLERANCE);
 
     // Puts the drive mode on the smart dashboard
     SmartDashboard.putString("Drive Mode:", "Tank");                                                                                                              
@@ -104,10 +105,16 @@ public class Drive extends SubsystemBase { // Creates a new Drive.
     robotDrive.tankDrive(leftValue, rightValue); // Grabs the raw axis from DriveJoystick    
   }
 
-  public void autoDrive() {
+  public void driveDistance(double distance) {
+    // @param distance - Distance to travel in feet
+
+  }
+  public void goToAngle(double angle) {
+    // @param angle - Angle to turn to in degrees
+    turnPID.setSetpoint(angle);
+    rotateToAngleRate = 0;
     
 
   }
-
   
 }

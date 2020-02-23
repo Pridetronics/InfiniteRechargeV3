@@ -74,12 +74,12 @@ public final class Constants {
 
     public static final double WINCH_TIMEOUT = 5.0;
 
-
     //public final double shooterSpeed = 3300.0/5676.0;
     // Drive Turning PID Setup
     public static final double TURN_kP = 0.03;
     public static final double TURN_kI = 0;
     public static final double TURN_kD = 0;
+    public static final double TURN_TOLERANCE = 2.0f;
     // Shooter PID Setup
     public static final double SHOOTER_LOW_SPEED = 3300.; // creates the speed for the LowSpeedShooter
     public static final double SHOOTER_kP = 0.0002;
