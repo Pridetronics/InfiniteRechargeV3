@@ -7,33 +7,7 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-
-//import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-//import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANSparkMax;
-/* import com.revrobotics.CANSparkMax.IdleMode;
-import edu.wpi.first.wpilibj.*;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANSparkMax;
- import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMax.*;
-import com.revrobotics.CANSparkMaxLowLevel.*;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Victor; 
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.Victor; 
-
-//import com.revrobotics.CANPIDController;
-
-//import com.revrobotics.ControlType;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -44,28 +18,27 @@ import edu.wpi.first.wpilibj.Victor;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final int leftDriveMotorLead = 1;
-    public static final int rightDriveMotorLead = 2;
-    public static final int intakeMotorCanAddress = 5;
-    public static final int elevatorMotorLeadAddress = 6;
-    public static final int elevatorMotorFollowAddress = 7;
-    public static final int raiseClimbMotorAddress = 8;
-    public static final int telescopicClimbMotorAddress = 9;
-    //changed for testing
-    public static final int shooterMotorCanAddress = 2; // creates can address for shooter motor
+    public static final int LEFT_DRIVE_MOTOR_LEAD = 1;
+    public static final int RIGHT_DRIVE_MOTOR_LEAD = 2;
+    public static final int LEFT_DRIVE_MOTOR_FOLLOW = 3;
+    public static final int RIGHT_DRIVE_MOTOR_FOLLOW = 4;
+    public static final int INTAKE_MOTOR_CAN_ADDRESS = 5;
+    public static final int ELEVATOR_MOTOR_CAN_ADDRESS = 7;
+    public static final int RAISE_CLIMB_MOTOR_ADDRESS = 8;
+    public static final int TELESCOPIC_CLIMB_MOTOR_ADDRESS = 9;
+    public static final int SHOOTER_MOTOR_CAN_ADDRESS = 2; // creates can address for shooter motor
 
     public static DifferentialDrive robotDrive; // Creates new differential drive
 
-    //These constants will be changed when I found out the actual channels
-    public static final int shooterGateForwardChannel = 5;
-    public static final int shooterGateReverseChannel = 4;
+    public static final int SHOOTER_GATE_FORWARD_CHANNEL = 5;
+    public static final int SHOOTER_GATE_RELEASE_CHANNEL = 4;
     public static final int INTAKE_SOLENOID_FORWARD_CHANNEL = 0;
     public static final int INTAKE_SOLENOID_REVERSE_CHANNEL = 1;
 
-    public static final int intakeLimitSwitchChannel = 1;
-    public static final int shooterLimitSwitchChannel = 1;
-    public static final int upperClimbLimitChannel = 0;
-    public static final int lowerClimbLimitChannel = 1;
+    public static final int INTAKE_LIMIT_SWITCH_CHANNEL = 1;
+    public static final int SHOOTER_LIMIT_SWITCH_CHANNEL = 1;
+    public static final int UPPER_CLIMB_LIMIT_CHANNEL = 0;
+    public static final int LOWER_CLIMB_LIMIT_CHANNEL = 1;
 
     public static final double INTAKE_MOTOR_SPEED = 0.55;
     public static final double TELESCOPIC_ROD_MOTOR_SPEED = 0.2;
@@ -87,10 +60,25 @@ public final class Constants {
     public static final double SHOOTER_kP = 0.0002;
     public static final double SHOOTER_kI = 0.000001;
     public static final double SHOOTER_kD = 0.0004;
+    public static final double SHOOTER_DESIRED_RPM = 3300.0/5767.0;
+    public static final double MAX_SHOOTER_RPM = 5676.0;
+  
     // public static final double kIz = 0; 
     // public static final double kFF = 0.000156; 
     // public static final double kMaxOutput = 1; 
     // public static final double kMinOutput = -1;
+
+    //Left Drive PID Setup
+    public static final double LEFT_DRIVE_kP = 0.00003;
+    public static final double LEFT_DRIVE_kI = 0.0;
+    public static final double LEFT_DRIVE_kD = 0.0;
+
+    //Right Drive PID Setup
+    public static final double RIGHT_DRIVE_kP = 0.00003;
+    public static final double RIGHT_DRIVE_kI = 0.0;
+    public static final double RIGHT_DRIVE_kD = 0.0;
+
+    public static final double DEADBAND = 0.02;
 
     public static void init() {
 

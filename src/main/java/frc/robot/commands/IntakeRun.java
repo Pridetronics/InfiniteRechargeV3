@@ -11,8 +11,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;// Below adds the necessary im
 import frc.robot.Constants;
 import frc.robot.subsystems.Intake;//Subsystem this command interfaces with
 import edu.wpi.first.wpilibj.smartdashboard.*; //This is for the SmartDashboard to receive the values below
-import com.revrobotics.CANSparkMax;//Motor Type
-import edu.wpi.first.wpilibj.Talon;//Motor Type (for competitions)
 
 public class IntakeRun extends CommandBase 
 {

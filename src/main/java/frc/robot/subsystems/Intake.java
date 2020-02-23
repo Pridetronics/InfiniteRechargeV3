@@ -9,12 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase; // Imports needed for this subsystem
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Talon;//Motor type (for competitions)
 import com.revrobotics.CANSparkMax;//Motor Type 
-import com.revrobotics.CANSparkMaxLowLevel.MotorType; //Motor Type, specifically the certain CANSparkMaxes we will be using
-
-import frc.robot.Constants; //Class -- These are currently unused
-import frc.robot.Robot;// Class
 import frc.robot.RobotContainer;//Class
 
 /*
@@ -26,7 +21,6 @@ public class Intake extends SubsystemBase
    * Creates a new Intake.
    */
   private CANSparkMax m_intakeMotor;
-  private CANSparkMax m_elevatorMotor;
   private DoubleSolenoid m_intakeExtendRetract;
   
    ///private Talon intakeMotor = RobotContainer.intakeMotor; //Competition Motor--> Intake motor
@@ -35,7 +29,6 @@ public class Intake extends SubsystemBase
    {
     //Collect power cell balls
     m_intakeMotor = RobotContainer.intakeMotor; // Testing Motor: Creates an intake motor
-    m_elevatorMotor = RobotContainer.elevatorMotor;
     m_intakeExtendRetract = RobotContainer.intakeExtendRetract;
 
    }
