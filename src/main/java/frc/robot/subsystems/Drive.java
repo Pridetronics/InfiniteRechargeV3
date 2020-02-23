@@ -39,11 +39,11 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
 
   private CANSparkMax leftDriveMotor;
   private CANSparkMax rightDriveMotor;
-  private CANEncoder leftDriveMotorEncoder;
-  private CANEncoder rightDriveMotorEncoder;
+  public CANEncoder leftDriveMotorEncoder;
+  public CANEncoder rightDriveMotorEncoder;
 
-  private CANPIDController m_leftDrive_pid;
-  private CANPIDController m_rightDrive_pid;
+  public CANPIDController m_leftDrive_pid;
+  public CANPIDController m_rightDrive_pid;
 
   private double leftDriveMotorRPM;
   private double rightDriveMotorRPM;
@@ -69,13 +69,6 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     leftDriveMotor = RobotContainer.leftDriveMotorLead; // references motors from RobotContainer
     rightDriveMotor =  RobotContainer.rightDriveMotorLead;
     
-    // Encoder Setup
-    leftDriveMotorEncoder = leftDriveMotor.getEncoder();
-    rightDriveMotorEncoder = rightDriveMotor.getEncoder();
-    /* Sets the gear ratio for the encoders */
-    leftDriveMotorEncoder.setPositionConversionFactor(Constants.WHEEL_CIRCUMFERENCE / Constants.MAIN_MOTOR_RATIO); // Converts to distance in feet and uses the gearbox ratio too
-    rightDriveMotorEncoder.setPositionConversionFactor(Constants.WHEEL_CIRCUMFERENCE/ Constants.MAIN_MOTOR_RATIO); // Converts to distance in feet and uses the gearbox ratio too
-
     // PID Setup
     kP = Constants.DRIVE_kP;
     kI = Constants.DRIVE_kI;
@@ -84,13 +77,13 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     m_rightDrive_pid = RobotContainer.rightDrive_pid;
 
     // PID coefficients display on SmartDashboard
-    SmartDashboard.putNumber("P Gain", kP);
-    SmartDashboard.putNumber("I Gain", kI);
-    SmartDashboard.putNumber("D Gain", kD);
+    SmartDashboard.putNumber("Drive P Gain", kP);
+    SmartDashboard.putNumber("Drive I Gain", kI);
+    SmartDashboard.putNumber("Drive D Gain", kD);
 
     
     robotDrive = new DifferentialDrive(leftDriveMotor, rightDriveMotor);
-    robotDrive.setExpiration(0.1);    
+    robotDrive.setExpiration(0.1);
   }
 
   public void initDefaultCommand() {
@@ -101,9 +94,9 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
   @Override
   public void periodic() {
       // read PID coefficients from SmartDashboard
-      double p = SmartDashboard.getNumber("P Gain", 0);
-      double i = SmartDashboard.getNumber("I Gain", 0);
-      double d = SmartDashboard.getNumber("D Gain", 0);
+      double p = SmartDashboard.getNumber("Drive P Gain", 0);
+      double i = SmartDashboard.getNumber("Drive I Gain", 0);
+      double d = SmartDashboard.getNumber("Drive D Gain", 0);
   
       // if PID coefficients on SmartDashboard have changed, write new values to controller
       if((p != kP)) { m_leftDrive_pid.setP(p); m_rightDrive_pid.setP(p); kP = p; }

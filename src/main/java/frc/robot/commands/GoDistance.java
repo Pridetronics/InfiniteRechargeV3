@@ -7,52 +7,75 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import com.revrobotics.CANEncoder;
+import com.revrobotics.CANPIDController;
+import com.revrobotics.ControlType;
 
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive;
 
 public class GoDistance extends CommandBase {
 
   private Drive m_Robotdrive;
   private double setDistance;
+  private CANEncoder leftDriveEncoder, rightDriveEncoder;
+  private CANPIDController leftDrivePID, rightDrivePID;
 
   public GoDistance(double distance, Drive robotDrive) {
     // @param distance - Distance to travel in feet
     // @param robotDrive - Main drive system object
     m_Robotdrive = robotDrive;
     setDistance = distance;
+
+    // Encoder Imports
+    leftDriveEncoder = m_Robotdrive.leftDriveMotorEncoder;
+    rightDriveEncoder = m_Robotdrive.rightDriveMotorEncoder;
+
+    // PID Controller Imports
+    leftDrivePID = m_Robotdrive.m_leftDrive_pid;
+    rightDrivePID = m_Robotdrive.m_rightDrive_pid;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    /* Converts the Distance in Feet -> Revolutions */
-    
-
-
     /* Enables the turning PID loop and sets the setpoint */
     /* The only reason we are using the turning PID loop here is to make sure the robot doesn't veer off to the side */
     m_Robotdrive.setSetpoint(m_Robotdrive.getMeasurement()); //Sets the setpoint to where the robot is currently looking
     m_Robotdrive.zeroRotationRate();
     m_Robotdrive.enable();
 
-    /* Imports the Encoders for distance checking */
-    
+    /* Sets the encoder reference distance values to 0 */
+    leftDriveEncoder.setPosition(0f);
+    rightDriveEncoder.setPosition(0f);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // Sets the motor to go the specified distance
+    // Don't need to convert setDistance from feet because of encoder position conversion factor set in RobotContainer
+    leftDrivePID.setReference(setDistance, ControlType.kPosition);
+    rightDrivePID.setReference(setDistance, ControlType.kPosition);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    /* Sets the encoder reference distance values to 0 because why not */
+    leftDriveEncoder.setPosition(0f);
+    rightDriveEncoder.setPosition(0f);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    double averageDistance = (leftDriveEncoder.getPosition() + rightDriveEncoder.getPosition()) / 2.0f;
+    if (averageDistance >= setDistance) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 }

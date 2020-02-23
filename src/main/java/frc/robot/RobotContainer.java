@@ -120,6 +120,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   public static CANSparkMax rightDriveMotorLead; // Creates new talon motor for leading right drive
   public static CANPIDController leftDrive_pid;
   public static CANPIDController rightDrive_pid;
+  public static CANEncoder leftDriveEncoder;
+  public static CANEncoder rightDriveEncoder;
 
   public static Joystick joystickDriver; // The name of the first controller, main driver
   public static Joystick joystickShooter; // The name of the second controller, secondary driver
@@ -207,6 +209,12 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
     rightDriveMotorFollow = new CANSparkMax(Constants.RIGHT_DRIVE_MOTOR_FOLLOW, MotorType.kBrushless);
     rightDriveMotorFollow.follow(rightDriveMotorLead);
+
+    leftDriveEncoder = leftDriveMotorLead.getEncoder();
+    rightDriveEncoder = rightDriveMotorLead.getEncoder();
+    /* Sets the gear ratio for the encoders */
+    leftDriveEncoder.setPositionConversionFactor(Constants.WHEEL_CIRCUMFERENCE / Constants.MAIN_MOTOR_RATIO); // Converts to distance in feet and uses the gearbox ratio too
+    rightDriveEncoder.setPositionConversionFactor(Constants.WHEEL_CIRCUMFERENCE / Constants.MAIN_MOTOR_RATIO); // Converts to distance in feet and uses the gearbox ratio too
 
     leftDrive_pid = leftDriveMotorLead.getPIDController();
     rightDrive_pid = rightDriveMotorLead.getPIDController();

@@ -40,7 +40,7 @@ public class GoToAngle extends CommandBase {
     /* Puts the stick values to the rotation rate and drives the robot */
     /* Will only rotate the robot to the specified value */
     double leftStickValue = m_Robotdrive.getRotationRate();
-    double rightStickValue = m_Robotdrive.getRotationRate();
+    double rightStickValue = -m_Robotdrive.getRotationRate();
     m_Robotdrive.tankDrive(leftStickValue, rightStickValue, false);
   }
 
