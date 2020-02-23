@@ -40,50 +40,38 @@ public final class Constants {
     public static final int UPPER_CLIMB_LIMIT_CHANNEL = 0;
     public static final int LOWER_CLIMB_LIMIT_CHANNEL = 1;
 
-    public static final double INTAKE_MOTOR_SPEED = 0.55;
-    public static final double TELESCOPIC_ROD_MOTOR_SPEED = 0.2;
-    public static final double INVERSE_TELESCOPIC_MOTOR_SPEED = -0.2;
-    public static final double WINCH_MOTOR_SPEED = 0.2;
+    public static final double INTAKE_MOTOR_SPEED = 0.55f;
+    public static final double TELESCOPIC_ROD_MOTOR_SPEED = 0.2f;
+    public static final double INVERSE_TELESCOPIC_MOTOR_SPEED = -0.2f;
+    public static final double WINCH_MOTOR_SPEED = 0.2f;
 
-    public static final double WINCH_TIMEOUT = 5.0;
+    public static final double WINCH_TIMEOUT = 5.0f;
 
     // Gear Ratios
-    public static final double MAIN_MOTOR_RATIO = 0.136799;
+    public static final double MAIN_MOTOR_RATIO = 7.31f; // 1 : 7.31 gear ratio
+    // Distance Calculations Setup
+    public static final double WHEEL_CIRCUMFERENCE = 0.5f * Math.PI; // In Feet
     // Drive Turning PID Setup
-    public static final double TURN_kP = 0.0001;
-    public static final double TURN_kI = 0.000001;
-    public static final double TURN_kD = 0;
+    public static final double TURN_kP = 0.0001f;
+    public static final double TURN_kI = 0.000001f;
+    public static final double TURN_kD = 0f;
     public static final double TURN_TOLERANCE = 5.0f;
     public static final double TURN_PS_TOLERANCE = 10.0f;
     // Shooter PID Setup
-    public static final double SHOOTER_LOW_SPEED = 3300.; // creates the speed for the LowSpeedShooter
-    public static final double SHOOTER_kP = 0.0002;
-    public static final double SHOOTER_kI = 0.000001;
-    public static final double SHOOTER_kD = 0.0004;
-    public static final double SHOOTER_DESIRED_RPM = 3300.0/5767.0;
-    public static final double MAX_SHOOTER_RPM = 5676.0;
-  
-    // public static final double kIz = 0; 
-    // public static final double kFF = 0.000156; 
-    // public static final double kMaxOutput = 1; 
-    // public static final double kMinOutput = -1;
+    public static final double SHOOTER_LOW_SPEED = 3300f; // creates the speed for the LowSpeedShooter
+    public static final double SHOOTER_kP = 0.0002f;
+    public static final double SHOOTER_kI = 0.000001f;
+    public static final double SHOOTER_kD = 0.0004f;
+    public static final double SHOOTER_DESIRED_RPM = 3300.0f / 5767.0f;
+    public static final double MAX_SHOOTER_RPM = 5676.0f;
 
-    //Left Drive PID Setup
-    public static final double LEFT_DRIVE_kP = 0.00003;
-    public static final double LEFT_DRIVE_kI = 0.0;
-    public static final double LEFT_DRIVE_kD = 0.0;
-
-    //Right Drive PID Setup
-    public static final double RIGHT_DRIVE_kP = 0.00003;
-    public static final double RIGHT_DRIVE_kI = 0.0;
-    public static final double RIGHT_DRIVE_kD = 0.0;
-
-    public static final double DEADBAND = 0.02;
+    //Drive PID Setup
+    public static final double DRIVE_kP = 0.0001f;
+    public static final double DRIVE_kI = 0.000001f;
+    public static final double DRIVE_kD = 0f;
+    public static final double DEADBAND = 0.02f;
 
     public static void init() {
-
-
-    
         // LiveWindow.addAcutator("Drive", "robotDrive", myRobot);
         robotDrive.setSafetyEnabled(false);
         robotDrive.setExpiration(0.1);

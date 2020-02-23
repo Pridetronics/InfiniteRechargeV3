@@ -35,7 +35,6 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
 
   public DifferentialDrive robotDrive;
   public MecanumDrive mecanumRobotDrive;
-  public PIDController turnPID;
   public int driveMode;
 
   private CANSparkMax leftDriveMotor;
@@ -48,6 +47,8 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
 
   private double leftDriveMotorRPM;
   private double rightDriveMotorRPM;
+
+  private double kP, kI, kD;
  
   public Drive() {
     // Sets up the rotation PID controller
@@ -57,7 +58,7 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
 
     //NavX Setup
     try {
-      /* Communicate w/navX-MXP via the MXP SPI Bus.                                     */
+      /* Communicate with the navX-MXP via the MXP SPI Bus */
       navX = new AHRS(SPI.Port.kMXP); 
     } catch (RuntimeException ex) {
       // Failed to connect to the navX
@@ -72,12 +73,21 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     leftDriveMotorEncoder = leftDriveMotor.getEncoder();
     rightDriveMotorEncoder = rightDriveMotor.getEncoder();
     /* Sets the gear ratio for the encoders */
-    leftDriveMotorEncoder.setPositionConversionFactor(Constants.MAIN_MOTOR_RATIO);
-    rightDriveMotorEncoder.setPositionConversionFactor(Constants.MAIN_MOTOR_RATIO);
+    leftDriveMotorEncoder.setPositionConversionFactor(Constants.WHEEL_CIRCUMFERENCE / Constants.MAIN_MOTOR_RATIO); // Converts to distance in feet and uses the gearbox ratio too
+    rightDriveMotorEncoder.setPositionConversionFactor(Constants.WHEEL_CIRCUMFERENCE/ Constants.MAIN_MOTOR_RATIO); // Converts to distance in feet and uses the gearbox ratio too
 
     // PID Setup
+    kP = Constants.DRIVE_kP;
+    kI = Constants.DRIVE_kI;
+    kD = Constants.DRIVE_kD;
     m_leftDrive_pid = RobotContainer.leftDrive_pid;
     m_rightDrive_pid = RobotContainer.rightDrive_pid;
+
+    // PID coefficients display on SmartDashboard
+    SmartDashboard.putNumber("P Gain", kP);
+    SmartDashboard.putNumber("I Gain", kI);
+    SmartDashboard.putNumber("D Gain", kD);
+
     
     robotDrive = new DifferentialDrive(leftDriveMotor, rightDriveMotor);
     robotDrive.setExpiration(0.1);    
@@ -90,7 +100,15 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+      // read PID coefficients from SmartDashboard
+      double p = SmartDashboard.getNumber("P Gain", 0);
+      double i = SmartDashboard.getNumber("I Gain", 0);
+      double d = SmartDashboard.getNumber("D Gain", 0);
+  
+      // if PID coefficients on SmartDashboard have changed, write new values to controller
+      if((p != kP)) { m_leftDrive_pid.setP(p); m_rightDrive_pid.setP(p); kP = p; }
+      if((i != kI)) { m_leftDrive_pid.setI(i); m_rightDrive_pid.setI(i); kI = i; }
+      if((d != kD)) { m_leftDrive_pid.setD(d); m_rightDrive_pid.setD(d); kD = d; }
   }
 
   public void doTeleop() {    
@@ -99,6 +117,7 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
 
   protected double applyDeadband(double value, double deadband)
   {
+    // Deadzone function for the tankDrive
     if (Math.abs(value) > deadband) {
       if (value > 0.0) {
         return (value - deadband) / (1.0 - deadband);
@@ -125,7 +144,7 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     rightValue = applyDeadband(rightValue, Constants.DEADBAND);
 
     // Squares the input to make it a exponential response curve instead of linear
-    // to increase fine control while permitting full power.
+    // to increase fine control while permitting full power
     if (squareInputs) 
     {
       leftValue = Math.copySign(leftValue * leftValue, leftValue);
@@ -153,6 +172,10 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
 
   public void zeroRotationRate(){
     rotateToAngleRate = 0;
+  }
+
+  public boolean atSetPoint() {
+    return getController().atSetpoint();
   }
 
     @Override

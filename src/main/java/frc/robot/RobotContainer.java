@@ -211,15 +211,14 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     leftDrive_pid = leftDriveMotorLead.getPIDController();
     rightDrive_pid = rightDriveMotorLead.getPIDController();
 
-    /*
-    leftDrive_pid.setP(Constants.LEFT_DRIVE_kP);
-    leftDrive_pid.setI(Constants.LEFT_DRIVE_kI);
-    leftDrive_pid.setD(Constants.LEFT_DRIVE_kD);
+    // Set the PID constants
+    leftDrive_pid.setP(Constants.DRIVE_kP);
+    leftDrive_pid.setI(Constants.DRIVE_kI);
+    leftDrive_pid.setD(Constants.DRIVE_kD);
 
-    rightDrive_pid.setP(Constants.RIGHT_DRIVE_kP);
-    rightDrive_pid.setI(Constants.RIGHT_DRIVE_kI);
-    rightDrive_pid.setD(Constants.RIGHT_DRIVE_kD);
-    */
+    rightDrive_pid.setP(Constants.DRIVE_kP);
+    rightDrive_pid.setI(Constants.DRIVE_kI);
+    rightDrive_pid.setD(Constants.DRIVE_kD);
 
     robotDrive = new Drive();
     // It sets a new drive and uses the ints 1 and 2. The order matters.

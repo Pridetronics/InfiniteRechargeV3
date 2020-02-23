@@ -9,17 +9,35 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
+import frc.robot.subsystems.Drive;
+
 public class GoDistance extends CommandBase {
-  /**
-   * Creates a new GoDistance.
-   */
-  public GoDistance() {
-    // Use addRequirements() here to declare subsystem dependencies.
+
+  private Drive m_Robotdrive;
+  private double setDistance;
+
+  public GoDistance(double distance, Drive robotDrive) {
+    // @param distance - Distance to travel in feet
+    // @param robotDrive - Main drive system object
+    m_Robotdrive = robotDrive;
+    setDistance = distance;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    /* Converts the Distance in Feet -> Revolutions */
+    
+
+
+    /* Enables the turning PID loop and sets the setpoint */
+    /* The only reason we are using the turning PID loop here is to make sure the robot doesn't veer off to the side */
+    m_Robotdrive.setSetpoint(m_Robotdrive.getMeasurement()); //Sets the setpoint to where the robot is currently looking
+    m_Robotdrive.zeroRotationRate();
+    m_Robotdrive.enable();
+
+    /* Imports the Encoders for distance checking */
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.

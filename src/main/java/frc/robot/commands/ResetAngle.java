@@ -11,50 +11,38 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.subsystems.Drive;
 
-public class GoToAngle extends CommandBase {
+public class ResetAngle extends CommandBase {
   
   private Drive m_Robotdrive;
-  private double setAngle;
 
-  public GoToAngle(double angle, Drive robotDrive) {
-    // @param angle - Angle to turn to in degrees
-    // @param robotDrive - Drive system subclass
-
-    // Imports the parameters
-    setAngle = angle;
+  /* Literally all this command does is set the yaw to 0 wherever
+  the robot is currently looking */
+  /* Use only ONCE at the start of the match when the robot is setup on the field */
+  
+  public ResetAngle(Drive robotDrive) {
+    // Imports the drive system
     m_Robotdrive = robotDrive;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    /* Enables the turning PID loop and sets the setpoint */
-    m_Robotdrive.setSetpoint(setAngle);
-    m_Robotdrive.zeroRotationRate();
-    m_Robotdrive.enable();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    /* Puts the stick values to the rotation rate and drives the robot */
-    /* Will only rotate the robot to the specified value */
-    double leftStickValue = m_Robotdrive.getRotationRate();
-    double rightStickValue = m_Robotdrive.getRotationRate();
-    m_Robotdrive.tankDrive(leftStickValue, rightStickValue, false);
+    m_Robotdrive.resetAngle();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // Disables the PID loop
-    m_Robotdrive.disable();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // Only terminate the command once the angle is set
-    return m_Robotdrive.atSetPoint();
+    return true;
   }
 }
