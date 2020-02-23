@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpiutil.math.MathUtil;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -78,16 +79,46 @@ public void setDrive() {
     //test 1
   }
 
+  protected double applyDeadband(double value, double deadband)
+  {
+    if (Math.abs(value) > deadband) {
+      if (value > 0.0) {
+        return (value - deadband) / (1.0 - deadband);
+      } else {
+        return (value + deadband) / (1.0 - deadband);
+      }
+    } else {
+      return 0.0;
+    }
+  }
 
-  public void tankDrive(double leftValue, double rightValue) {
+  public void tankDrive(double leftValue, double rightValue, boolean squareInputs) {
     // This method was not here, it was created to run the axis values in DriveJoystick
     // Defines the variables so that way tank can work
     // Located in Drive because the drivetrain is grabbed from this subsystem
     
     //robotDrive.tankDrive(leftValue, rightValue); // Grabs the raw axis from DriveJoystick
+    // Checks that the value is between -1 and 1
+    leftValue = MathUtil.clamp(leftValue, -1.0, 1.0);
+    rightValue = MathUtil.clamp(rightValue, -1.0, 1.0);
+    
+    // Creates a deadzone on the controller to reduce drive jitter
+    leftValue = applyDeadband(leftValue, Constants.DEADBAND);
+    rightValue = applyDeadband(rightValue, Constants.DEADBAND);
+
+    // Squares the input to make it a exponential response curve instead of linear
+    // to increase fine control while permitting full power.
+    if (squareInputs) 
+    {
+      leftValue = Math.copySign(leftValue * leftValue, leftValue);
+      rightValue = Math.copySign(rightValue * rightValue, rightValue);
+    }
+    
+    // Converts the percentage value to RPM for the PID Loop
     leftDriveMotorRPM = leftValue * Constants.MAX_SHOOTER_RPM;
     rightDriveMotorRPM = rightValue * Constants.MAX_SHOOTER_RPM;
 
+    // Sets the reference point on the PID loop to the specified RPM
     m_leftDrive_pid.setReference(leftDriveMotorRPM, ControlType.kVelocity);
     m_rightDrive_pid.setReference(rightDriveMotorRPM, ControlType.kVelocity);
   }

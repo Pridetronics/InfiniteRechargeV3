@@ -196,7 +196,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     leftDriveMotorFollow.follow(leftDriveMotorLead);
     
     rightDriveMotorLead = new CANSparkMax(Constants.RIGHT_DRIVE_MOTOR_LEAD, MotorType.kBrushless); // Creates new talon motor for leading right drive
-    rightDriveMotorLead.setInverted(true); // Inverts Right Drive Motor
+    rightDriveMotorLead.setInverted(false); // Inverts Right Drive Motor
     rightDriveMotorLead.set(0); // Sets speed to 0 (anywhere between -1 and 1)
 
     rightDriveMotorFollow = new CANSparkMax(Constants.RIGHT_DRIVE_MOTOR_FOLLOW, MotorType.kBrushless);
@@ -205,6 +205,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     leftDrive_pid = leftDriveMotorLead.getPIDController();
     rightDrive_pid = rightDriveMotorLead.getPIDController();
 
+    /*
     leftDrive_pid.setP(Constants.LEFT_DRIVE_kP);
     leftDrive_pid.setI(Constants.LEFT_DRIVE_kI);
     leftDrive_pid.setD(Constants.LEFT_DRIVE_kD);
@@ -212,6 +213,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     rightDrive_pid.setP(Constants.RIGHT_DRIVE_kP);
     rightDrive_pid.setI(Constants.RIGHT_DRIVE_kI);
     rightDrive_pid.setD(Constants.RIGHT_DRIVE_kD);
+    */
 
     robotDrive = new Drive();
     // It sets a new drive and uses the ints 1 and 2. The order matters.
@@ -275,8 +277,10 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     */
     /********************************************************************************************/
 
+    /*
     upperClimbLimitSwitch = new DigitalInput(Constants.UPPER_CLIMB_LIMIT_CHANNEL);
     lowerClimbLimitSwitch = new DigitalInput(Constants.LOWER_CLIMB_LIMIT_CHANNEL);
+    */
     /*
       If the limit switch is closed, the value is 0. If the limit switch is open, the value is 1
     */
@@ -292,10 +296,11 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
     raiseTelescopicRodButton.whileHeld(new ExtendTelescopicClimb(climb));
 
-    
+    /*
     liftRobotButton.whileHeld(new SequentialCommandGroup(
         new DescendTelescopicClimb(climb),
         new RaiseRobot(Constants.WINCH_TIMEOUT, climb)));
+    */
     
     /*********************************************************************************************/
     /*
@@ -303,10 +308,12 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     */
     /*********************************************************************************************/
     
+    /*
     intakeLimitSwitch = new DigitalInput(Constants.INTAKE_LIMIT_SWITCH_CHANNEL);
     shooterLimitSwitch = new DigitalInput(Constants.SHOOTER_LIMIT_SWITCH_CHANNEL);
 
     ballCounter = new Counter(CounterBase.EncodingType.k2X, intakeLimitSwitch, shooterLimitSwitch, false);
+    */
   
     // Configure the button bindings
     configureButtonBindings();

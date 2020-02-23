@@ -62,14 +62,16 @@ public final class Constants {
     // public static final double kMinOutput = -1;
 
     //Left Drive PID Setup
-    public static final double LEFT_DRIVE_kP = 0.03;
+    public static final double LEFT_DRIVE_kP = 0.00003;
     public static final double LEFT_DRIVE_kI = 0.0;
     public static final double LEFT_DRIVE_kD = 0.0;
 
     //Right Drive PID Setup
-    public static final double RIGHT_DRIVE_kP = 0.03;
+    public static final double RIGHT_DRIVE_kP = 0.00003;
     public static final double RIGHT_DRIVE_kI = 0.0;
     public static final double RIGHT_DRIVE_kD = 0.0;
+
+    public static final double DEADBAND = 0.02;
 
     public static void init() {
 
