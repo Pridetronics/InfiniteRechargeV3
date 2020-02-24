@@ -8,12 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-//import edu.wpi.first.wpilibj.drive.RobotDriveBase;
-
 import frc.robot.subsystems.Drive;
-import frc.robot.Robot;
-import frc.robot.RobotContainer;
-
 import edu.wpi.first.wpilibj.Joystick;
 
 public class DriveJoystick extends CommandBase { //Creates a new DriveJoystick.
@@ -52,7 +47,7 @@ public class DriveJoystick extends CommandBase { //Creates a new DriveJoystick.
       rightValue = m_joystickDriver.getRawAxis(5); // Right Joystick verticle axis
       leftValue = m_joystickDriver.getRawAxis(1); // Left joystick verticle axis
 
-      m_robotDrive.tankDrive(leftValue, rightValue);
+      m_robotDrive.tankDrive(leftValue, rightValue, false);
       // Defines how the joysticks will operate     
     } 
     /*

@@ -7,7 +7,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Shooter;
@@ -16,14 +15,12 @@ public class LowSpeedShooter extends CommandBase {
   /**
    * Creates a new LowSpeedShooter.
    */
-  //private Pneumatics m_pneumatics;
   private Shooter m_shooter; // new shooter variable to store shooter object in
   private double m_lowShooterSpeed; // allows the low speed constant to be stored in a variable in this command
 
   public LowSpeedShooter(Shooter shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_shooter = shooter; // stores shooter object from parameters
-    //m_pneumatics = pneumatics;
     
     addRequirements(m_shooter); // This is probably useful. keep it or suffer
     
@@ -37,7 +34,7 @@ public class LowSpeedShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_lowShooterSpeed = Constants.lowShooterSpeed; // sets the low speed constant to the variable
+    m_lowShooterSpeed = Constants.SHOOTER_LOW_SPEED; // sets the low speed constant to the variable
     m_shooter.shooterSpeed(m_lowShooterSpeed); // calls the shooterSpeed method on the shooter object
   }
 

@@ -8,54 +8,41 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.subsystems.Climb;
 
-public class DescendTelescopicClimb extends CommandBase 
-{
-  /**
-   * Creates a new DescendTelescopicClimb.
-   */
-  private Climb m_climb;
+import frc.robot.subsystems.Drive;
 
-  public DescendTelescopicClimb(Climb climb) 
-  {
-    // Use addRequirements() here to declare subsystem dependencies.
-    m_climb = climb;
+public class ResetAngle extends CommandBase {
+  
+  private Drive m_Robotdrive;
 
-    addRequirements(m_climb);
+  /* Literally all this command does is set the yaw to 0 wherever
+  the robot is currently looking */
+  /* Use only ONCE at the start of the match when the robot is setup on the field */
+  
+  public ResetAngle(Drive robotDrive) {
+    // Imports the drive system
+    m_Robotdrive = robotDrive;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() 
-  {
-
+  public void initialize() {
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() 
-  {
-    m_climb.raiseTelescopicRod(Constants.INVERSE_TELESCOPIC_MOTOR_SPEED);
+  public void execute() {
+    m_Robotdrive.resetAngle();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) 
-  {
-    m_climb.raiseTelescopicRod(0.0);
+  public void end(boolean interrupted) {
   }
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished() 
-  {
-    boolean control = false;
-    if(m_climb.lowerClimbLimitOpen() == false)
-    {
-      control = true;
-    }
-    return control;
+  public boolean isFinished() {
+    return true;
   }
 }
