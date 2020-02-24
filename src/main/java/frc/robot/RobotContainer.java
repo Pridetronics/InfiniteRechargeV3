@@ -212,7 +212,9 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
     leftDriveEncoder = leftDriveMotorLead.getEncoder();
     rightDriveEncoder = rightDriveMotorLead.getEncoder();
-    /* Sets the gear ratio for the encoders */
+
+    /* Sets the gear ratio for the encoders to convert it to feet */
+    /* Need to convert this to meters for odometry */
     leftDriveEncoder.setPositionConversionFactor(Constants.WHEEL_CIRCUMFERENCE / Constants.MAIN_MOTOR_RATIO); // Converts to distance in feet and uses the gearbox ratio too
     rightDriveEncoder.setPositionConversionFactor(Constants.WHEEL_CIRCUMFERENCE / Constants.MAIN_MOTOR_RATIO); // Converts to distance in feet and uses the gearbox ratio too
 

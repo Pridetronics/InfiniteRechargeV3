@@ -9,7 +9,6 @@ package frc.robot.commands;
 
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
-import com.revrobotics.ControlType;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
@@ -20,7 +19,6 @@ public class GoDistance extends CommandBase {
   private Drive m_Robotdrive;
   private double setDistance;
   private CANEncoder leftDriveEncoder, rightDriveEncoder;
-  private CANPIDController leftDrivePID, rightDrivePID;
 
   public GoDistance(double distance, Drive robotDrive) {
     // @param distance - Distance to travel in feet
@@ -31,10 +29,6 @@ public class GoDistance extends CommandBase {
     // Encoder Imports
     leftDriveEncoder = m_Robotdrive.leftDriveMotorEncoder;
     rightDriveEncoder = m_Robotdrive.rightDriveMotorEncoder;
-
-    // PID Controller Imports
-    leftDrivePID = m_Robotdrive.m_leftDrive_pid;
-    rightDrivePID = m_Robotdrive.m_rightDrive_pid;
   }
 
   // Called when the command is initially scheduled.
