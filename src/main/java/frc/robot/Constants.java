@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    //motor addresses
     public static final int LEFT_DRIVE_MOTOR_LEAD = 1;
     public static final int RIGHT_DRIVE_MOTOR_LEAD = 2;
     public static final int LEFT_DRIVE_MOTOR_FOLLOW = 3;
@@ -28,27 +29,34 @@ public final class Constants {
     public static final int TELESCOPIC_CLIMB_MOTOR_ADDRESS = 9;
     public static final int SHOOTER_MOTOR_CAN_ADDRESS = 2; // creates can address for shooter motor
 
+    //differential drive object, might delete because we don't use it anymore
     public static DifferentialDrive robotDrive; // Creates new differential drive
 
+    //forward and reverse channels for double solenoids
     public static final int SHOOTER_GATE_FORWARD_CHANNEL = 5;
     public static final int SHOOTER_GATE_RELEASE_CHANNEL = 4;
     public static final int INTAKE_SOLENOID_FORWARD_CHANNEL = 0;
     public static final int INTAKE_SOLENOID_REVERSE_CHANNEL = 1;
 
+    //limit switch channels for intake, shooter, and climb
     public static final int INTAKE_LIMIT_SWITCH_CHANNEL = 1;
     public static final int SHOOTER_LIMIT_SWITCH_CHANNEL = 1;
     public static final int UPPER_CLIMB_LIMIT_CHANNEL = 0;
     public static final int LOWER_CLIMB_LIMIT_CHANNEL = 1;
 
+    //speeds of the motors
     public static final double INTAKE_MOTOR_SPEED = 0.55;
     public static final double TELESCOPIC_ROD_MOTOR_SPEED = 0.2;
     public static final double INVERSE_TELESCOPIC_MOTOR_SPEED = -0.2;
     public static final double WINCH_MOTOR_SPEED = 0.2;
 
+    //timeout for winch command
     public static final double WINCH_TIMEOUT = 5.0;
 
+    //desired RPM for shooter for encoder to use
     public static final double SHOOTER_DESIRED_RPM = 3300.0/5767.0;
 
+    //The max theoretical RPM of the shooter motor
     public static final double MAX_SHOOTER_RPM = 5676.0;
 
     // Shooter PID Setup
@@ -71,6 +79,7 @@ public final class Constants {
     public static final double RIGHT_DRIVE_kI = 0.0;
     public static final double RIGHT_DRIVE_kD = 0.0;
 
+    //deadzone for pid control loop on drive
     public static final double DEADBAND = 0.02;
 
     public static void init() {

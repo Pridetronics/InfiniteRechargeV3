@@ -19,13 +19,14 @@ public class Shooter extends SubsystemBase
    * Creates a new Shooter.
    */
   // private CANSparkMax shooterMotor; // creates a new motor variable
-  private final DoubleSolenoid m_shooterBallRelease; 
-  private CANPIDController shooter_pid;
+  private final DoubleSolenoid m_shooterBallRelease; //double solenoid for shooter gate
+  private CANPIDController shooter_pid; // pid controller for our shooter pid control loop
   
   public Shooter() 
   {
     //Launches power cells (balls) into the goals (levels 1, 2, and 3).
     // shooterMotor = RobotContainer.shooterMotor; // references shooter motor from RobotContainer
+    //brings in pid controller and double solenoids for robot container
     shooter_pid = RobotContainer.shooter_pid;
     m_shooterBallRelease = RobotContainer.shooterBallRelease;
   }

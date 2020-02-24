@@ -22,7 +22,7 @@ public class LowSpeedShooter extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     m_shooter = shooter; // stores shooter object from parameters
     
-    addRequirements(m_shooter); // This is probably useful. keep it or suffer
+    addRequirements(m_shooter); // Declares the dependencies of the command
     
   }
 
@@ -42,7 +42,7 @@ public class LowSpeedShooter extends CommandBase {
   @Override
   public void end(boolean interrupted) 
   {
-    m_shooter.retractGate();
+    m_shooter.retractGate(); // will bring the gate back up after the shooting has finished
     //ReleaseGate.ballRelease = ballReleasePiston.EXTENDED;
   }
 

@@ -63,12 +63,6 @@ lllloooooollllllooooooooooooooooooooooooooodocoOOkxxkkOOOOkkxddoooooodO0Okdooooc
                                               'xkxxddoc;;:ccllllllllllcc:::::::::::::;;;;,,;:oddddddddddoooooo
 */
 
-/*
-  To-do:
-  The double solenoids are only initialized and need to be instantiated. To do that, you need the forward and
-  reverse channels. I will find those out on monday. For now, I will declare them as constants in Constants.
-*/
-
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Counter;
@@ -94,7 +88,7 @@ import frc.robot.subsystems.Shooter;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.kauailabs.navx.frc.AHRS;
+//import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
@@ -161,7 +155,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   public Counter ballCounter;
 
   // Sets up the NAVX object for robot orientation
-  public AHRS navX;
+  //public AHRS navX;
 
   public RobotContainer() 
   {

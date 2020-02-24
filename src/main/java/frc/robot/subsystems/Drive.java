@@ -13,7 +13,6 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
@@ -97,7 +96,6 @@ public void setDrive() {
     // Defines the variables so that way tank can work
     // Located in Drive because the drivetrain is grabbed from this subsystem
     
-    //robotDrive.tankDrive(leftValue, rightValue); // Grabs the raw axis from DriveJoystick
     // Checks that the value is between -1 and 1
     leftValue = MathUtil.clamp(leftValue, -1.0, 1.0);
     rightValue = MathUtil.clamp(rightValue, -1.0, 1.0);
