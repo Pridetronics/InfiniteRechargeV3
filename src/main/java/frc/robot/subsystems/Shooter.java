@@ -27,7 +27,7 @@ public class Shooter extends SubsystemBase
     //Launches power cells (balls) into the goals (levels 1, 2, and 3).
     // shooterMotor = RobotContainer.shooterMotor; // references shooter motor from RobotContainer
     //brings in pid controller and double solenoids for robot container
-    shooter_pid = RobotContainer.shooter_pid;
+    shooter_pid = RobotContainer.shooterMotor_pid;
     m_shooterBallRelease = RobotContainer.shooterBallRelease;
   }
 

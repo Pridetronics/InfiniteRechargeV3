@@ -34,7 +34,7 @@ public class LowSpeedShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_lowShooterSpeed = Constants.lowShooterSpeed; // sets the low speed constant to the variable
+    m_lowShooterSpeed = Constants.SHOOTER_LOW_SPEED; // sets the low speed constant to the variable
     m_shooter.shooterSpeed(m_lowShooterSpeed); // calls the shooterSpeed method on the shooter object
   }
 

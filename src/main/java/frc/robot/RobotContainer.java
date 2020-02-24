@@ -69,6 +69,8 @@ import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -88,7 +90,8 @@ import frc.robot.subsystems.Shooter;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-//import com.kauailabs.navx.frc.AHRS;
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
@@ -109,6 +112,14 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   // The container for the robot. Contains subsystems, OI devices, and commands.
   public static CANSparkMax leftDriveMotorLead; // Creates new talon motor for leading left drive
   public static CANSparkMax rightDriveMotorLead; // Creates new talon motor for leading right drive
+  public static CANPIDController leftDrive_pid;
+  public static CANPIDController rightDrive_pid;
+  public static CANEncoder leftDriveEncoder;
+  public static CANEncoder rightDriveEncoder;
+
+  public static Joystick joystickDriver; // The name of the first controller, main driver
+  public static Joystick joystickShooter; // The name of the second controller, secondary driver
+
   public static CANSparkMax leftDriveMotorFollow;
   public static CANSparkMax rightDriveMotorFollow;
   public static CANSparkMax intakeMotor;
@@ -116,14 +127,17 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   public static TalonSRX raiseRodMotor;
   public static CANSparkMax spoolWinchMotor;
   public static CANSparkMax shooterMotor;
-  
-  public static Joystick joystickDriver; // The name of the first controller, main driver
-  public static Joystick joystickShooter; // The name of the second controller, secondary driver
 
   public JoystickButton intakeButton; // Button to run the intake
   public JoystickButton intakeExtendRetractButton; // Button to run the intake Vertical
   public JoystickButton lowSpeedShooterButton; // Button A
   public JoystickButton highSpeedShooterButton; // Button Y
+  public JoystickButton cameraModeButton;
+
+  public static Shooter shooter; // shooter object to be used for shooter commands
+  public static CANPIDController shooterMotor_pid;
+
+  // public Pneumatics pneumatics; // creates a pneumatic object
   public JoystickButton raiseTelescopicRodButton;
   public JoystickButton liftRobotButton;
 
@@ -137,15 +151,9 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   public static DigitalInput upperClimbLimitSwitch;
   public static DigitalInput lowerClimbLimitSwitch;
 
-  public static CANPIDController shooter_pid;
-  public static CANPIDController leftDrive_pid;
-  public static CANPIDController rightDrive_pid;
-
   public static CANEncoder shooterMotorEncoder; // encoder to measure the speed of the shooterMotor
   
   public final Drive robotDrive;
-
-  public static Shooter shooter; // shooter object to be used for shooter commands
   
   public static Climb climb;
 
@@ -154,9 +162,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   // Counts how many balls are in the magazine
   public Counter ballCounter;
 
-  // Sets up the NAVX object for robot orientation
-  //public AHRS navX;
-
+  
   public RobotContainer() 
   {
 
@@ -196,18 +202,25 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     rightDriveMotorFollow = new CANSparkMax(Constants.RIGHT_DRIVE_MOTOR_FOLLOW, MotorType.kBrushless);
     rightDriveMotorFollow.follow(rightDriveMotorLead);
 
+    leftDriveEncoder = leftDriveMotorLead.getEncoder();
+    rightDriveEncoder = rightDriveMotorLead.getEncoder();
+
+    /* Sets the gear ratio for the encoders to convert it to feet */
+    /* Need to convert this to meters for odometry */
+    leftDriveEncoder.setPositionConversionFactor(Constants.WHEEL_CIRCUMFERENCE / Constants.MAIN_MOTOR_RATIO); // Converts to distance in feet and uses the gearbox ratio too
+    rightDriveEncoder.setPositionConversionFactor(Constants.WHEEL_CIRCUMFERENCE / Constants.MAIN_MOTOR_RATIO); // Converts to distance in feet and uses the gearbox ratio too
+
     leftDrive_pid = leftDriveMotorLead.getPIDController();
     rightDrive_pid = rightDriveMotorLead.getPIDController();
 
-    /*
-    leftDrive_pid.setP(Constants.LEFT_DRIVE_kP);
-    leftDrive_pid.setI(Constants.LEFT_DRIVE_kI);
-    leftDrive_pid.setD(Constants.LEFT_DRIVE_kD);
+    // Set the PID constants
+    leftDrive_pid.setP(Constants.DRIVE_kP);
+    leftDrive_pid.setI(Constants.DRIVE_kI);
+    leftDrive_pid.setD(Constants.DRIVE_kD);
 
-    rightDrive_pid.setP(Constants.RIGHT_DRIVE_kP);
-    rightDrive_pid.setI(Constants.RIGHT_DRIVE_kI);
-    rightDrive_pid.setD(Constants.RIGHT_DRIVE_kD);
-    */
+    rightDrive_pid.setP(Constants.DRIVE_kP);
+    rightDrive_pid.setI(Constants.DRIVE_kI);
+    rightDrive_pid.setD(Constants.DRIVE_kD);
 
     robotDrive = new Drive();
     // It sets a new drive and uses the ints 1 and 2. The order matters.
@@ -227,11 +240,15 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
     shooterMotor = new CANSparkMax(Constants.SHOOTER_MOTOR_CAN_ADDRESS, MotorType.kBrushed); // instantiates new shooter
                                                                                           // motor with specific ID
+    // Drive PID Drive Setup
+    leftDrive_pid = leftDriveMotorLead.getPIDController();
+    rightDrive_pid = rightDriveMotorLead.getPIDController();
+
     // Shooter PID Setup
-    shooter_pid = shooterMotor.getPIDController();
-    shooter_pid.setP(Constants.Kp);
-    shooter_pid.setI(Constants.Ki);
-    shooter_pid.setD(Constants.Kd);
+    shooterMotor_pid = shooterMotor.getPIDController();
+    shooterMotor_pid.setP(Constants.SHOOTER_kP);
+    shooterMotor_pid.setI(Constants.SHOOTER_kI);
+    shooterMotor_pid.setD(Constants.SHOOTER_kD);
 
     shooterMotorEncoder = new CANEncoder(shooterMotor, EncoderType.kHallSensor, 42); // instantiates a new encoder for
                                                                                      // the shooterMotor
