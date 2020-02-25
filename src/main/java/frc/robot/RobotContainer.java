@@ -210,8 +210,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     rightDriveMotorFollow = new CANSparkMax(Constants.RIGHT_DRIVE_MOTOR_FOLLOW, MotorType.kBrushless);
     rightDriveMotorFollow.follow(rightDriveMotorLead);
 
-    leftDriveEncoder = leftDriveMotorLead.getEncoder();
-    rightDriveEncoder = rightDriveMotorLead.getEncoder();
+    leftDriveEncoder = new CANEncoder(leftDriveMotorLead);
+    rightDriveEncoder = new CANEncoder(rightDriveMotorLead);
 
     /* Sets the gear ratio for the encoders to convert it to feet */
     /* Need to convert this to meters for odometry */

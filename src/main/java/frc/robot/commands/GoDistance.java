@@ -59,6 +59,7 @@ public class GoDistance extends CommandBase {
     /* Sets the encoder reference distance values to 0 because why not */
     leftDriveEncoder.setPosition(0f);
     rightDriveEncoder.setPosition(0f);
+    m_Robotdrive.disable();
   }
 
   // Returns true when the command should end.

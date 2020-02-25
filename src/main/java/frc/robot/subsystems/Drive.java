@@ -72,7 +72,11 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     // Sets up the drive motors
     leftDriveMotor = RobotContainer.leftDriveMotorLead; // references motors from RobotContainer
     rightDriveMotor =  RobotContainer.rightDriveMotorLead;
-    
+
+    // Sets up drive encoders
+    leftDriveMotorEncoder = RobotContainer.leftDriveEncoder;
+    rightDriveMotorEncoder = RobotContainer.rightDriveEncoder;
+
     // PID Setup
     kP = Constants.DRIVE_kP;
     kI = Constants.DRIVE_kI;
@@ -151,13 +155,14 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     // {
     //   // Squares the values and copies the sign from the initial value
     //   // This makes sure that if the values were negative that they stay negative after the square
+    //   // Take a look at the intensity of the squaring of the inputs
     //   leftValue = Math.copySign(leftValue * leftValue, leftValue);
     //   rightValue = Math.copySign(rightValue * rightValue, rightValue);
     // }
     
     // // Converts the percentage value to RPM for the PID Loop
-    // leftValue *= Constants.MAX_SHOOTER_RPM;
-    // rightValue *= Constants.MAX_SHOOTER_RPM;
+    // leftValue *= Constants.MAX_NEO_RPM;
+    // rightValue *= Constants.MAX_NEO_RPM;
 
     // // Sets the reference point on the PID loop to the specified RPM
     // m_leftDrive_pid.setReference(leftValue, ControlType.kVelocity);
