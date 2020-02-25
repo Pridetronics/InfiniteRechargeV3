@@ -18,8 +18,7 @@
 
 ## Contributing
 
-1. Fork it (<https://github.com/Pridetronics/InfiniteRechargeV3>)
-2. Create your feature branch (`git checkout -b feature/fooBar`)
-3. Commit your changes (`git commit -am 'Add some fooBar'`)
-4. Push to the branch (`git push origin feature/fooBar`)
-5. Create a new Pull Request
+1. Create a branch (`git checkout -b fooBar`)
+2. Commit your changes (`git commit -am 'Add some fooBar'`)
+3. Push to the branch (`git push origin fooBar`)
+4. Create a new Pull Request or just merge to master
