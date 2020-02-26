@@ -246,7 +246,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     */
     /********************************************************************************************/
 
-    shooterMotor = new CANSparkMax(Constants.SHOOTER_MOTOR_CAN_ADDRESS, MotorType.kBrushed); // instantiates new shooter
+    shooterMotor = new CANSparkMax(Constants.SHOOTER_MOTOR_CAN_ADDRESS, MotorType.kBrushless); // instantiates new shooter
                                                                                           // motor with specific ID
     // Drive PID Drive Setup
     leftDrive_pid = leftDriveMotorLead.getPIDController();
