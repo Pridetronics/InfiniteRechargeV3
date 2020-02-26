@@ -85,6 +85,8 @@ import frc.robot.commands.RaiseRobot;
 import frc.robot.commands.ReleaseGate;
 import frc.robot.commands.ExtendRetractIntake;
 import frc.robot.commands.ExtendTelescopicClimb;
+import frc.robot.commands.GoDistance;
+import frc.robot.commands.GoToAngle;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -162,6 +164,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   // Counts how many balls are in the magazine
   public Counter ballCounter;
 
+  private final SequentialCommandGroup m_auton;
   
   public RobotContainer() 
   {
@@ -202,8 +205,13 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     rightDriveMotorFollow = new CANSparkMax(Constants.RIGHT_DRIVE_MOTOR_FOLLOW, MotorType.kBrushless);
     rightDriveMotorFollow.follow(rightDriveMotorLead);
 
+    leftDriveEncoder = new CANEncoder(leftDriveMotorLead, EncoderType.kHallSensor, 4096);
+    rightDriveEncoder = new CANEncoder(rightDriveMotorLead, EncoderType.kHallSensor, 4096);
+    
+    /*
     leftDriveEncoder = leftDriveMotorLead.getEncoder();
     rightDriveEncoder = rightDriveMotorLead.getEncoder();
+    */
 
     /* Sets the gear ratio for the encoders to convert it to feet */
     /* Need to convert this to meters for odometry */
@@ -232,18 +240,20 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     // can grab the information and utilize it for the given controller, in this
     // case joystickDriver
 
+    JoystickButton testButton = new JoystickButton(joystickDriver, 3);
+    testButton.whenPressed(new GoDistance(4.0, robotDrive));
+
+    JoystickButton testButton2 = new JoystickButton(joystickDriver, 2);
+    testButton2.whenPressed(new GoToAngle(90.0, robotDrive));
+
     /********************************************************************************************/
     /*  
         Start of Shooter section
     */
     /********************************************************************************************/
 
-    shooterMotor = new CANSparkMax(Constants.SHOOTER_MOTOR_CAN_ADDRESS, MotorType.kBrushed); // instantiates new shooter
+    shooterMotor = new CANSparkMax(Constants.SHOOTER_MOTOR_CAN_ADDRESS, MotorType.kBrushless); // instantiates new shooter
                                                                                           // motor with specific ID
-    // Drive PID Drive Setup
-    leftDrive_pid = leftDriveMotorLead.getPIDController();
-    rightDrive_pid = rightDriveMotorLead.getPIDController();
-
     // Shooter PID Setup
     shooterMotor_pid = shooterMotor.getPIDController();
     shooterMotor_pid.setP(Constants.SHOOTER_kP);
@@ -326,6 +336,12 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     ballCounter = new Counter(CounterBase.EncodingType.k2X, intakeLimitSwitch, shooterLimitSwitch, false);
     */
   
+    m_auton = new SequentialCommandGroup(
+              new GoDistance(4.0, robotDrive), new GoToAngle(90.0, robotDrive),
+              new GoDistance(4.0, robotDrive), new GoToAngle(90.0, robotDrive),
+              new GoDistance(4.0, robotDrive), new GoToAngle(90.0, robotDrive),
+              new GoDistance(4.0, robotDrive), new GoToAngle(90.0, robotDrive));
+
     // Configure the button bindings
     configureButtonBindings();
 
@@ -351,6 +367,6 @@ public class RobotContainer { // The robot's subsystems and commands are defined
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return getAutonomousCommand();
+    return m_auton;
   }
 }

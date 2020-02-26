@@ -27,7 +27,7 @@ public final class Constants {
     public static final int ELEVATOR_MOTOR_CAN_ADDRESS = 7;
     public static final int RAISE_CLIMB_MOTOR_ADDRESS = 8;
     public static final int TELESCOPIC_CLIMB_MOTOR_ADDRESS = 9;
-    public static final int SHOOTER_MOTOR_CAN_ADDRESS = 2; // creates can address for shooter motor
+    public static final int SHOOTER_MOTOR_CAN_ADDRESS = 10; // creates can address for shooter motor
 
     //differential drive object, might delete because we don't use it anymore
     public static DifferentialDrive robotDrive; // Creates new differential drive
@@ -45,13 +45,13 @@ public final class Constants {
     public static final int LOWER_CLIMB_LIMIT_CHANNEL = 1;
 
     //Left Drive PID Setup
-    public static final double LEFT_DRIVE_kP = 0.00003;
-    public static final double LEFT_DRIVE_kI = 0.0;
+    public static final double LEFT_DRIVE_kP = 0.00002;
+    public static final double LEFT_DRIVE_kI = 0.000001;
     public static final double LEFT_DRIVE_kD = 0.0;
 
     //Right Drive PID Setup
-    public static final double RIGHT_DRIVE_kP = 0.00003;
-    public static final double RIGHT_DRIVE_kI = 0.0;
+    public static final double RIGHT_DRIVE_kP = 0.00002;
+    public static final double RIGHT_DRIVE_kI = 0.000001;
     public static final double RIGHT_DRIVE_kD = 0.0;
 
     //deadzone for pid control loop on drive
@@ -63,7 +63,7 @@ public final class Constants {
     public static final double WINCH_TIMEOUT = 5.0f;
 
     // Auto Setup
-    public static final double AUTO_TRAVEL_SPEED = 0.3f; // Don't put above 0.75, needs some room for turning corrections
+    public static final double AUTO_TRAVEL_SPEED = -0.5f; // Don't put above 0.75, needs some room for turning corrections
     // Gear Ratios
     public static final double MAIN_MOTOR_RATIO = 7.31f; // 1 : 7.31 gear ratio
     // Distance Calculations Setup

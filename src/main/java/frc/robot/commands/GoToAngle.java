@@ -23,6 +23,8 @@ public class GoToAngle extends CommandBase {
     // Imports the parameters
     setAngle = angle;
     m_Robotdrive = robotDrive;
+
+    addRequirements(m_Robotdrive);
   }
 
   // Called when the command is initially scheduled.
@@ -49,6 +51,7 @@ public class GoToAngle extends CommandBase {
   public void end(boolean interrupted) {
     // Disables the PID loop
     m_Robotdrive.disable();
+    m_Robotdrive.resetAngle();
   }
 
   // Returns true when the command should end.

@@ -38,10 +38,6 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
   private CANSparkMax leftDriveMotor;
   private CANSparkMax rightDriveMotor;
   
-  // Stores the encoders from the NEO motors
-  public CANEncoder leftDriveMotorEncoder;
-  public CANEncoder rightDriveMotorEncoder;
-
   // Velocity PID loops for the motors
   public CANPIDController m_leftDrive_pid;
   public CANPIDController m_rightDrive_pid;
@@ -129,33 +125,33 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     // This compensates for the amperage drop in the battery and makes it much smoother
     
     /* Left this here for testing, it's the original tankdrive function */
-    robotDrive.tankDrive(leftValue, rightValue, squareInputs);
+    //robotDrive.tankDrive(leftValue, rightValue, squareInputs);
 
     // // Checks that the value is between -1 and 1
-    // leftValue = MathUtil.clamp(leftValue, -1.0, 1.0);
-    // rightValue = MathUtil.clamp(rightValue, -1.0, 1.0);
+     leftValue = MathUtil.clamp(leftValue, -1.0, 1.0);
+     rightValue = MathUtil.clamp(rightValue, -1.0, 1.0);
     
     // // Creates a deadzone on the controller to reduce drive jitter
-    // leftValue = applyDeadband(leftValue, Constants.DEADBAND);
-    // rightValue = applyDeadband(rightValue, Constants.DEADBAND);
+     leftValue = applyDeadband(leftValue, Constants.DEADBAND);
+     rightValue = applyDeadband(rightValue, Constants.DEADBAND);
 
     // // Squares the input to make it a exponential response curve instead of linear
     // // to increase fine control while permitting full power
-    // if (squareInputs) 
-    // {
-    //   // Squares the values and copies the sign from the initial value
-    //   // This makes sure that if the values were negative that they stay negative after the square
-    //   leftValue = Math.copySign(leftValue * leftValue, leftValue);
-    //   rightValue = Math.copySign(rightValue * rightValue, rightValue);
-    // }
+     if (squareInputs) 
+     {
+       // Squares the values and copies the sign from the initial value
+      // This makes sure that if the values were negative that they stay negative after the square
+      leftValue = Math.copySign(leftValue * leftValue, leftValue);
+      rightValue = Math.copySign(rightValue * rightValue, rightValue);
+    }
     
-    // // Converts the percentage value to RPM for the PID Loop
-    // leftValue *= Constants.MAX_SHOOTER_RPM;
-    // rightValue *= Constants.MAX_SHOOTER_RPM;
+    // Converts the percentage value to RPM for the PID Loop
+    leftValue *= Constants.MAX_SHOOTER_RPM;
+    rightValue *= Constants.MAX_SHOOTER_RPM;
 
-    // // Sets the reference point on the PID loop to the specified RPM
-    // m_leftDrive_pid.setReference(leftValue, ControlType.kVelocity);
-    // m_rightDrive_pid.setReference(rightValue, ControlType.kVelocity);
+    // Sets the reference point on the PID loop to the specified RPM
+    m_leftDrive_pid.setReference(leftValue, ControlType.kVelocity);
+    m_rightDrive_pid.setReference(rightValue, ControlType.kVelocity);
   }
 
   public void resetAngle() {
