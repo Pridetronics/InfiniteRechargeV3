@@ -260,7 +260,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     shooterMotor_pid.setI(Constants.SHOOTER_kI);
     shooterMotor_pid.setD(Constants.SHOOTER_kD);
 
-    shooterMotorEncoder = new CANEncoder(shooterMotor, EncoderType.kHallSensor, 42); // instantiates a new encoder for
+    shooterMotorEncoder = new CANEncoder(shooterMotor, EncoderType.kHallSensor, 4096); // instantiates a new encoder for
                                                                                      // the shooterMotor
     shooterBallRelease = new DoubleSolenoid(Constants.SHOOTER_GATE_FORWARD_CHANNEL, Constants.SHOOTER_GATE_RELEASE_CHANNEL);
 
