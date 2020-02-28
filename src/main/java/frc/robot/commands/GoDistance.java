@@ -9,7 +9,7 @@ package frc.robot.commands;
 
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
-
+import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
@@ -27,8 +27,10 @@ public class GoDistance extends CommandBase {
     setDistance = distance;
 
     // Encoder Imports
-    leftDriveEncoder = m_Robotdrive.leftDriveMotorEncoder;
-    rightDriveEncoder = m_Robotdrive.rightDriveMotorEncoder;
+    leftDriveEncoder = RobotContainer.leftDriveEncoder;
+    rightDriveEncoder = RobotContainer.rightDriveEncoder;
+
+    addRequirements(m_Robotdrive);
   }
 
   // Called when the command is initially scheduled.
@@ -69,7 +71,7 @@ public class GoDistance extends CommandBase {
   @Override
   public boolean isFinished() {
     // Don't need to convert setDistance from feet because of encoder position conversion factor set in RobotContainer
-    double averageDistance = (leftDriveEncoder.getPosition() + rightDriveEncoder.getPosition()) / 2.0f;
+    double averageDistance = Math.abs((leftDriveEncoder.getPosition() + rightDriveEncoder.getPosition())) / 2.0f;
     if (averageDistance >= setDistance) {
       return true;
     }

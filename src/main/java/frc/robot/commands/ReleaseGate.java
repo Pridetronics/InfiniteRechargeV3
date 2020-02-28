@@ -19,13 +19,13 @@ public class ReleaseGate extends CommandBase
    * Creates a new GateRelease.
    */
    private CANEncoder m_shooterMotorEncoder; // creates empty encoder object
-   private Shooter m_shooter;
+   private Shooter m_shooter; // creates shooter object
 
   public ReleaseGate(Shooter shooter) 
   {
     // Use addRequirements() here to declare subsystem dependencies.
     m_shooterMotorEncoder = RobotContainer.shooterMotorEncoder; // references an encoder object
-    m_shooter = shooter;
+    m_shooter = shooter; // references shooter object in robot container
 
     //addRequirements(m_shooter);
   }
@@ -48,7 +48,7 @@ public class ReleaseGate extends CommandBase
   @Override
   public void end(boolean interrupted) 
   {
-    m_shooter.releaseGate();
+    m_shooter.releaseGate(); // when it ends, the gate is released, letting the balls fall through
     //ballRelease = ballReleasePiston.RETRACTED;
   }
 
@@ -56,6 +56,7 @@ public class ReleaseGate extends CommandBase
   @Override
   public boolean isFinished() 
   {
+    //Tests that the shooter motor is up to desired RPM, and ends the command
     boolean commandState = false;
     if(m_shooterMotorEncoder.getVelocity() == Constants.SHOOTER_DESIRED_RPM)
     {

@@ -7,33 +7,41 @@
 
 package frc.robot.commands;
 
+import com.revrobotics.CANSparkMax;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Shooter;
 
-public class LowSpeedShooter extends CommandBase {
+public class LowSpeedShooter extends CommandBase 
+{
   /**
    * Creates a new LowSpeedShooter.
    */
   private Shooter m_shooter; // new shooter variable to store shooter object in
   private double m_lowShooterSpeed; // allows the low speed constant to be stored in a variable in this command
 
-  public LowSpeedShooter(Shooter shooter) {
+  public LowSpeedShooter(Shooter shooter) 
+  {
     // Use addRequirements() here to declare subsystem dependencies.
     m_shooter = shooter; // stores shooter object from parameters
     
-    addRequirements(m_shooter); // This is probably useful. keep it or suffer
+    addRequirements(m_shooter); // Declares the dependencies of the command
     
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
+  public void initialize() 
+  {
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
+  public void execute() 
+  {
     m_lowShooterSpeed = Constants.SHOOTER_LOW_SPEED; // sets the low speed constant to the variable
     m_shooter.shooterSpeed(m_lowShooterSpeed); // calls the shooterSpeed method on the shooter object
   }
@@ -42,13 +50,15 @@ public class LowSpeedShooter extends CommandBase {
   @Override
   public void end(boolean interrupted) 
   {
-    m_shooter.retractGate();
+    m_shooter.shooterSpeed(0.0);
+    m_shooter.retractGate(); // will bring the gate back up after the shooting has finished
     //ReleaseGate.ballRelease = ballReleasePiston.EXTENDED;
   }
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished() {
+  public boolean isFinished() 
+  {
     return false;
   }
 }

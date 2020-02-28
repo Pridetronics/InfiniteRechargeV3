@@ -63,12 +63,6 @@ lllloooooollllllooooooooooooooooooooooooooodocoOOkxxkkOOOOkkxddoooooodO0Okdooooc
                                               'xkxxddoc;;:ccllllllllllcc:::::::::::::;;;;,,;:oddddddddddoooooo
 */
 
-/*
-  To-do:
-  The double solenoids are only initialized and need to be instantiated. To do that, you need the forward and
-  reverse channels. I will find those out on monday. For now, I will declare them as constants in Constants.
-*/
-
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Counter;
@@ -91,6 +85,8 @@ import frc.robot.commands.RaiseRobot;
 import frc.robot.commands.ReleaseGate;
 import frc.robot.commands.ExtendRetractIntake;
 import frc.robot.commands.ExtendTelescopicClimb;
+import frc.robot.commands.GoDistance;
+import frc.robot.commands.GoToAngle;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -168,9 +164,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   // Counts how many balls are in the magazine
   public Counter ballCounter;
 
-  // Sets up the NAVX object for robot orientation
+  private final SequentialCommandGroup m_auton;
   
-
   public RobotContainer() 
   {
 
@@ -210,8 +205,13 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     rightDriveMotorFollow = new CANSparkMax(Constants.RIGHT_DRIVE_MOTOR_FOLLOW, MotorType.kBrushless);
     rightDriveMotorFollow.follow(rightDriveMotorLead);
 
-    leftDriveEncoder = new CANEncoder(leftDriveMotorLead);
-    rightDriveEncoder = new CANEncoder(rightDriveMotorLead);
+    leftDriveEncoder = new CANEncoder(leftDriveMotorLead, EncoderType.kHallSensor, 4096);
+    rightDriveEncoder = new CANEncoder(rightDriveMotorLead, EncoderType.kHallSensor, 4096);
+    
+    /*
+    leftDriveEncoder = leftDriveMotorLead.getEncoder();
+    rightDriveEncoder = rightDriveMotorLead.getEncoder();
+    */
 
     /* Sets the gear ratio for the encoders to convert it to feet */
     /* Need to convert this to meters for odometry */
@@ -240,6 +240,14 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     // can grab the information and utilize it for the given controller, in this
     // case joystickDriver
 
+    /*
+    JoystickButton testButton = new JoystickButton(joystickDriver, 3);
+    testButton.whenPressed(new GoDistance(4.0, robotDrive));
+
+    JoystickButton testButton2 = new JoystickButton(joystickDriver, 2);
+    testButton2.whenPressed(new GoToAngle(90.0, robotDrive));
+    */
+
     /********************************************************************************************/
     /*  
         Start of Shooter section
@@ -248,17 +256,13 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
     shooterMotor = new CANSparkMax(Constants.SHOOTER_MOTOR_CAN_ADDRESS, MotorType.kBrushless); // instantiates new shooter
                                                                                           // motor with specific ID
-    // Drive PID Drive Setup
-    leftDrive_pid = leftDriveMotorLead.getPIDController();
-    rightDrive_pid = rightDriveMotorLead.getPIDController();
-
     // Shooter PID Setup
     shooterMotor_pid = shooterMotor.getPIDController();
     shooterMotor_pid.setP(Constants.SHOOTER_kP);
     shooterMotor_pid.setI(Constants.SHOOTER_kI);
     shooterMotor_pid.setD(Constants.SHOOTER_kD);
 
-    shooterMotorEncoder = new CANEncoder(shooterMotor, EncoderType.kHallSensor, 42); // instantiates a new encoder for
+    shooterMotorEncoder = new CANEncoder(shooterMotor, EncoderType.kHallSensor, 4096); // instantiates a new encoder for
                                                                                      // the shooterMotor
     shooterBallRelease = new DoubleSolenoid(Constants.SHOOTER_GATE_FORWARD_CHANNEL, Constants.SHOOTER_GATE_RELEASE_CHANNEL);
 
@@ -334,6 +338,12 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     ballCounter = new Counter(CounterBase.EncodingType.k2X, intakeLimitSwitch, shooterLimitSwitch, false);
     */
   
+    m_auton = new SequentialCommandGroup(
+              new GoDistance(4.0, robotDrive), new GoToAngle(90.0, robotDrive),
+              new GoDistance(4.0, robotDrive), new GoToAngle(90.0, robotDrive),
+              new GoDistance(4.0, robotDrive), new GoToAngle(90.0, robotDrive),
+              new GoDistance(4.0, robotDrive), new GoToAngle(90.0, robotDrive));
+
     // Configure the button bindings
     configureButtonBindings();
 
@@ -359,6 +369,6 @@ public class RobotContainer { // The robot's subsystems and commands are defined
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return getAutonomousCommand();
+    return m_auton;
   }
 }

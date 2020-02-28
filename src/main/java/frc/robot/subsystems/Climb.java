@@ -19,17 +19,18 @@ public class Climb extends SubsystemBase
   /**
    * Creates a new Climb.
    */
-  private CANSparkMax m_spoolWinchMotor;
+  //motor objects and limit switches
+   private CANSparkMax m_spoolWinchMotor;
   private TalonSRX m_raiseRodMotor;
   private DigitalInput m_upperClimbLimitSwitch;
   private DigitalInput m_lowerClimbLimitSwitch;
 
   public Climb() 
   {
-    m_raiseRodMotor = RobotContainer.raiseRodMotor;
-    m_spoolWinchMotor = RobotContainer.spoolWinchMotor;
-    m_upperClimbLimitSwitch = RobotContainer.upperClimbLimitSwitch;
-    m_lowerClimbLimitSwitch = RobotContainer.lowerClimbLimitSwitch;
+    m_raiseRodMotor = RobotContainer.raiseRodMotor; // motor to raise telescopic rod
+    m_spoolWinchMotor = RobotContainer.spoolWinchMotor; // motor to raise the robot
+    m_upperClimbLimitSwitch = RobotContainer.upperClimbLimitSwitch; // limit switch to test if telescopic rod is extended
+    m_lowerClimbLimitSwitch = RobotContainer.lowerClimbLimitSwitch; // limit switch to test if telescopic rod has descended
  
   }
 
@@ -41,12 +42,14 @@ public class Climb extends SubsystemBase
 
   public void raiseTelescopicRod(double speed)
   {
-    m_raiseRodMotor.set(TalonSRXControlMode.PercentOutput, speed);
+    // @param speed - speed the telescopic rod moves at
+    m_raiseRodMotor.set(TalonSRXControlMode.PercentOutput, speed); // sets the motor at 20% speed
   }
 
   public void spoolWinch(double speed)
   {
-    m_spoolWinchMotor.set(speed);
+    // @param speed - speed the winch motor moves at
+    m_spoolWinchMotor.set(speed); // sets the motor at 20% speed
   }
 
   public boolean upperClimbLimitOpen()

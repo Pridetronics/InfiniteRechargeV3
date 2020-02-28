@@ -5,6 +5,59 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+/*
+XX0KNNNNNNNNNNNXXNNNNNNNNNNNNNNNNNNNNNNNNNWWNNNXK0OkkkkkkkkkkkOKNNWWWWWNKXWWWWWWNNNXNWWWWWWWWWWWWWWWWWWWWWWMWW
+XX0KNNNNNNNNNNNXXNNNNNNNNNNNNNNNNNNNNNNNNNKOdlcc::;,,,,,,,;;;::cloxOKNWNKKWWWWWWNNNXNWWWWWWWWWWWWWWWWWWWWWWMWW
+XX0KNNNNNNNNNNNXXNNNNNNNNNNNNNNNNNNNNNKOo:,'',;cccccc:::cclc:;;:;'',:lxkOKWWWWWWNNNXNWWWWWWWWWWWWWWWWWWWWWWWWW
+XX0KNNNNNNNNNNNXXNNNNNNNNNNNNNNNNNWXOo;..'',,,,;;;,;,,,,'',;,;c;'...,;;:cdOXNWWWNNNXNWWWWWWWWWWWWWWWWWWWWWWWWW
+XX0KNXNNNNNNNNNXXNNNNNNNNNNNNNWNNKx:....,,'..................',,'...',;:cccokKWWNNNXNWWWWWWWWWWWWWWWWWWWWWWWWW
+XXKKNNNNNNNNNNNXXNNNNNNNNNNNNNWXx;....',,'.................',,;;'....;:ccclllokKNNNXNWWWWWWWWWWWWWWWWNWWWWWWWW
+XXKKNNNNNNNNNNNXXNNNNNNNNNNNNNOc.. ..,;;,'''''............',;;;;,''.',:loollll;ckKNXNWWWWWWWWWWWWWWWWNWWWWWWWW
+XXKKNNNNNNNNNNNXXNNNNNNNNNNNNx;.  .';;;,''''''''''''''..',;:ccclccc::clc:clllc:;;xXXNWWWWWWWWWWWWWWWWNWWWWWWWW
+XXKKNNNNNNNNNNNXXNNNNNNNNNNXd,....',,,,,;;;:::::::::ccllloddxxxxkxxkkkkollccccccclOXNWWWWWWWWWWWWWWWWNNWWWWWWW
+XNKKXNNNNNNNNNNXXNNNNNNNNNXd,. ..'',;;:clloddddddddxxkkkkkkOOOOOOOO0000kxxolllccl;,xNWWWWWWWWWWWWWWWWNNWWWWWWW
+NXKKXNNNNNNNNNNXXNNNNNNNNNk:'. .,,;;:lodxxkkkkOOOOOOOOOOOOO0OOOOO00000KK00Odlcccl:.'OWWWWWWWWWWWWWWWWNNWWWWWWW
+NNK0XNNNNNNNNNNNXNNNNNNNKkxdOx,';;:cdxkOOOOOOO000000000000000OOO00OO00KKKXK0xolll:,,oKWWWWWWWWWWWWWWWNNWWWWWWW
+NNK0XNNNNNNNNNNNXNNNNNN0:.'oXO;';;:oxkOOOOOOO0000000000O0000OOO00000KKKKXXXK0xoccc:okxkOXWWWWWWWWWWWWNNWWWWWWW
+NNK0XNNNNNNNNNNNXNNNNNXo'.;OXo'.,;cdkOOOOOOOO0000O00OO00000OOO0000KKKXXXXXXK0kolc:;lxolldKWWWWWWWWWWWNNWWWWWWW
+XNK0XNNNNNNNNNNNXXNNNNKc'.;l,...':ldkOOOOOOOOOOOOOOOO000000000OO0000KKXNNXXK0koc:;,'lo:loONWWWWWWWWWNNNWWWWWWW
+XNK0XNNNNNNNNNNXXXNNXkl;'.     .';lxOOkkxxddooooodxxkO0000OOOkkxxddxxxk0KKXXKOdc;,.  ..;cxKNWWWWWWWWNNNWWWWWWW
+XNK0XNNNNNNNNNNXXXNNx,.''.     ..;okkxdddddooloooddxxkO000OOkddddoooodddxxO000xc,'.    .:odkKWWNWWWWNNNWWWWWWW
+XNK0XNXXXNNNNNNXXXNXo...'.      .;dkxxkkkkxdoloodxkkkOO00OOkkxxxxxxdddxxxkkk00Ol,.     .:lllxXWNWWWWNNNNWWWWWW
+XXK0XNXXXXXXXNNNXXXKo'....      .:xkkOOOxooc,,,cdxkxxkkOOOkxddddxdc;;;codxkOO00x;.     .,;c:oXWNNWWWNNNNNNNNWW
+XXK0KXXXXXXXXNNNNNNNd'....      .:xOOOOkxdxl;,;oxxxxxxkOO0KOdodoodc,''coodkO00Kk:.     .'','lXWNNWWWNNNXNNXXNW
+XXK0KXXXXXXXXNNNNNNNx'..... .   .ckO0OOOOkkxdddxxddxxkOO0KXKkooooddolodxkO00KKXOc.     .''..oNWNNNWWWWWWWWWWWW
+XXK0KXXXXXXXXXNNNNXNk,........  .okO00OOOOOOOOkxxxxxkkkOOKXX0kddddxkkO00KXXXXXX0l.    ..'...dNNNNNNWWWWWWWWWWW
+XXK0KXXXXXXXXXXXXNNN0;........  .okO00OOOOOOOOkkOOkkkkkO0KXXKOkxkkkO00KKXXNNXXK0l.  ....'..'ONNNNNNNNNNNNNNNNN
+XXKOKXXXXXXXXXXXXXXNKc...''..'. .oOO000000OOOOOOOOOkkkOOO0KXX0OOOO0KK00KKKKKKKK0:  ........:KWNNNNNNNNNNNNNNNN
+dO0OKXXXXXXXXXXXXXXNXd'..,:,',' .ckO000000000OOOOOOkkO0000KKK0OOOO0000000000000k,  ........oNWNNNNNNNNNNNNNNNN
+lOKOKXXXXXXXXXXXXXXXNO;..':;.,,. ,xO0000000000000OkkOkO0000OkOOkkO0000000000000o. ....,.. 'ONNNNNNNNNNNNNNNNNN
+0XKOKXXXXXXXXXXXXXXXNXo..','..'. .oOO000000000000OOOkxxOOkkxdkO0OOO000000OOOOOk;  ...',...lXNNNNNNNNNNNNNNNNNN
+XXKOKXXXXXXXXXXXXXXXXXO,........  ckOO000000000OOOkkkkO0OOOkk0KKK0OOO0000OOkkOo.    .... .d0O0NNNNNNNNNNNNNNNN
+KXKOKXXXXXXXXXXKKXXXXXKo......    ,xOOO00000000OOOkOOOOOOOO0000KKK000OOOOOkxkx:      ..  .';,;dXNNNNNNNNNNNNNN
+KXKOKXXXXXXXXXXXXXNNNNN0:.....    .oOOOO00000OOOOOOOOO00OkO0OOOO000K00OOOxoodo.      .. .. ..,dXNNNNXXXXXXXXXX
+KXKOKXXXXXXXXXXXKXXXXXXXx. ...     cOOOOOO0OOOOOOOOOOO0OOkOkkkkkkkOOO0Od:......      . 'o; .o0KNNNNNNNWWWWWWWW
+KKK0KXXXXXXXXXXXKXXXXXXXXkc'...,::coOOOOOOOOOOOOkxdddoooooooooolldxkkOx,    .....   ..'xK:.lXNNNNNNNNXNNNNNNNN
+KKK0KXXXXXXXXXXXKXXXXXXXXXX0o':0XXXX0OOOOOOOOOOkkxkxxkkkxxxxkOOkkxxkxkd'      ..;;..;xKN0:cKNNNNNNNNNXXNNNNNNN
+KKK0KXKXXXXXXXXXKKXXXXXXXXXXXkoOXKXX0kkkkkOOOOOOOO0000OOOOkkOOOOOOOkkkkd,.     .oo,d0XNKl:ONNNNXNNNNNXXXNNNNNN
+KKK0KXKXXXXXXXXXKKXXXXXXXKXXXKdxKKXX0kkkkkkkOOOOOOO00OOOOOOOOOOOOOOkkkkkxl::ccc;:cxKKOkxxdkXNNXXXXNNNXXXNNNNNN
+KKK0KXXKKXXXXXXXKKXXXXXXXXXXXX0dkKXX0kkkkkkkkkOOOOOOOOOOOOOOOOOOOOOOOOOkxod0NNN0c;ododkKXkkXNNXNXXNNNXXXXNNNNN
+KKK0KXKKKKKKXXXXKKXXXXXXKKKKKKKxlxxoxkOOOOkkkkkOOOOOOOOOOOOO00000000OOkxdodOXXXKdx0OOKNXXOxKNXNNXXNNNXXXXNNNNN
+KKK0KKKKKKKKKK00OOOkkxxxdddoolc;.. .lkOOOOkkxkkOOOOOO00O00OOOO0000OOOkxxxddlllol:okkkO0KXOd0NXNNXXNNNXXXXNNNNN
+KKK0O0OOkxxdddoooooooooooolc;.    .,dkkOOOOOkxxxkOOOOOOOOOOOOOOOkkkxxxxxddd, ...':ccccllll:lxkO0KKXNNXXXXXXNNN
+kxddooooooooododddollllc;'..     .;oxkkOOOOOkkxxxxkkkOOOOOOOOkkxxdddxxxxxxd'    ..,:loolll;;ccccllodkO0KXNXXNN
+oooooddddddddol:,..  ..         'olcdkkkOOOOkkkkkkkkkkkkkkkkxxxdooodxxxxxxxc.      ..,;:cl:;clllllc:cccldkKXNN
+ddddddooooool;.                 :xdclxkkOOOOkkkkkkOOOOOO00OOOkxdoodxxxxxxxkk;...     ....,,,;cccccllollcc:coOX
+oooooooolc:;.                   ,xkocdkkOOOOOkkkkkkOOOO000OOkxdooodxxxxxxkO0l. .      ......';;::::ccccllll:;o
+ollllll:'.                      .lkxllxkkOOOOOkkkkkkkkOOOOOkxddodddxxxxxxkOO:  .       .......'',,;;;::::ccl;'
+llcc:;'.                         'dkdlokkkOOOOOkkkkkkkkkkkkxxddddxxxxxxxxkOl.          ............',,;;;;:::'
+;'..                              ,dkdldkkkOOOOOOkkOOOkkkkkxxxxxxxxxxxxxkxc.            ... ..........'',,,;;.
+                                   ;xkolxkkkOOOOOOOOOOOOOkkkxxxkkkxxxkkkd:.              .. ...     ..........
+            ..                      :kxldOkkOOOOOOOOOkkkkkkkxxkkkkkkkkkd:.   ..          ..  ..      .........
+*FRC when they create an industrial-grade library to help you code your robot, just for you to not use it
+*and steal their code instead
+*/
+
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpiutil.math.MathUtil;
@@ -16,10 +69,8 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import com.kauailabs.navx.frc.AHRS;
-
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
-
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANPIDController;
@@ -40,10 +91,6 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
   private CANSparkMax leftDriveMotor;
   private CANSparkMax rightDriveMotor;
   
-  // Stores the encoders from the NEO motors
-  public CANEncoder leftDriveMotorEncoder;
-  public CANEncoder rightDriveMotorEncoder;
-
   // Velocity PID loops for the motors
   public CANPIDController m_leftDrive_pid;
   public CANPIDController m_rightDrive_pid;
@@ -73,10 +120,6 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     // Sets up the drive motors
     leftDriveMotor = RobotContainer.leftDriveMotorLead; // references motors from RobotContainer
     rightDriveMotor =  RobotContainer.rightDriveMotorLead;
-
-    // Sets up drive encoders
-    leftDriveMotorEncoder = RobotContainer.leftDriveEncoder;
-    rightDriveMotorEncoder = RobotContainer.rightDriveEncoder;
 
     // PID Setup
     kP = Constants.DRIVE_kP;
@@ -115,10 +158,6 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     if((p != kP)) { m_leftDrive_pid.setP(p); m_rightDrive_pid.setP(p); kP = p; }
     if((i != kI)) { m_leftDrive_pid.setI(i); m_rightDrive_pid.setI(i); kI = i; }
     if((d != kD)) { m_leftDrive_pid.setD(d); m_rightDrive_pid.setD(d); kD = d; }
-  }
-
-  public void doTeleop() {    
-    //test 1
   }
 
   protected double applyDeadband(double value, double deadband)
