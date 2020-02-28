@@ -33,8 +33,8 @@ public final class Constants {
     public static DifferentialDrive robotDrive; // Creates new differential drive
 
     //forward and reverse channels for double solenoids
-    public static final int SHOOTER_GATE_FORWARD_CHANNEL = 5;
-    public static final int SHOOTER_GATE_RELEASE_CHANNEL = 4;
+    public static final int SHOOTER_GATE_FORWARD_CHANNEL = 2;
+    public static final int SHOOTER_GATE_RELEASE_CHANNEL = 3;
     public static final int INTAKE_SOLENOID_FORWARD_CHANNEL = 0;
     public static final int INTAKE_SOLENOID_REVERSE_CHANNEL = 1;
 
@@ -55,38 +55,38 @@ public final class Constants {
     public static final double RIGHT_DRIVE_kD = 0.0;
 
     //deadzone for pid control loop on drive
-    public static final double INTAKE_MOTOR_SPEED = 0.55f;
-    public static final double TELESCOPIC_ROD_MOTOR_SPEED = 0.2f;
-    public static final double INVERSE_TELESCOPIC_MOTOR_SPEED = -0.2f;
-    public static final double WINCH_MOTOR_SPEED = 0.2f;
+    public static final double INTAKE_MOTOR_SPEED = 0.55;
+    public static final double TELESCOPIC_ROD_MOTOR_SPEED = 0.2;
+    public static final double INVERSE_TELESCOPIC_MOTOR_SPEED = -0.2;
+    public static final double WINCH_MOTOR_SPEED = 0.2;
 
-    public static final double WINCH_TIMEOUT = 5.0f;
+    public static final double WINCH_TIMEOUT = 5.0;
 
     // Auto Setup
-    public static final double AUTO_TRAVEL_SPEED = -0.5f; // Don't put above 0.75, needs some room for turning corrections
+    public static final double AUTO_TRAVEL_SPEED = -0.5; // Don't put above 0.75, needs some room for turning corrections
     // Gear Ratios
-    public static final double MAIN_MOTOR_RATIO = 7.31f; // 1 : 7.31 gear ratio
+    public static final double MAIN_MOTOR_RATIO = 7.31; // 1 : 7.31 gear ratio
     // Distance Calculations Setup
-    public static final double WHEEL_CIRCUMFERENCE = 0.5f * Math.PI; // 6 in diameter * 1/12feet * PI = Wheel Circumfrence in feet
+    public static final double WHEEL_CIRCUMFERENCE = 0.5 * Math.PI; // 6 in diameter * 1/12feet * PI = Wheel Circumfrence in feet
     // Drive Turning PID Setup
-    public static final double TURN_kP = 0.0001f;
-    public static final double TURN_kI = 0.000001f;
-    public static final double TURN_kD = 0f;
-    public static final double TURN_TOLERANCE = 5.0f;
-    public static final double TURN_PS_TOLERANCE = 10.0f;
+    public static final double TURN_kP = 0.0001;
+    public static final double TURN_kI = 0.000001;
+    public static final double TURN_kD = 0;
+    public static final double TURN_TOLERANCE = 5.0;
+    public static final double TURN_PS_TOLERANCE = 10.0;
     // Shooter PID Setup
-    public static final double SHOOTER_LOW_SPEED = 3300f; // creates the speed for the LowSpeedShooter
-    public static final double SHOOTER_kP = 0.0002f;
-    public static final double SHOOTER_kI = 0.000001f;
-    public static final double SHOOTER_kD = 0.0004f;
-    public static final double SHOOTER_DESIRED_RPM = 3300.0f / 5767.0f;
-    public static final double MAX_SHOOTER_RPM = 5676.0f;
+    public static final double SHOOTER_LOW_SPEED = 3300; // creates the speed for the LowSpeedShooter
+    public static final double SHOOTER_kP = 0.0002;
+    public static final double SHOOTER_kI = 0.000001;
+    public static final double SHOOTER_kD = 0.0004;
+    public static final double SHOOTER_DESIRED_RPM = 3300.0 / 5767.0;
+    public static final double MAX_SHOOTER_RPM = 5676.0;
 
     //Drive PID Setup
-    public static final double DRIVE_kP = 0.0001f;
-    public static final double DRIVE_kI = 0.000001f;
-    public static final double DRIVE_kD = 0f;
-    public static final double DEADBAND = 0.02f;
+    public static final double DRIVE_kP = 0.0001;
+    public static final double DRIVE_kI = 0.000001;
+    public static final double DRIVE_kD = 0;
+    public static final double DEADBAND = 0.02;
 
     public static void init() {
         // LiveWindow.addAcutator("Drive", "robotDrive", myRobot);

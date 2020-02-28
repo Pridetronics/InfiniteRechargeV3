@@ -240,11 +240,13 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     // can grab the information and utilize it for the given controller, in this
     // case joystickDriver
 
+    /*
     JoystickButton testButton = new JoystickButton(joystickDriver, 3);
     testButton.whenPressed(new GoDistance(4.0, robotDrive));
 
     JoystickButton testButton2 = new JoystickButton(joystickDriver, 2);
     testButton2.whenPressed(new GoToAngle(90.0, robotDrive));
+    */
 
     /********************************************************************************************/
     /*  

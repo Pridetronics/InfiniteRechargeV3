@@ -179,7 +179,7 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     
     /* Left this here for testing, it's the original tankdrive function */
     //robotDrive.tankDrive(leftValue, rightValue, squareInputs);
-
+    
     // // Checks that the value is between -1 and 1
      leftValue = MathUtil.clamp(leftValue, -1.0, 1.0);
      rightValue = MathUtil.clamp(rightValue, -1.0, 1.0);
@@ -194,10 +194,10 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
      {
        // Squares the values and copies the sign from the initial value
       // This makes sure that if the values were negative that they stay negative after the square
-      leftValue = Math.copySign(leftValue * leftValue, leftValue);
-      rightValue = Math.copySign(rightValue * rightValue, rightValue);
+      leftValue = Math.copySign((leftValue * leftValue), leftValue);
+      rightValue = Math.copySign((rightValue * rightValue), rightValue);
     }
-    
+
     // Converts the percentage value to RPM for the PID Loop
     leftValue *= Constants.MAX_SHOOTER_RPM;
     rightValue *= Constants.MAX_SHOOTER_RPM;
@@ -205,6 +205,9 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     // Sets the reference point on the PID loop to the specified RPM
     m_leftDrive_pid.setReference(leftValue, ControlType.kVelocity);
     m_rightDrive_pid.setReference(rightValue, ControlType.kVelocity);
+    
+    //robotDrive.tankDrive(leftValue, rightValue);
+    
   }
 
   public void resetAngle() {
