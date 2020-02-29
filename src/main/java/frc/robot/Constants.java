@@ -75,7 +75,7 @@ public final class Constants {
     public static final double TURN_TOLERANCE = 5.0;
     public static final double TURN_PS_TOLERANCE = 10.0;
     // Shooter PID Setup
-    public static final double SHOOTER_LOW_SPEED = 3300; // creates the speed for the LowSpeedShooter
+    public static final double SHOOTER_LOW_SPEED = 3300.0; // creates the speed for the LowSpeedShooter
     public static final double SHOOTER_kP = 0.0002;
     public static final double SHOOTER_kI = 0.000001;
     public static final double SHOOTER_kD = 0.0004;

@@ -181,8 +181,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
     lowSpeedShooterButton = new JoystickButton(joystickShooter, 1); // creates the button for the low speed shooter
     intakeButton = new JoystickButton(joystickDriver, 5); // Right Upper Bumper, sets intake Button to a controller
-    intakeExtendRetractButton = new JoystickButton(joystickDriver, 7); //Left Upper Bumper, elevator button  to a controller
-    raiseTelescopicRodButton = new JoystickButton(joystickShooter, 6);
+    intakeExtendRetractButton = new JoystickButton(joystickDriver, 6); //Left Upper Bumper, elevator button  to a controller
+    raiseTelescopicRodButton = new JoystickButton(joystickShooter, 7);
     liftRobotButton = new JoystickButton(joystickShooter, 5);
 
     /********************************************************************************************/
@@ -255,7 +255,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     /********************************************************************************************/
 
     shooterMotor = new CANSparkMax(Constants.SHOOTER_MOTOR_CAN_ADDRESS, MotorType.kBrushless); // instantiates new shooter
-                                                                                          // motor with specific ID
+    shooterMotor.setInverted(false);
+    // motor with specific ID
     // Shooter PID Setup
     shooterMotor_pid = shooterMotor.getPIDController();
     shooterMotor_pid.setP(Constants.SHOOTER_kP);
@@ -291,7 +292,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     
     intake = new Intake();
 
-    intakeExtendRetractButton.whenPressed(new ExtendRetractIntake(intake));//While held, command is being run, references command from commands. Hence imports
+    intakeExtendRetractButton.whenHeld(new ExtendRetractIntake(intake));//While held, command is being run, references command from commands. Hence imports
     intakeButton.whenHeld(new IntakeRun(intake));//While the button is being held, the command is being run
     
     /********************************************************************************************/
