@@ -211,8 +211,6 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
 
   public void resetAngle() {
     /* Resets the yaw to 0 to wherever the robot is pointed */
-    /* Only reccomended to press once at the start of the match once the robot is in place to calibrate */
-    /* Please be very careful with this, it's extremely important that the forward direction is 0 for the autonomous to work correctly */
     navX.zeroYaw();
   }
 
