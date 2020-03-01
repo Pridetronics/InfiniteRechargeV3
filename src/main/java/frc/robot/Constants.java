@@ -30,6 +30,8 @@ public final class Constants {
     public static final int SHOOTER_MOTOR_CAN_ADDRESS = 10;
 
     //Button numbers
+    public static final int DRIVER_JOYSTICK_NUMBER = 0;
+    public static final int SHOOTER_JOYSTICK_NUMBER = 1;
     public static final int SHOOTER_BUTTON_NUMBER = 1;
     public static final int INTAKE_BUTTON_NUMBER = 5;
     public static final int TELESCOPIC_ROD_BUTTON_NUMBER = 7;

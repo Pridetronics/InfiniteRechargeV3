@@ -74,6 +74,7 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.DescendTelescopicClimb;
 import frc.robot.commands.DriveJoystick;
@@ -178,14 +179,14 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     */
     /********************************************************************************************/
 
-    joystickDriver = new Joystick(0);
-    joystickShooter = new Joystick(1);
+    joystickDriver = new Joystick(Constants.DRIVER_JOYSTICK_NUMBER);
+    joystickShooter = new Joystick(Constants.SHOOTER_BUTTON_NUMBER);
     // The numbers in the parenthesis represents the ports each controller goes to.
 
-    lowSpeedShooterButton = new JoystickButton(joystickShooter, 1); // creates the button for the low speed shooter
-    intakeButton = new JoystickButton(joystickDriver, 5); // Right Upper Bumper, sets intake Button to a controller
-    raiseTelescopicRodButton = new JoystickButton(joystickShooter, 7);
-    liftRobotButton = new JoystickButton(joystickShooter, 5);
+    lowSpeedShooterButton = new JoystickButton(joystickShooter, Constants.SHOOTER_BUTTON_NUMBER); // creates the button for the low speed shooter
+    intakeButton = new JoystickButton(joystickDriver, Constants.INTAKE_BUTTON_NUMBER); // Right Upper Bumper, sets intake Button to a controller
+    raiseTelescopicRodButton = new JoystickButton(joystickShooter, Constants.TELESCOPIC_ROD_BUTTON_NUMBER);
+    liftRobotButton = new JoystickButton(joystickShooter, Constants.LIFT_ROBOT_BUTTON_NUMBER);
 
     /********************************************************************************************/
     /*
@@ -345,11 +346,12 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     //command to raise the telescopic rod
     raiseTelescopicRodButton.whenHeld(new ExtendTelescopicClimb(climb));
 
-    /*
-    liftRobotButton.whileHeld(new SequentialCommandGroup(
+    //Command to bring the telescopic rod down and spool the winch to raise the robot, which is decorated
+    //with a timeout to stop the command after the amount of time we give it has passed
+    liftRobotButton.whenHeld(new SequentialCommandGroup(
         new DescendTelescopicClimb(climb),
-        new RaiseRobot(Constants.WINCH_TIMEOUT, climb)));
-    */
+        new ParallelRaceGroup(
+        new RaiseRobot(climb).withTimeout(Constants.WINCH_TIMEOUT))));
     
     /*********************************************************************************************/
     /*
