@@ -64,6 +64,7 @@ import edu.wpi.first.wpiutil.math.MathUtil;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -90,6 +91,10 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
   // NEO motors declaration
   private CANSparkMax leftDriveMotor;
   private CANSparkMax rightDriveMotor;
+  
+  // Encoder Declaration
+  private CANEncoder leftDriveEncoder;
+  private CANEncoder rightDriveEncoder;
   
   // Velocity PID loops for the motors
   public CANPIDController m_leftDrive_pid;
@@ -121,6 +126,14 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     leftDriveMotor = RobotContainer.leftDriveMotorLead; // references motors from RobotContainer
     rightDriveMotor =  RobotContainer.rightDriveMotorLead;
 
+    // Sets up the motor encoders
+    leftDriveEncoder = RobotContainer.leftDriveEncoder;
+    rightDriveEncoder = RobotContainer.rightDriveEncoder;
+    resetEncoders();
+
+    // Sets up the odometry
+    m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(navX.getYaw()));
+
     // PID Setup
     kP = Constants.DRIVE_kP;
     kI = Constants.DRIVE_kI;
@@ -147,7 +160,7 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
   public void periodic() {
     // Updates the odometry object with new position info
     /* Need to update Encoders to output distance in meters instead of feet to work */
-    //m_odometry.update(Rotation2d.fromDegrees(getMeasurement()), leftDriveMotorEncoder.getPosition(),rightDriveMotorEncoder.getPosition());
+    m_odometry.update(Rotation2d.fromDegrees(getMeasurement()), leftDriveEncoder.getPosition(),rightDriveEncoder.getPosition());
 
     // read PID coefficients from SmartDashboard
     double p = SmartDashboard.getNumber("Drive P Gain", 0);
@@ -207,7 +220,27 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     // Sets the reference point on the PID loop to the specified RPM
     m_leftDrive_pid.setReference(leftValue, ControlType.kVelocity);
     m_rightDrive_pid.setReference(rightValue, ControlType.kVelocity);
+
+    // Feeds the safety object with the new robot data
+    robotDrive.feed();
   }
+
+  /* Trajectory Methods */
+
+  public void tankDriveVolts(double leftVolts, double rightVolts) {
+    // tankDrive method that is used for trajectory generation
+    // Used since the RamsetteController gives output in volts
+    leftDriveMotor.setVoltage(leftVolts);
+    rightDriveMotor.setVoltage(-rightVolts);
+    robotDrive.feed();
+  }
+
+  public Pose2d getPose() {
+    // Returns a Pose2D object from the odometry
+    return m_odometry.getPoseMeters();
+  }
+
+  /* Utility Methods */
 
   public void resetAngle() {
     /* Resets the yaw to 0 to wherever the robot is pointed */
@@ -215,14 +248,23 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
   }
 
   public double getRotationRate(){
+    // Gets the rotation rate from the rotation PID loop
     return rotateToAngleRate;
   }
 
   public void zeroRotationRate(){
+    // Zeroes the rotation rate for the PID loop
     rotateToAngleRate = 0;
   }
 
+  public void resetEncoders() {
+    // Resets the encoder distance to 0
+    leftDriveEncoder.setPosition(0.0);
+    rightDriveEncoder.setPosition(0.0);
+  }
+
   public boolean atSetPoint() {
+    // Returns true if the PID loop is at its setpoint within the set tolerances
     return getController().atSetpoint();
   }
 
