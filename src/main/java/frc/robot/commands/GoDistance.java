@@ -21,7 +21,7 @@ public class GoDistance extends CommandBase {
   private CANEncoder leftDriveEncoder, rightDriveEncoder;
 
   public GoDistance(double distance, Drive robotDrive) {
-    // @param distance - Distance to travel in feet
+    // @param distance - Distance to travel in meters
     // @param robotDrive - Main drive system object
     m_Robotdrive = robotDrive;
     setDistance = distance;
@@ -50,8 +50,7 @@ public class GoDistance extends CommandBase {
       m_Robotdrive.enable();
 
       /* Sets the encoder reference distance values to 0 */
-      leftDriveEncoder.setPosition(0f);
-      rightDriveEncoder.setPosition(0f);
+      m_Robotdrive.resetEncoders();
     }
     double leftStickValue = Constants.AUTO_TRAVEL_SPEED + m_Robotdrive.getRotationRate(); // Adds the rotation rate to ensure the robot drives straight
     double rightStickValue = Constants.AUTO_TRAVEL_SPEED - m_Robotdrive.getRotationRate(); // Adds the rotation rate to ensure the robot drives straight
@@ -61,9 +60,9 @@ public class GoDistance extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    /* Sets the encoder reference distance values to 0 because why not */
-    leftDriveEncoder.setPosition(0f);
-    rightDriveEncoder.setPosition(0f);
+    /* Sets the encoder reference distance values to 0 */
+    m_Robotdrive.resetEncoders();
+    // Disables the PID loop
     m_Robotdrive.disable();
   }
 

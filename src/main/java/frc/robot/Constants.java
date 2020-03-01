@@ -78,7 +78,7 @@ public final class Constants {
     public static final double MAIN_MOTOR_RATIO = 7.31; // 1 : 7.31 gear ratio
     
     // Distance Calculations Setup
-    public static final double WHEEL_CIRCUMFERENCE = 0.5 * Math.PI; // 6 in diameter * 1/12feet * PI = Wheel Circumfrence in feet
+    public static final double WHEEL_CIRCUMFERENCE = 0.1524 * Math.PI; // 0.1524 meters * PI = Wheel Circumfrence in meters
     
     // Drive Turning PID Setup
     public static final double TURN_kP = 0.0001;
