@@ -16,11 +16,13 @@ public class DescendTelescopicClimb extends CommandBase
   /**
    * Creates a new DescendTelescopicClimb.
    */
+  //Creates a climb object
   private Climb m_climb;
 
   public DescendTelescopicClimb(Climb climb) 
   {
     // Use addRequirements() here to declare subsystem dependencies.
+    //References climb object from robot container
     m_climb = climb;
 
     addRequirements(m_climb);
@@ -37,6 +39,7 @@ public class DescendTelescopicClimb extends CommandBase
   @Override
   public void execute() 
   {
+    //Brings down the telescopic rod
     m_climb.raiseTelescopicRod(Constants.INVERSE_TELESCOPIC_MOTOR_SPEED);
   }
 
@@ -44,6 +47,7 @@ public class DescendTelescopicClimb extends CommandBase
   @Override
   public void end(boolean interrupted) 
   {
+    //Stops the telescopic motor at the end of the command
     m_climb.raiseTelescopicRod(0.0);
   }
 
@@ -51,6 +55,7 @@ public class DescendTelescopicClimb extends CommandBase
   @Override
   public boolean isFinished() 
   {
+    //Ends the command when the limit switch closes
     boolean control = false;
     if(m_climb.lowerClimbLimitOpen() == false)
     {

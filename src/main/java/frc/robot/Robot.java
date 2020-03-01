@@ -49,9 +49,11 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     
     m_robotContainer = new RobotContainer();
+    
+    /*
     m_shooterBallRelease = RobotContainer.shooterBallRelease;
     m_shooterBallRelease.set(DoubleSolenoid.Value.kReverse);
-    
+    */
   }
 
   /**

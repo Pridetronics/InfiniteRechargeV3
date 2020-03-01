@@ -27,10 +27,16 @@ public final class Constants {
     public static final int ELEVATOR_MOTOR_CAN_ADDRESS = 7;
     public static final int RAISE_CLIMB_MOTOR_ADDRESS = 8;
     public static final int TELESCOPIC_CLIMB_MOTOR_ADDRESS = 9;
-    public static final int SHOOTER_MOTOR_CAN_ADDRESS = 10; // creates can address for shooter motor
+    public static final int SHOOTER_MOTOR_CAN_ADDRESS = 10;
+
+    //Button numbers
+    public static final int SHOOTER_BUTTON_NUMBER = 1;
+    public static final int INTAKE_BUTTON_NUMBER = 5;
+    public static final int TELESCOPIC_ROD_BUTTON_NUMBER = 7;
+    public static final int LIFT_ROBOT_BUTTON_NUMBER = 5;
 
     //differential drive object, might delete because we don't use it anymore
-    public static DifferentialDrive robotDrive; // Creates new differential drive
+    public static DifferentialDrive robotDrive;
 
     //forward and reverse channels for double solenoids
     public static final int SHOOTER_GATE_FORWARD_CHANNEL = 2;
@@ -54,26 +60,31 @@ public final class Constants {
     public static final double RIGHT_DRIVE_kI = 0.000001;
     public static final double RIGHT_DRIVE_kD = 0.0;
 
-    //deadzone for pid control loop on drive
+    //Motor speeds
     public static final double INTAKE_MOTOR_SPEED = 0.55;
     public static final double TELESCOPIC_ROD_MOTOR_SPEED = 0.2;
     public static final double INVERSE_TELESCOPIC_MOTOR_SPEED = -0.2;
     public static final double WINCH_MOTOR_SPEED = 0.2;
 
+    //Timeout for winch
     public static final double WINCH_TIMEOUT = 5.0;
 
     // Auto Setup
     public static final double AUTO_TRAVEL_SPEED = -0.5; // Don't put above 0.75, needs some room for turning corrections
+    
     // Gear Ratios
     public static final double MAIN_MOTOR_RATIO = 7.31; // 1 : 7.31 gear ratio
+    
     // Distance Calculations Setup
     public static final double WHEEL_CIRCUMFERENCE = 0.5 * Math.PI; // 6 in diameter * 1/12feet * PI = Wheel Circumfrence in feet
+    
     // Drive Turning PID Setup
     public static final double TURN_kP = 0.0001;
     public static final double TURN_kI = 0.000001;
     public static final double TURN_kD = 0;
     public static final double TURN_TOLERANCE = 5.0;
     public static final double TURN_PS_TOLERANCE = 10.0;
+    
     // Shooter PID Setup
     public static final double SHOOTER_LOW_SPEED = 3300.0; // creates the speed for the LowSpeedShooter
     public static final double SHOOTER_kP = 0.0002;
@@ -86,6 +97,8 @@ public final class Constants {
     public static final double DRIVE_kP = 0.0001;
     public static final double DRIVE_kI = 0.000001;
     public static final double DRIVE_kD = 0;
+    
+    //Deadzone for TankDrive method
     public static final double DEADBAND = 0.02;
 
     public static void init() {

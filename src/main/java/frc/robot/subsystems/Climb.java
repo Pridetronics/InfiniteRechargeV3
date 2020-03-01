@@ -20,7 +20,7 @@ public class Climb extends SubsystemBase
    * Creates a new Climb.
    */
   //motor objects and limit switches
-   private CANSparkMax m_spoolWinchMotor;
+  private CANSparkMax m_spoolWinchMotor;
   private TalonSRX m_raiseRodMotor;
   private DigitalInput m_upperClimbLimitSwitch;
   private DigitalInput m_lowerClimbLimitSwitch;
@@ -54,11 +54,13 @@ public class Climb extends SubsystemBase
 
   public boolean upperClimbLimitOpen()
   {
+    //Returns the state of the upper limit switch
     return m_upperClimbLimitSwitch.get();
   }
   
   public boolean lowerClimbLimitOpen()
   {
+    //Returns the state of the lower limit switch
     return m_lowerClimbLimitSwitch.get();
   }
 }

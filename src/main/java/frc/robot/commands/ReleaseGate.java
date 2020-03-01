@@ -48,8 +48,8 @@ public class ReleaseGate extends CommandBase
   @Override
   public void end(boolean interrupted) 
   {
-    m_shooter.releaseGate(); // when it ends, the gate is released, letting the balls fall through
-    //ballRelease = ballReleasePiston.RETRACTED;
+     //When it ends, the gate is released, letting the balls fall through
+    m_shooter.releaseGate();
   }
 
   // Returns true when the command should end.

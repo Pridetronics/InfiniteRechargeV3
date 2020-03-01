@@ -18,7 +18,6 @@ public class Shooter extends SubsystemBase
   /**
    * Creates a new Shooter.
    */
-  // private CANSparkMax shooterMotor; // creates a new motor variable
   private final DoubleSolenoid m_shooterBallRelease; //double solenoid for shooter gate
   private CANPIDController shooter_pid; // pid controller for our shooter pid control loop
   

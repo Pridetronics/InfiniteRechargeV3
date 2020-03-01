@@ -90,6 +90,7 @@ import frc.robot.commands.GoToAngle;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
@@ -124,8 +125,10 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
   public static CANSparkMax leftDriveMotorFollow;
   public static CANSparkMax rightDriveMotorFollow;
-  public static CANSparkMax intakeMotor;
-  public static CANSparkMax elevatorMotor;
+  //public static CANSparkMax intakeMotor;
+  //public static CANSparkMax elevatorMotor;
+  public static TalonSRX intakeMotor;
+  public static TalonSRX elevatorMotor;
   public static TalonSRX raiseRodMotor;
   public static CANSparkMax spoolWinchMotor;
   public static CANSparkMax shooterMotor;
@@ -181,7 +184,6 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
     lowSpeedShooterButton = new JoystickButton(joystickShooter, 1); // creates the button for the low speed shooter
     intakeButton = new JoystickButton(joystickDriver, 5); // Right Upper Bumper, sets intake Button to a controller
-    intakeExtendRetractButton = new JoystickButton(joystickDriver, 6); //Left Upper Bumper, elevator button  to a controller
     raiseTelescopicRodButton = new JoystickButton(joystickShooter, 7);
     liftRobotButton = new JoystickButton(joystickShooter, 5);
 
@@ -205,6 +207,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     rightDriveMotorFollow = new CANSparkMax(Constants.RIGHT_DRIVE_MOTOR_FOLLOW, MotorType.kBrushless);
     rightDriveMotorFollow.follow(rightDriveMotorLead);
 
+    //Creates the encoders for the left drive and right drive motors
     leftDriveEncoder = new CANEncoder(leftDriveMotorLead, EncoderType.kHallSensor, 4096);
     rightDriveEncoder = new CANEncoder(rightDriveMotorLead, EncoderType.kHallSensor, 4096);
     
@@ -218,6 +221,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     leftDriveEncoder.setPositionConversionFactor(Constants.WHEEL_CIRCUMFERENCE / Constants.MAIN_MOTOR_RATIO); // Converts to distance in feet and uses the gearbox ratio too
     rightDriveEncoder.setPositionConversionFactor(Constants.WHEEL_CIRCUMFERENCE / Constants.MAIN_MOTOR_RATIO); // Converts to distance in feet and uses the gearbox ratio too
 
+    //Gets the pid controller for the left drive and right drive motors
     leftDrive_pid = leftDriveMotorLead.getPIDController();
     rightDrive_pid = rightDriveMotorLead.getPIDController();
 
@@ -230,9 +234,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     rightDrive_pid.setI(Constants.DRIVE_kI);
     rightDrive_pid.setD(Constants.DRIVE_kD);
 
+    //Creates the drive object
     robotDrive = new Drive();
-    // It sets a new drive and uses the ints 1 and 2. The order matters.
-    // 1 is assigned to leftDriveMotorAddress, whereas 2 is rightDriveMotorAddress
 
     robotDrive.setDefaultCommand(new DriveJoystick(joystickDriver, robotDrive));
     // This helps set the default command. It sets it to DriveJoystick so that way
@@ -240,35 +243,32 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     // can grab the information and utilize it for the given controller, in this
     // case joystickDriver
 
-    /*
-    JoystickButton testButton = new JoystickButton(joystickDriver, 3);
-    testButton.whenPressed(new GoDistance(4.0, robotDrive));
-
-    JoystickButton testButton2 = new JoystickButton(joystickDriver, 2);
-    testButton2.whenPressed(new GoToAngle(90.0, robotDrive));
-    */
-
     /********************************************************************************************/
     /*  
         Start of Shooter section
     */
     /********************************************************************************************/
 
-    shooterMotor = new CANSparkMax(Constants.SHOOTER_MOTOR_CAN_ADDRESS, MotorType.kBrushless); // instantiates new shooter
+    //Creates shooter motor 
+    shooterMotor = new CANSparkMax(Constants.SHOOTER_MOTOR_CAN_ADDRESS, MotorType.kBrushless);
     shooterMotor.setInverted(false);
-    // motor with specific ID
-    // Shooter PID Setup
+
+    //Creates shooter motor pid controller and sets the pid constants
     shooterMotor_pid = shooterMotor.getPIDController();
     shooterMotor_pid.setP(Constants.SHOOTER_kP);
     shooterMotor_pid.setI(Constants.SHOOTER_kI);
     shooterMotor_pid.setD(Constants.SHOOTER_kD);
 
-    shooterMotorEncoder = new CANEncoder(shooterMotor, EncoderType.kHallSensor, 4096); // instantiates a new encoder for
-                                                                                     // the shooterMotor
+    //Creates the encoder of the shooter motor
+    shooterMotorEncoder = new CANEncoder(shooterMotor, EncoderType.kHallSensor, 4096);
+
+    //Creates the double solenoid for the shooter gate
     shooterBallRelease = new DoubleSolenoid(Constants.SHOOTER_GATE_FORWARD_CHANNEL, Constants.SHOOTER_GATE_RELEASE_CHANNEL);
 
-    shooter = new Shooter(); // new Shooter object
+    //Creates a shooter object
+    shooter = new Shooter();
     
+    //Calls the command to run the shooter motor and release the shooter gate at the same time
     lowSpeedShooterButton.whenHeld(new ParallelCommandGroup(
         new LowSpeedShooter(shooter),
         new ReleaseGate(shooter)));
@@ -279,8 +279,10 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     */
     /********************************************************************************************/
     
+    //creates the double solenoid and gives it the forward/reverse channels
     intakeExtendRetract = new DoubleSolenoid(Constants.INTAKE_SOLENOID_FORWARD_CHANNEL, Constants.INTAKE_SOLENOID_REVERSE_CHANNEL);
     
+    /*
     intakeMotor = new CANSparkMax(Constants.INTAKE_MOTOR_CAN_ADDRESS, MotorType.kBrushless); //The motor (CANSparkMax) is defined with a type and port (port 5, and motor type = brushless)
     ///intakeMotor =  new Talon(5); //Motor is defined as a specified motor under port five (Talon)
     intakeMotor.set(0); //Initially sets motor value to 0, will not run without further command
@@ -289,12 +291,30 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     ///elevatorMotorFollow = new Talon(7); // Motor is defined under port seven (Talon)
     elevatorMotor.set(0); //Sets motor speed to 0
     elevatorMotor.follow(intakeMotor); // Vertical follow motor will do everthing the vertical lead motor does
+    */
     
+    //creates the intake motor and sets the speed to 0
+    intakeMotor = new WPI_TalonSRX(Constants.INTAKE_MOTOR_CAN_ADDRESS);
+    intakeMotor.set(TalonSRXControlMode.PercentOutput, 0.0);
+
+    //creates the elevator motor, sets the speed to 0, and has it follow the intake motor
+    elevatorMotor = new WPI_TalonSRX(Constants.ELEVATOR_MOTOR_CAN_ADDRESS);
+    elevatorMotor.set(TalonSRXControlMode.PercentOutput, 0.0);
+    elevatorMotor.follow(intakeMotor);
+
+    //creates the intake object
     intake = new Intake();
 
+    /*
     intakeExtendRetractButton.whenHeld(new ExtendRetractIntake(intake));//While held, command is being run, references command from commands. Hence imports
     intakeButton.whenHeld(new IntakeRun(intake));//While the button is being held, the command is being run
-    
+    */
+
+    //runs the command to extend the intake and run the intake/elevator motors at the same time
+    intakeButton.whenHeld(new ParallelCommandGroup(
+        new ExtendRetractIntake(intake),
+        new IntakeRun(intake)));
+
     /********************************************************************************************/
     /*  
         Start of climb section
@@ -309,16 +329,21 @@ public class RobotContainer { // The robot's subsystems and commands are defined
       If the limit switch is closed, the value is 0. If the limit switch is open, the value is 1
     */
     
+    //creates the telescopic rod motor, sets it to 0, and sets it to brake mode
     raiseRodMotor = new WPI_TalonSRX(Constants.RAISE_CLIMB_MOTOR_ADDRESS);
     raiseRodMotor.setNeutralMode(NeutralMode.Brake);
+    raiseRodMotor.set(TalonSRXControlMode.PercentOutput, 0.0);
 
+    //creates the motor to spool the winch, sets it to brake mode, and sets it 0
     spoolWinchMotor = new CANSparkMax(Constants.TELESCOPIC_CLIMB_MOTOR_ADDRESS, MotorType.kBrushless);
     spoolWinchMotor.setIdleMode(IdleMode.kBrake);
-    // The numbers in the parenthesis represents the ports each controller goes to. 
+    spoolWinchMotor.set(0.0);
 
+    //creates climb object
     climb = new Climb();
 
-    raiseTelescopicRodButton.whileHeld(new ExtendTelescopicClimb(climb));
+    //command to raise the telescopic rod
+    raiseTelescopicRodButton.whenHeld(new ExtendTelescopicClimb(climb));
 
     /*
     liftRobotButton.whileHeld(new SequentialCommandGroup(
@@ -339,6 +364,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     ballCounter = new Counter(CounterBase.EncodingType.k2X, intakeLimitSwitch, shooterLimitSwitch, false);
     */
   
+    //Test autonomous command to test GoDistance and GoToAngle commands
     m_auton = new SequentialCommandGroup(
               new GoDistance(4.0, robotDrive), new GoToAngle(90.0, robotDrive),
               new GoDistance(4.0, robotDrive), new GoToAngle(90.0, robotDrive),
