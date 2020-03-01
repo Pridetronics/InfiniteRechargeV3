@@ -7,7 +7,7 @@
 2. Enter the WPILib command line.    
 3. Type "Manage Vendor Libraries"  
 4. Click "Install New Libraries (online)"
-5. Repeat steps and install all 3 of these libraries:
+5. Repeat steps and install all 4 of these libraries:
 
 > https://www.kauailabs.com/dist/frc/2020/navx_frc.json  
 
@@ -15,6 +15,7 @@
 
 > http://devsite.ctr-electronics.com/maven/release/com/ctre/phoenix/Phoenix-latest.json  
 
+> http://revrobotics.com/content/sw/color-sensor-v3/sdk/REVColorSensorV3.json  
 
 ## Contributing
 
