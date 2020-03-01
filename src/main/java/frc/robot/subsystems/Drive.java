@@ -106,6 +106,7 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     super(new PIDController(Constants.TURN_kP, Constants.TURN_kI, Constants.TURN_kD));
     getController().setTolerance(Constants.TURN_TOLERANCE, Constants.TURN_PS_TOLERANCE); // Sets the tolerance to 5 degrees and the TPS tolerance to 10 degrees
     getController().enableContinuousInput(-180, 180); // Sets the controller to continuous because its an angle controller
+    disable(); // Disables the PID loop
 
     // Connect the NAVX to the port on the RoboRIO
     try {
@@ -119,7 +120,7 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     // Sets up the drive motors
     leftDriveMotor = RobotContainer.leftDriveMotorLead; // references motors from RobotContainer
     rightDriveMotor =  RobotContainer.rightDriveMotorLead;
-    
+
     // PID Setup
     kP = Constants.DRIVE_kP;
     kI = Constants.DRIVE_kI;
@@ -178,42 +179,38 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     // This compensates for the amperage drop in the battery and makes it much smoother
     
     /* Left this here for testing, it's the original tankdrive function */
-    //robotDrive.tankDrive(leftValue, rightValue, squareInputs);
-    
-    // // Checks that the value is between -1 and 1
-     leftValue = MathUtil.clamp(leftValue, -1.0, 1.0);
-     rightValue = MathUtil.clamp(rightValue, -1.0, 1.0);
-    
-    // // Creates a deadzone on the controller to reduce drive jitter
-     leftValue = applyDeadband(leftValue, Constants.DEADBAND);
-     rightValue = applyDeadband(rightValue, Constants.DEADBAND);
+    // robotDrive.tankDrive(leftValue, rightValue, squareInputs);
 
-    // // Squares the input to make it a exponential response curve instead of linear
-    // // to increase fine control while permitting full power
-     if (squareInputs) 
-     {
-       // Squares the values and copies the sign from the initial value
+    // Checks that the value is between -1 and 1
+    leftValue = MathUtil.clamp(leftValue, -1.0, 1.0);
+    rightValue = MathUtil.clamp(rightValue, -1.0, 1.0);
+    
+    // Creates a deadzone on the controller to reduce drive jitter
+    leftValue = applyDeadband(leftValue, Constants.DEADBAND);
+    rightValue = applyDeadband(rightValue, Constants.DEADBAND);
+
+    // Squares the input to make it a exponential response curve instead of linear
+    // to increase fine control while permitting full power
+    if (squareInputs) 
+    {
+      // Squares the values and copies the sign from the initial value
       // This makes sure that if the values were negative that they stay negative after the square
-      leftValue = Math.copySign((leftValue * leftValue), leftValue);
-      rightValue = Math.copySign((rightValue * rightValue), rightValue);
+      // Take a look at the intensity of the squaring of the inputs
+      leftValue = Math.copySign(leftValue * leftValue, leftValue);
+      rightValue = Math.copySign(rightValue * rightValue, rightValue);
     }
-
+    
     // Converts the percentage value to RPM for the PID Loop
-    leftValue *= Constants.MAX_SHOOTER_RPM;
-    rightValue *= Constants.MAX_SHOOTER_RPM;
+    leftValue *= Constants.MAX_NEO_RPM;
+    rightValue *= Constants.MAX_NEO_RPM;
 
     // Sets the reference point on the PID loop to the specified RPM
     m_leftDrive_pid.setReference(leftValue, ControlType.kVelocity);
     m_rightDrive_pid.setReference(rightValue, ControlType.kVelocity);
-    
-    //robotDrive.tankDrive(leftValue, rightValue);
-    
   }
 
   public void resetAngle() {
     /* Resets the yaw to 0 to wherever the robot is pointed */
-    /* Only reccomended to press once at the start of the match once the robot is in place to calibrate */
-    /* Please be very careful with this, it's extremely important that the forward direction is 0 for the autonomous to work correctly */
     navX.zeroYaw();
   }
 

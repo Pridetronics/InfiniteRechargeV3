@@ -36,20 +36,23 @@ public class GoDistance extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    /* Enables the turning PID loop and sets the setpoint */
-    /* The only reason we are using the turning PID loop here is to make sure the robot doesn't veer off to the side */
-    m_Robotdrive.setSetpoint(m_Robotdrive.getMeasurement()); //Sets the setpoint to where the robot is currently looking
-    m_Robotdrive.zeroRotationRate();
-    m_Robotdrive.enable();
-
-    /* Sets the encoder reference distance values to 0 */
-    leftDriveEncoder.setPosition(0.0);
-    rightDriveEncoder.setPosition(0.0);
+    // Nothing
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (!m_Robotdrive.isEnabled()) {
+      /* Enables the turning PID loop and sets the setpoint */
+      /* The only reason we are using the turning PID loop here is to make sure the robot doesn't veer off to the side */
+      m_Robotdrive.setSetpoint(m_Robotdrive.navX.getYaw()); //Sets the setpoint to where the robot is currently looking
+      m_Robotdrive.zeroRotationRate();
+      m_Robotdrive.enable();
+
+      /* Sets the encoder reference distance values to 0 */
+      leftDriveEncoder.setPosition(0f);
+      rightDriveEncoder.setPosition(0f);
+    }
     double leftStickValue = Constants.AUTO_TRAVEL_SPEED + m_Robotdrive.getRotationRate(); // Adds the rotation rate to ensure the robot drives straight
     double rightStickValue = Constants.AUTO_TRAVEL_SPEED - m_Robotdrive.getRotationRate(); // Adds the rotation rate to ensure the robot drives straight
     m_Robotdrive.tankDrive(leftStickValue, rightStickValue, false);
@@ -61,6 +64,7 @@ public class GoDistance extends CommandBase {
     /* Sets the encoder reference distance values to 0 because why not */
     leftDriveEncoder.setPosition(0f);
     rightDriveEncoder.setPosition(0f);
+    m_Robotdrive.disable();
   }
 
   // Returns true when the command should end.

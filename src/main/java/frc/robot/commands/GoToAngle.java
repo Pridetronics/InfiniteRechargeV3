@@ -30,15 +30,18 @@ public class GoToAngle extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    /* Enables the turning PID loop and sets the setpoint */
-    m_Robotdrive.setSetpoint(setAngle);
-    m_Robotdrive.zeroRotationRate();
-    m_Robotdrive.enable();
+    // Nothing
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (!m_Robotdrive.isEnabled()) {
+      /* Enables the turning PID loop and sets the setpoint */
+      m_Robotdrive.setSetpoint(setAngle);
+      m_Robotdrive.zeroRotationRate();
+      m_Robotdrive.enable();
+    }
     /* Puts the stick values to the rotation rate and drives the robot */
     /* Will only rotate the robot to the specified value */
     double leftStickValue = m_Robotdrive.getRotationRate();
