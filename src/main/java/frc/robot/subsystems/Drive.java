@@ -66,9 +66,15 @@ import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
+import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
+
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
@@ -104,9 +110,22 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
   private double kP, kI, kD;
 
   // Odometry Setup for Pathing
-  private DifferentialDriveOdometry m_odometry;
+  public DifferentialDriveOdometry driveOdometry;
+
+  // DifferentialDriveKinematics Object for Trajectory Calculations
+  public DifferentialDriveKinematics driveKinematics;
+
+  // Simple Feed Forward Declaration
+  public SimpleMotorFeedforward driveFeedforward;
  
+  // Differential Drive Voltage Constraint Instantiation
+  public DifferentialDriveVoltageConstraint driveVoltageConstraint;
+
+  // Trajectory Config Instantiation
+  public TrajectoryConfig trajectoryConfig;
+
   public Drive() {
+    /* Subsystem Methods */
     // Sets up the rotation PID controller
     super(new PIDController(Constants.TURN_kP, Constants.TURN_kI, Constants.TURN_kD));
     getController().setTolerance(Constants.TURN_TOLERANCE, Constants.TURN_PS_TOLERANCE); // Sets the tolerance to 5 degrees and the TPS tolerance to 10 degrees
@@ -132,7 +151,19 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     resetEncoders();
 
     // Sets up the odometry
-    m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(navX.getYaw()));
+    driveOdometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(navX.getYaw()));
+
+    // Sets up the DifferentialDriveKinematics object
+    driveKinematics = new DifferentialDriveKinematics(Constants.TRACK_WIDTH);
+
+    // Sets up the SimpleMotorFeedforward for use in the Ramsete Controller and the Voltage Constraint
+    driveFeedforward = new SimpleMotorFeedforward(Constants.SPEC_VOLTS, Constants.SPEC_VOLT_SECONDS_PER_METER, Constants.SPEC_VOLT_SECONDS_SQUARE_PER_METER);
+
+    // Sets up the voltage constraint
+    driveVoltageConstraint = new DifferentialDriveVoltageConstraint(driveFeedforward, driveKinematics, 10);
+
+    // Sets up the trajectory config
+    trajectoryConfig = new TrajectoryConfig(Constants.SPEC_MAX_SPEED, Constants.SPEC_MAX_ACCELERATION).setKinematics(driveKinematics).addConstraint(driveVoltageConstraint);
 
     // PID Setup
     kP = Constants.DRIVE_kP;
@@ -146,21 +177,19 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     SmartDashboard.putNumber("Drive I Gain", kI);
     SmartDashboard.putNumber("Drive D Gain", kD);
 
-    // Sets up the robot DifferentialDrive object, currently not in use    
+    // Sets up the robot DifferentialDrive object for autonomous 
     robotDrive = new DifferentialDrive(leftDriveMotor, rightDriveMotor);
-    robotDrive.setExpiration(0.1);
   }
 
   public void initDefaultCommand() {
     // setDefaultCommand(new DriveTeleop());
   }
 
-
   @Override
   public void periodic() {
     // Updates the odometry object with new position info
     /* Need to update Encoders to output distance in meters instead of feet to work */
-    m_odometry.update(Rotation2d.fromDegrees(getMeasurement()), leftDriveEncoder.getPosition(),rightDriveEncoder.getPosition());
+    driveOdometry.update(Rotation2d.fromDegrees(getMeasurement()), leftDriveEncoder.getPosition(),rightDriveEncoder.getPosition());
 
     // read PID coefficients from SmartDashboard
     double p = SmartDashboard.getNumber("Drive P Gain", 0);
@@ -173,6 +202,8 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     if((d != kD)) { m_leftDrive_pid.setD(d); m_rightDrive_pid.setD(d); kD = d; }
   }
 
+
+  /* Teleop Methods */
   protected double applyDeadband(double value, double deadband)
   {
     // Deadzone function for the tankDrive
@@ -225,8 +256,8 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     robotDrive.feed();
   }
 
-  /* Trajectory Methods */
 
+  /* Trajectory Methods */
   public void tankDriveVolts(double leftVolts, double rightVolts) {
     // tankDrive method that is used for trajectory generation
     // Used since the RamsetteController gives output in volts
@@ -236,12 +267,20 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
   }
 
   public Pose2d getPose() {
-    // Returns a Pose2D object from the odometry
-    return m_odometry.getPoseMeters();
+    // Returns a Pose2D object from the odometry setup
+    return driveOdometry.getPoseMeters();
+  }
+
+  public void resetOdometry(Pose2d pose) {
+    resetEncoders();
+    driveOdometry.resetPosition(pose, Rotation2d.fromDegrees(navX.getYaw()));
+  }
+
+  public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+    return new DifferentialDriveWheelSpeeds(leftDriveEncoder.getPosition(), rightDriveEncoder.getPosition());
   }
 
   /* Utility Methods */
-
   public void resetAngle() {
     /* Resets the yaw to 0 to wherever the robot is pointed */
     navX.zeroYaw();
@@ -257,10 +296,29 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     rotateToAngleRate = 0;
   }
 
+  public double getRate(){
+    // Returns the current rotation rate of the robot
+    return navX.getRate();
+  }
+
+  public CANEncoder getLeftEncoder() {
+    // Returns the left drive encoder
+    return leftDriveEncoder;
+  }
+
+  public CANEncoder getRightEncoder() {
+    // Returns the right drive encoder
+    return rightDriveEncoder;
+  }
+
   public void resetEncoders() {
     // Resets the encoder distance to 0
     leftDriveEncoder.setPosition(0.0);
     rightDriveEncoder.setPosition(0.0);
+  }
+
+  public double getAverageEncoderDistance() {
+    return (leftDriveEncoder.getPosition() + rightDriveEncoder.getPosition()) / 2.0;
   }
 
   public boolean atSetPoint() {
@@ -268,6 +326,8 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     return getController().atSetpoint();
   }
 
+
+  /* Angle PID Methods */
     @Override
   public void useOutput(double output, double setpoint){
     rotateToAngleRate = output;

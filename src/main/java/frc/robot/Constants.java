@@ -101,6 +101,18 @@ public final class Constants {
     //Deadzone for TankDrive method
     public static final double DEADBAND = 0.02;
 
+    // Constants for trajectory generation
+    public static final double TRACK_WIDTH = 0.69; // Distance from the left and right wheel in meters
+        /* All of these have to be tuned for our robot through characterization */
+    public static final double SPEC_VOLTS = 0.22;
+    public static final double SPEC_VOLT_SECONDS_PER_METER = 1.98;
+    public static final double SPEC_VOLT_SECONDS_SQUARE_PER_METER = 0.2;
+    public static final double SPEC_DRIVE_VELOCITY = 8.5;
+    public static final double SPEC_MAX_SPEED = 3;
+    public static final double SPEC_MAX_ACCELERATION = 3;
+    public static final double RAMSETTE_B = 2;
+    public static final double RAMSETTE_Z = 0.7;
+
     public static void init() {
         // LiveWindow.addAcutator("Drive", "robotDrive", myRobot);
         robotDrive.setSafetyEnabled(false);

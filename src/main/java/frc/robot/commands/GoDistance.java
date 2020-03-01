@@ -70,8 +70,7 @@ public class GoDistance extends CommandBase {
   @Override
   public boolean isFinished() {
     // Don't need to convert setDistance from feet because of encoder position conversion factor set in RobotContainer
-    double averageDistance = Math.abs((leftDriveEncoder.getPosition() + rightDriveEncoder.getPosition())) / 2.0f;
-    if (averageDistance >= setDistance) {
+    if (m_Robotdrive.getAverageEncoderDistance() >= setDistance) {
       return true;
     }
     else {
