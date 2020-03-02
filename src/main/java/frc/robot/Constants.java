@@ -28,6 +28,7 @@ public final class Constants {
     public static final int RAISE_CLIMB_MOTOR_ADDRESS = 8;
     public static final int TELESCOPIC_CLIMB_MOTOR_ADDRESS = 9;
     public static final int SHOOTER_MOTOR_CAN_ADDRESS = 10;
+    public static final int COLOR_WHEEL_MOTOR_ADDRESS = 11;
 
     //Button numbers
     public static final int DRIVER_JOYSTICK_NUMBER = 0;
@@ -36,6 +37,7 @@ public final class Constants {
     public static final int INTAKE_BUTTON_NUMBER = 5;
     public static final int TELESCOPIC_ROD_BUTTON_NUMBER = 7;
     public static final int LIFT_ROBOT_BUTTON_NUMBER = 5;
+    public static final int ROTATE_COLOR_WHEEL_BUTTON = 12;
 
     //differential drive object, might delete because we don't use it anymore
     public static DifferentialDrive robotDrive;
@@ -102,6 +104,9 @@ public final class Constants {
     
     //Deadzone for TankDrive method
     public static final double DEADBAND = 0.02;
+
+    //Speed for the color wheel motor
+    public static final double COLOR_WHEEL_MOTOR_SPEED = 0.5;
 
     public static void init() {
         // LiveWindow.addAcutator("Drive", "robotDrive", myRobot);

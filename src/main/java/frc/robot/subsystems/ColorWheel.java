@@ -10,7 +10,12 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
+
+import com.revrobotics.CANSparkMax;
 import com.revrobotics.ColorSensorV3;
+import com.revrobotics.ColorMatchResult;
+import com.revrobotics.ColorMatch;
 import edu.wpi.first.wpilibj.DriverStation;
 
 public class ColorWheel extends SubsystemBase {
@@ -26,10 +31,21 @@ public class ColorWheel extends SubsystemBase {
   // Sets up the color sensor
   private ColorSensorV3 colorSensor;
 
-  public ColorWheel(I2C.Port port) {
+  //Creates the color matcher
+  private ColorMatch colorMatcher;
+
+  //Creates color wheel motor
+  private CANSparkMax m_colorWheelMotor;
+
+  public ColorWheel() {
     // Gives the color sensor the correct port
     i2cPort = I2C.Port.kOnboard;
     colorSensor = new ColorSensorV3(i2cPort);
+    
+    //References motor from robot container
+    m_colorWheelMotor = RobotContainer.colorWheelMotor;
+
+    colorMatcher = new ColorMatch();
   }
 
   /* Actual color coming in from the wheel sensor */
@@ -102,6 +118,36 @@ public class ColorWheel extends SubsystemBase {
   public double requiredBlue() {
     // Returns the blue value of the required color
     return requiredColor.blue;
+  }
+
+  //This method compares the color that sensor first detects with the color that is currently under the
+  //sensor to see whether or not they are the same color
+  public boolean compareSensedColor(Color color)
+  {
+    //Boolean whether the original sensed color is the same as the current color the sensor detects
+    boolean isSameColor;
+    
+    //Matches the current detected color with the closest color to it
+    ColorMatchResult colorMatch = colorMatcher.matchClosestColor(detectedColor);
+
+    //If/else to decide if the current detected color is the same as the original sensed color
+    if(colorMatch.color == color)
+    {
+      isSameColor = true;
+    }
+    else
+    {
+      isSameColor = false;
+    }
+    
+    //Returns true or false based on whether or not the sensed color is the same as the detected color
+    return isSameColor;
+
+  }
+
+  public void runColorWheelMotor(double speed)
+  {
+    m_colorWheelMotor.set(speed);
   }
 
   @Override
