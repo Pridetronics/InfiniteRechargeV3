@@ -13,6 +13,11 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
+import edu.wpi.first.wpilibj.trajectory.Trajectory;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -30,10 +35,14 @@ import frc.robot.commands.ReleaseGate;
 import frc.robot.commands.RotateColorWheel;
 import frc.robot.commands.ExtendRetractIntake;
 import frc.robot.commands.ExtendTelescopicClimb;
+import frc.robot.commands.FollowTrajectory;
 import frc.robot.commands.GoDistance;
 import frc.robot.commands.GoToAngle;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
+
+import java.util.List;
+
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -114,6 +123,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   public Counter ballCounter;
 
   private final SequentialCommandGroup m_auton;
+  private final SequentialCommandGroup m_auton_traj;
   
   public RobotContainer() 
   {
@@ -332,10 +342,27 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   
     //Test autonomous command to test GoDistance and GoToAngle commands
     m_auton = new SequentialCommandGroup(
-              new GoDistance(4.0, robotDrive), new GoToAngle(90.0, robotDrive),
-              new GoDistance(4.0, robotDrive), new GoToAngle(90.0, robotDrive),
-              new GoDistance(4.0, robotDrive), new GoToAngle(90.0, robotDrive),
-              new GoDistance(4.0, robotDrive), new GoToAngle(90.0, robotDrive));
+        new GoDistance(4.0, robotDrive), new GoToAngle(90.0, robotDrive),
+        new GoDistance(4.0, robotDrive), new GoToAngle(90.0, robotDrive),
+        new GoDistance(4.0, robotDrive), new GoToAngle(90.0, robotDrive),
+        new GoDistance(4.0, robotDrive), new GoToAngle(90.0, robotDrive)
+    );
+
+    // Trajectory Autonomous Command
+    Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
+        // Start at the origin facing the +X direction
+        new Pose2d(0, 0, new Rotation2d(0)),
+        // Pass through these two interior waypoints, making an 's' curve path
+        List.of(
+            new Translation2d(1, 1),
+            new Translation2d(2, -1)
+        ),
+        // End 3 meters straight ahead of where we started, facing forward
+        new Pose2d(3, 0, new Rotation2d(0)),
+        // Pass config
+        robotDrive.trajectoryConfig
+    );
+    m_auton_traj = new SequentialCommandGroup(new FollowTrajectory(robotDrive, trajectory));
 
     // Configure the button bindings
     configureButtonBindings();

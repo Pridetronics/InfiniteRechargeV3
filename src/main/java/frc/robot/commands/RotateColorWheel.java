@@ -6,9 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
-
 import com.revrobotics.ColorMatch;
-
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
@@ -79,19 +77,7 @@ public class RotateColorWheel extends CommandBase
   @Override
   public boolean isFinished() 
   {
-    //Variable that decides whether my command should finish
-    boolean commandFinished = false;
-    
-    //Tests whether the color wheel has been spun 4 times by counting how many times the same color should
-    //have gone by(in this case, 8 times)
-    if(counter == 8)
-    {
-      commandFinished = true;
-    }
-    else
-    {
-      commandFinished = false;
-    }
-    return commandFinished;
+    // Once the counter does 8 rotations then end command
+    return (counter >= 8);
   }
 }
