@@ -5,64 +5,6 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-/*
-  ddddddddddddddddddddddddddddddddddddddddddddooooolllcc::;;;;;::ccllloooooooooooooooooooooooooooooooollllllllll
-ddddddddddddddddddddddddddddddddddooooooooollccc::;;::::cclloooddddddddddddddddddddddddddddddoooooooooooooooll
-dddddddddddddddddddddddddddddoooooooolllcc:::::::clloodddddxxxxxxxxxxxxxxxxxxxxxxxxxxddddddddddddddooooooooooo
-dddddddddddddddddddddoooooooooolllcc::::::ccloodddxxxxxxxkkkkkkkkkkkkkkkkkkkkkkkxxxxxxxxxxxxdddddddddooooooooo
-oooddoooooooooodoooooooolllcc:::::::cllooddxxxxkkkkkkkkkkkkkkOOOOOOOOOkkkkkkkkkkkkkkxxxxxxxxxxxxdddddddoddoooo
-oooooooooooooooooolllcc:::;::cclooddxxxxkkkkkkkOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOkkkkkkkkkkkxxxxxxxxxddddddddddooo
-oooooooooolllllcc::::::ccloodddxxxkkkkkkOOOOOOOOOO000000000000000000000O00OOOOOOOkkkkkkkkkkkxxxxxxxxdddddddddo
-lllllllccc:::;;;::cllodddxxxkkkkOOOOOOOO0000000000000000000K00K0000000000000OOOOOOOOOOkkkkkkkkxxxxxxxxdddddddd
-ccc::::;;;::cclooddxxxkkkkkOOOOOOO0000000000KKKKKKKKKKKKKKKKKKKKKKKKKK0000K0O000OOOOOkkkkkkkkkxxxxxxxxxxxddddd
-;;;;;:cclloodddxxxkkkkkOOOOO00000000KKKKKKKKKKKKKKKKKKKKKXKKKKKKKKKKKKK00K0OOOxxxkOkdddxkkkkkkkkxxxxxxxxxxdddd
-:cclloodddxxxxkkkkOOOOO00000000KKKKKKKKKKKKKKXXXXXXXXXXXKKKKKO0K0O0KKKK00OkOOkocldxo:ollkkkkkkkkkkkxxxxxxxxddd
-ooodddxxxxkkkkkkOOOOO000000KKKKKKKKKKXXXXXXXXXXXXXXXXXKKKX0OkdoxdodO00000Odloolc:cc;;c:lxdodkkkkkkkkxxxxxxxxdd
-ddddxxxkkkkkOOOO0000000KKKKKKKXXKXXXXXXXXXXXXNNNXNNXXXK00OOkdl:::;;;:cldddoc:;;;,,'',;;::;:oxkkkkkkkkkxxxxxxxx
-dxxxkkkkkOOOOO0000000KKKKKKKXXXXXXXXXXXXNNNNNNNNNNNNNXKOxlloddoc;'....,::;::'',,;;'',,',,';dOkkkkkkkkkxxxxxxxx
-xxkkkkOOOOOO00000KKKKKKKKKXXXXXXXXNNNNNNNNNNNNNNNNNNNXOddc;cxxoccoc,'''..','.....,,'....'..cddxkkkkkkkkxxxxxxx
-kkkkOOOOOO00000KKKKKKKXXXXXXXXNNNNNNNNNNNNNNNNNNNNNNNKdcclokxdoc::;,''..'..................',cdxxxkkxxkkxxxxxx
-kkOOOOO0000000KKKKKKKKXXXXXXNNNNNNNNNNNNNNNNNNNNNNWN0xdxddxxoooc:;,'''........................,:ldxxkkkkkxxxxx
-kOOOOO0000000KKKKKKKKXXXXXXXNNNNNNNNNNNNNNNNNNNNWWN0xxxxollooddolc;,,,'''''',,;;,,,'............,cxkkkkkkkxxxx
-OOOOOO000000KKKKKKKKXXXXXXXNNNNNNNNNNNNNNNNWWWWWNNKkkxoolcldxkkxdolccc::::::cllllolc:;,''........,okkkkkkkkxxx
-OOOOO0000000KKKKKKKXXXXXXXXNNNNNNNNNNNWNWWNWWWNWN0kO0kxkdodxxxxdddddooollllllooooddoolc:;;,'......,dkkkkkkkxxx
-OOOO0000000KKKKKKKKXXXXXXXNNNNNNNNNNNNWNWWNWWNWNOdx0000000OOkxxxxxxxdddddooooooddooooolllcc:,......:xkkkkkkxxx
-OOO00000000KKKKKKKKXXXXXXXXNNNNNNNNNNNNNWNNWNNW0ookKXNXKXXK0Okxxxxxxddddddoooooodooooooollllc;'....,dkkkkkkxxx
-OOO00000000KKKKKKKKKXXXXXXXXNNNNNNNNNNNNNNNNNWNkldk0XNXXXXK0Okkxxxxxxxddddddoooooooooooollllll:,....cxkkkkkxxx
-OOOO0000000KKKKKKKKKKXXXXXXXXXNNNNNNNNNNNNNNNNKoloxOKKXNXXXXK0Okkxxxxxddddddddddddooooooloolllc:,...,dkkkkkxxx
-OOOO00000000KKKKKKKKKKKXXXXXXXXXXXNNNNNNNNNNNNkc:coxOKNNNNNX0Okxxxddddooddooooodooooodoooooololc;'..'lkkkkkkxx
-OOOO0000000000KKKKKKKKKKXXXXXXXXXXXXXXNNNXNNNXd;,,cx0XNNXX0Oxdollccccclloollloolllllooooooooooll:,'..:xkkkkkxx
-OOOO00000000000KKKKKKKKKKKKXXXXXXXXXXXXXXXXXNKo,.,lk00kxdlc;,,''...'',;:clllcc::;,,,;;::ccllllllc,'..,dkkkkxxx
-OOOO000000000000KKKKKKKKKKKKKXXXXXXXXXXXXXXXX0c'.:k0kl;,,'...........'',:cllc;,'.........'',;::cc;...;xkkkkxxx
-OOOOOOO000000000000KKKKKKKKKKKKKKKXXXXXXXXXXXk:';d0Oo;'''''...........';loddl:;,''...........'',;;...cxkkkkxxx
-OOOOOOOOO0000000000000KKKKKKKKKKKKKKKKKKKKKXKd;,l00o:,''',,'. ........,cdxxdoc:,''......'''''',,;:'..lkkkkkxxx
-OOOOOOOOOOO00000000000000000KKKKKKKKKKKKKKKXKd;ckXOocc:::::,.........,:oxkxdoc:,'.........,,'',;:c,..lkkkkxxxx
-OOOOOOOOOOOO00000000000000000KKKKKKKKKKKKKK0kocxXXK0Okdddoc:;;,,,,;;:lox0Kkdol:;,'....   ..,,,,,;c;..lkkkkxxxx
-OOOOOOOOOOOOOOOOOOOOOOOOOOOOO00000000000000o::l0XXXXK0OkxdoolllllloooookXXOdlcc:;;,''....',;;;:::cc..lkkkxxxxx
-kkkxxxxxxxxdxxxxddddddddxxdddddddddddddddxo:cld0XKKKKK00Okkxddddddoooox0NKkdolccccc::;;;;;::ccccclc,.:xkxxxxxx
-dooooooooooooooooooooooddddddddddoooooodddolood00OOkkOOOOOkkxxddddooookKK0xdoolcccclllllcccccccllll:';lxxxxxxx
-lllloooooollllllooooooooooooooooooooooooooodocoOOkxxkkOOOOkkxddoooooodO0Okdoooocccccllllllollllllllc,',lxxxxxx
-;:ccclllllllllllllllllllllooooloooolllllllokxodkxxxxkkxxxxdddoolllloxOOkkdooolllc::cclllllooollllllc;,;lxxxxxx
-,,,;;;::ccccccllllllllllllooollllloolllllllxO00kxddxxdoooooooolllclxOkoccc:ccccc:::::clllllllllccccc;:cdxxxxxx
-.''',,,,,,;;;;;;;;;::::::::ccccclllccc:;'',o00Okxddddooooooollccllooc;.','',;;,;::;;::ccllllllccccc:::ldxxxxxx
-.......'''''',,,,,,,,,,,,,,,,,,,,,,,,,,'...:xkkkxdddddddooolcccclooc,....'''''..,;;;;;:cccccccccccc;;coxxxxxxx
-..................'''''''''''''......''''..';:;lxdooddoooollccloodddo:;,'.''',',;:::;;;:::ccccccccc::ldxxxxxxx
-...............................................ckdooddoooollooooddddolc:;,'',;;;:::::;;;;:::::ccc:cccoxxxxxxxx
-          .....................................:xxddddddooodddddddolc:::;,',,;;;;:::::::::::::::c::cldxxxxxxxx
-            .................................  ;xxdddddddodddollllcccccc:;;;;;;;;;;;:::::::::::::ccldxxxxxxxxd
-                    ...............            'dxddddddoollc;;;;::cccccccclc::::::::;;::::::::::clodxxxxxxddd
-                      ....                     .ldodddooolc;,''''''''''.'',,,''''''',,,;::::::::codddxxxxxdddd
-                                               .:doooolllc:;;;:c::::;;;;,'''''','''''',;;:::::::ldxxxxxdxddddd
-                                                ;olooolccc::::cccccccccc::::;;;;;;;::;;;;:c:::::oxxxxxdxxddddd
-                                               .:dlllllccc:::cccccc:::;,,'''',,;;;::::;;;;:::::cdxxxxddddddddd
-                                               .lxlcllclcc::::c::::;;,,''''''',,;;;;;;;;;;:::::odxxxdddddddddd
-                                               .okocccclcccc:::::::;;;;;,,,,,,;;,;;;;;;;;;;;;:lddddddddddddddd
-                                               ,xkxoccccclllcccc:::::ccccccc:::;;;;;;;;;;;;,;cdxdddddddddddddd
-                                               :kxxdlc::cllllllccccclllllllcccc::::::;;;;;;;;ldddddddddddddddd
-                                              .okxxxol:;:cllllllllllllllccccccc::::::;;;;,,;:odddddddddddddooo
-                                              'xkxxddoc;;:ccllllllllllcc:::::::::::::;;;;,,;:oddddddddddoooooo
-*/
-
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Counter;
@@ -74,15 +16,18 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.DescendTelescopicClimb;
 import frc.robot.commands.DriveJoystick;
 import frc.robot.subsystems.Climb;
+import frc.robot.subsystems.ColorWheel;
 import frc.robot.subsystems.Drive;
 import frc.robot.commands.IntakeRun;
 import frc.robot.commands.LowSpeedShooter;
 import frc.robot.commands.RaiseRobot;
 import frc.robot.commands.ReleaseGate;
+import frc.robot.commands.RotateColorWheel;
 import frc.robot.commands.ExtendRetractIntake;
 import frc.robot.commands.ExtendTelescopicClimb;
 import frc.robot.commands.GoDistance;
@@ -125,19 +70,18 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
   public static CANSparkMax leftDriveMotorFollow;
   public static CANSparkMax rightDriveMotorFollow;
-  //public static CANSparkMax intakeMotor;
-  //public static CANSparkMax elevatorMotor;
   public static TalonSRX intakeMotor;
   public static TalonSRX elevatorMotor;
   public static TalonSRX raiseRodMotor;
   public static CANSparkMax spoolWinchMotor;
   public static CANSparkMax shooterMotor;
+  public static CANSparkMax colorWheelMotor;
 
   public JoystickButton intakeButton; // Button to run the intake
   public JoystickButton intakeExtendRetractButton; // Button to run the intake Vertical
   public JoystickButton lowSpeedShooterButton; // Button A
   public JoystickButton highSpeedShooterButton; // Button Y
-  public JoystickButton cameraModeButton;
+  public JoystickButton rotateColorWheelButton;
 
   public static Shooter shooter; // shooter object to be used for shooter commands
   public static CANPIDController shooterMotor_pid;
@@ -164,6 +108,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
   public static Intake intake;
 
+  public static ColorWheel colorWheel;
+
   // Counts how many balls are in the magazine
   public Counter ballCounter;
 
@@ -178,14 +124,17 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     */
     /********************************************************************************************/
 
-    joystickDriver = new Joystick(0);
-    joystickShooter = new Joystick(1);
+    joystickDriver = new Joystick(Constants.DRIVER_JOYSTICK_NUMBER);
+    joystickShooter = new Joystick(Constants.SHOOTER_BUTTON_NUMBER);
     // The numbers in the parenthesis represents the ports each controller goes to.
 
-    lowSpeedShooterButton = new JoystickButton(joystickShooter, 1); // creates the button for the low speed shooter
-    intakeButton = new JoystickButton(joystickDriver, 5); // Right Upper Bumper, sets intake Button to a controller
-    raiseTelescopicRodButton = new JoystickButton(joystickShooter, 7);
-    liftRobotButton = new JoystickButton(joystickShooter, 5);
+    lowSpeedShooterButton = new JoystickButton(joystickShooter, Constants.SHOOTER_BUTTON_NUMBER); // creates the button for the low speed shooter
+    intakeButton = new JoystickButton(joystickDriver, Constants.INTAKE_BUTTON_NUMBER); // Right Upper Bumper, sets intake Button to a controller
+    raiseTelescopicRodButton = new JoystickButton(joystickShooter, Constants.TELESCOPIC_ROD_BUTTON_NUMBER);
+    liftRobotButton = new JoystickButton(joystickShooter, Constants.LIFT_ROBOT_BUTTON_NUMBER);
+
+    //This is a test button and may or may not be in the final product depending on how the color wheel is implemented
+    rotateColorWheelButton = new JoystickButton(joystickShooter, Constants.ROTATE_COLOR_WHEEL_BUTTON);
 
     /********************************************************************************************/
     /*
@@ -345,12 +294,29 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     //command to raise the telescopic rod
     raiseTelescopicRodButton.whenHeld(new ExtendTelescopicClimb(climb));
 
-    /*
-    liftRobotButton.whileHeld(new SequentialCommandGroup(
+    //Command to bring the telescopic rod down and spool the winch to raise the robot, which is decorated
+    //with a timeout to stop the command after the amount of time we give it has passed
+    liftRobotButton.whenHeld(new SequentialCommandGroup(
         new DescendTelescopicClimb(climb),
-        new RaiseRobot(Constants.WINCH_TIMEOUT, climb)));
+        new ParallelRaceGroup(
+        new RaiseRobot(climb).withTimeout(Constants.WINCH_TIMEOUT))));
+
+    /*********************************************************************************************/
+    /*
+        Start of color wheel section
     */
-    
+    /*********************************************************************************************/
+    /*
+    //Creates the motor and sets it to 0
+    colorWheelMotor = new CANSparkMax(Constants.COLOR_WHEEL_MOTOR_ADDRESS, MotorType.kBrushless);
+    colorWheelMotor.set(0);
+
+    //Creates new ColorWheel object
+    colorWheel = new ColorWheel();
+
+    //Command to rotate the color wheel a certain number of times
+    rotateColorWheelButton.whenPressed(new RotateColorWheel(colorWheel));
+    */
     /*********************************************************************************************/
     /*
         Start of miscellaneous section

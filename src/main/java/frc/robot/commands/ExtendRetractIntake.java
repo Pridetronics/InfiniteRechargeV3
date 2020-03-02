@@ -25,7 +25,6 @@ public class ExtendRetractIntake extends CommandBase
     //References intake object in RobotContainer
     m_intake = intake;
 
-    addRequirements(m_intake);
   }
 
   // Called when the command is initially scheduled.

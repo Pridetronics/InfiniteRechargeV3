@@ -19,16 +19,13 @@ public class RaiseRobot extends CommandBase
   //Creates a climb object
   private Climb m_climb;
   
-  public RaiseRobot(double timeout, Climb climb) 
+  public RaiseRobot(Climb climb) 
   {
     // Use addRequirements() here to declare subsystem dependencies.
-    //@param timeout - sets the timeout for the command
-    //Decorates the command with a timeout, so it'll end after the time has passed
-    withTimeout(timeout);
-    
     //References climb object from robot container
     m_climb = climb;
     
+    addRequirements(m_climb);
   }
 
   // Called when the command is initially scheduled.
