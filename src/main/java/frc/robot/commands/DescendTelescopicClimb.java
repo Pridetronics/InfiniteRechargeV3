@@ -25,7 +25,6 @@ public class DescendTelescopicClimb extends CommandBase
     //References climb object from robot container
     m_climb = climb;
 
-    addRequirements(m_climb);
   }
 
   // Called when the command is initially scheduled.
