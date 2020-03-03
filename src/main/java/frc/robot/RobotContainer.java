@@ -80,15 +80,14 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   public JoystickButton intakeButton; // Button to run the intake
   public JoystickButton intakeExtendRetractButton; // Button to run the intake Vertical
   public JoystickButton lowSpeedShooterButton; // Button A
-  public JoystickButton highSpeedShooterButton; // Button Y
   public JoystickButton rotateColorWheelButton;
 
   public static Shooter shooter; // shooter object to be used for shooter commands
   public static CANPIDController shooterMotor_pid;
 
-  // public Pneumatics pneumatics; // creates a pneumatic object
   public JoystickButton raiseTelescopicRodButton;
-  public JoystickButton liftRobotButton;
+  public JoystickButton descendTelescopicRodButton;
+  public JoystickButton winchMotorButton;
 
   public static DoubleSolenoid shooterBallRelease; // represents the solenoids for the different intake systems
   public static DoubleSolenoid intakeDeploy;
@@ -131,7 +130,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     lowSpeedShooterButton = new JoystickButton(joystickShooter, Constants.SHOOTER_BUTTON_NUMBER); // creates the button for the low speed shooter
     intakeButton = new JoystickButton(joystickDriver, Constants.INTAKE_BUTTON_NUMBER); // Right Upper Bumper, sets intake Button to a controller
     raiseTelescopicRodButton = new JoystickButton(joystickShooter, Constants.TELESCOPIC_ROD_BUTTON_NUMBER);
-    liftRobotButton = new JoystickButton(joystickShooter, Constants.LIFT_ROBOT_BUTTON_NUMBER);
+    descendTelescopicRodButton = new JoystickButton(joystickShooter, Constants.DESCEND_ROBOT_BUTTON_NUMBER);
+    winchMotorButton = new JoystickButton(joystickShooter, Constants.WINCH_BUTTON_NUMBER);
 
     //This is a test button and may or may not be in the final product depending on how the color wheel is implemented
     rotateColorWheelButton = new JoystickButton(joystickShooter, Constants.ROTATE_COLOR_WHEEL_BUTTON);
@@ -296,10 +296,10 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
     //Command to bring the telescopic rod down and spool the winch to raise the robot, which is decorated
     //with a timeout to stop the command after the amount of time we give it has passed
-    liftRobotButton.whenHeld(new SequentialCommandGroup(
-        new DescendTelescopicClimb(climb),
-        new ParallelRaceGroup(
-        new RaiseRobot(climb).withTimeout(Constants.WINCH_TIMEOUT))));
+    descendTelescopicRodButton.whenHeld(new DescendTelescopicClimb(climb));
+       
+    winchMotorButton.whenHeld(new ParallelRaceGroup(
+        new RaiseRobot(climb).withTimeout(Constants.WINCH_TIMEOUT)));
 
     /*********************************************************************************************/
     /*

@@ -24,19 +24,20 @@ public final class Constants {
     public static final int LEFT_DRIVE_MOTOR_FOLLOW = 3;
     public static final int RIGHT_DRIVE_MOTOR_FOLLOW = 4;
     public static final int INTAKE_MOTOR_CAN_ADDRESS = 5;
-    public static final int ELEVATOR_MOTOR_CAN_ADDRESS = 7;
-    public static final int RAISE_CLIMB_MOTOR_ADDRESS = 8;
-    public static final int TELESCOPIC_CLIMB_MOTOR_ADDRESS = 9;
+    public static final int ELEVATOR_MOTOR_CAN_ADDRESS = 5;
+    public static final int RAISE_CLIMB_MOTOR_ADDRESS = 9;
+    public static final int TELESCOPIC_CLIMB_MOTOR_ADDRESS = 8;
     public static final int SHOOTER_MOTOR_CAN_ADDRESS = 10;
     public static final int COLOR_WHEEL_MOTOR_ADDRESS = 11;
 
     //Button numbers
     public static final int DRIVER_JOYSTICK_NUMBER = 0;
     public static final int SHOOTER_JOYSTICK_NUMBER = 1;
-    public static final int SHOOTER_BUTTON_NUMBER = 1;
+    public static final int SHOOTER_BUTTON_NUMBER = 4;
     public static final int INTAKE_BUTTON_NUMBER = 5;
-    public static final int TELESCOPIC_ROD_BUTTON_NUMBER = 7;
-    public static final int LIFT_ROBOT_BUTTON_NUMBER = 5;
+    public static final int TELESCOPIC_ROD_BUTTON_NUMBER = 6;
+    public static final int DESCEND_ROBOT_BUTTON_NUMBER = 5;
+    public static final int WINCH_BUTTON_NUMBER = 3;
     public static final int ROTATE_COLOR_WHEEL_BUTTON = 12;
 
     //differential drive object, might delete because we don't use it anymore
