@@ -102,7 +102,7 @@ public final class Constants {
     public static final double DEADBAND = 0.02;
 
     // Constants for trajectory generation
-    public static final double TRACK_WIDTH = 0.69; // Distance from the left and right wheel in meters
+    public static final double TRACK_WIDTH = 0.58; // Distance from the left and right wheel in meters
         /* All of these have to be tuned for our robot through characterization */
     public static final double SPEC_VOLTS = 0.22;
     public static final double SPEC_VOLT_SECONDS_PER_METER = 1.98;

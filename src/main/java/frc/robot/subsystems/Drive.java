@@ -335,7 +335,7 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
 
     @Override
   public double getMeasurement() {
-    return navX.getYaw();
+    return navX.pidGet();
   }
   
 }
