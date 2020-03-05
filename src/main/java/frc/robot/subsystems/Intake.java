@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;//Motor Type 
+
+import frc.robot.Constants;
 import frc.robot.RobotContainer;//Class
 
 /*
@@ -43,6 +45,14 @@ public class Intake extends SubsystemBase
   {
     //@param - Speed in Percentages
     m_intakeMotor.set(TalonSRXControlMode.PercentOutput, speed);
+  }
+
+  public void startElevator() {
+    m_intakeMotor.set(TalonSRXControlMode.PercentOutput, Constants.INTAKE_MOTOR_SPEED);
+  }
+
+  public void stopElevator() {
+    m_intakeMotor.set(TalonSRXControlMode.PercentOutput, 0);
   }
 
   //Extends the intake

@@ -134,23 +134,13 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
     /********************************************************************************************/
     /*
-        Joystick Controller and Button Definitions
+        Joystick Controller
     */
     /********************************************************************************************/
 
     joystickDriver = new Joystick(Constants.DRIVER_JOYSTICK_NUMBER);
     joystickShooter = new Joystick(Constants.SHOOTER_BUTTON_NUMBER);
-    // The numbers in the parenthesis represents the ports each controller goes to.
-
-    lowSpeedShooterButton = new JoystickButton(joystickShooter, Constants.SHOOTER_BUTTON_NUMBER); // creates the button for the low speed shooter
-    intakeButton = new JoystickButton(joystickDriver, Constants.INTAKE_BUTTON_NUMBER); // Right Upper Bumper, sets intake Button to a controller
-    raiseTelescopicRodButton = new JoystickButton(joystickShooter, Constants.TELESCOPIC_ROD_BUTTON_NUMBER);
-    descendTelescopicRodButton = new JoystickButton(joystickShooter, Constants.DESCEND_ROBOT_BUTTON_NUMBER);
-    winchMotorButton = new JoystickButton(joystickShooter, Constants.WINCH_BUTTON_NUMBER);
-
-    //This is a test button and may or may not be in the final product depending on how the color wheel is implemented
-    rotateColorWheelButton = new JoystickButton(joystickShooter, Constants.ROTATE_COLOR_WHEEL_BUTTON);
-
+    
     /********************************************************************************************/
     /*
         Start of driver section
@@ -175,11 +165,6 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     leftDriveEncoder = new CANEncoder(leftDriveMotorLead, EncoderType.kHallSensor, 4096);
     rightDriveEncoder = new CANEncoder(rightDriveMotorLead, EncoderType.kHallSensor, 4096);
     
-    /*
-    leftDriveEncoder = leftDriveMotorLead.getEncoder();
-    rightDriveEncoder = rightDriveMotorLead.getEncoder();
-    */
-
     /* Sets the gear ratio for the encoders to convert it to feet */
     /* Need to convert this to meters for odometry */
     leftDriveEncoder.setPositionConversionFactor(Constants.WHEEL_CIRCUMFERENCE / Constants.MAIN_MOTOR_RATIO); // Converts to distance in feet and uses the gearbox ratio too
@@ -200,12 +185,6 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
     //Creates the drive object
     robotDrive = new Drive();
-
-    robotDrive.setDefaultCommand(new DriveJoystick(joystickDriver, robotDrive));
-    // This helps set the default command. It sets it to DriveJoystick so that way
-    // RobotContainer
-    // can grab the information and utilize it for the given controller, in this
-    // case joystickDriver
 
     /********************************************************************************************/
     /*  
@@ -232,11 +211,6 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     //Creates a shooter object
     shooter = new Shooter();
     
-    //Calls the command to run the shooter motor and release the shooter gate at the same time
-    lowSpeedShooterButton.whenHeld(new ParallelCommandGroup(
-        new LowSpeedShooter(shooter),
-        new ReleaseGate(shooter)));
-    
     /********************************************************************************************/
     /*  
         Start of intake section
@@ -245,18 +219,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     
     //creates the double solenoid and gives it the forward/reverse channels
     intakeExtendRetract = new DoubleSolenoid(Constants.INTAKE_SOLENOID_FORWARD_CHANNEL, Constants.INTAKE_SOLENOID_REVERSE_CHANNEL);
-    
-    /*
-    intakeMotor = new CANSparkMax(Constants.INTAKE_MOTOR_CAN_ADDRESS, MotorType.kBrushless); //The motor (CANSparkMax) is defined with a type and port (port 5, and motor type = brushless)
-    ///intakeMotor =  new Talon(5); //Motor is defined as a specified motor under port five (Talon)
-    intakeMotor.set(0); //Initially sets motor value to 0, will not run without further command
 
-    elevatorMotor = new CANSparkMax(Constants.ELEVATOR_MOTOR_CAN_ADDRESS, MotorType.kBrushless); //Motor is deinfed under 7th port (CANSparkMax)
-    ///elevatorMotorFollow = new Talon(7); // Motor is defined under port seven (Talon)
-    elevatorMotor.set(0); //Sets motor speed to 0
-    elevatorMotor.follow(intakeMotor); // Vertical follow motor will do everthing the vertical lead motor does
-    */
-    
     //creates the intake motor and sets the speed to 0
     intakeMotor = new WPI_TalonSRX(Constants.INTAKE_MOTOR_CAN_ADDRESS);
     intakeMotor.set(TalonSRXControlMode.PercentOutput, 0.0);
@@ -269,29 +232,11 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     //creates the intake object
     intake = new Intake();
 
-    /*
-    intakeExtendRetractButton.whenHeld(new ExtendRetractIntake(intake));//While held, command is being run, references command from commands. Hence imports
-    intakeButton.whenHeld(new IntakeRun(intake));//While the button is being held, the command is being run
-    */
-
-    //runs the command to extend the intake and run the intake/elevator motors at the same time
-    intakeButton.whenHeld(new ParallelCommandGroup(
-        new ExtendRetractIntake(intake),
-        new IntakeRun(intake)));
-
     /********************************************************************************************/
     /*  
         Start of climb section
     */
     /********************************************************************************************/
-
-    /*
-    upperClimbLimitSwitch = new DigitalInput(Constants.UPPER_CLIMB_LIMIT_CHANNEL);
-    lowerClimbLimitSwitch = new DigitalInput(Constants.LOWER_CLIMB_LIMIT_CHANNEL);
-    */
-    /*
-      If the limit switch is closed, the value is 0. If the limit switch is open, the value is 1
-    */
     
     //creates the telescopic rod motor, sets it to 0, and sets it to brake mode
     raiseRodMotor = new WPI_TalonSRX(Constants.RAISE_CLIMB_MOTOR_ADDRESS);
@@ -305,16 +250,6 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
     //creates climb object
     climb = new Climb();
-
-    //command to raise the telescopic rod
-    raiseTelescopicRodButton.whenHeld(new ExtendTelescopicClimb(climb));
-
-    //Command to bring the telescopic rod down and spool the winch to raise the robot, which is decorated
-    //with a timeout to stop the command after the amount of time we give it has passed
-    descendTelescopicRodButton.whenHeld(new DescendTelescopicClimb(climb));
-       
-    winchMotorButton.whenHeld(new ParallelRaceGroup(
-        new RaiseRobot(climb).withTimeout(Constants.WINCH_TIMEOUT)));
 
     /*********************************************************************************************/
     /*
@@ -382,8 +317,37 @@ public class RobotContainer { // The robot's subsystems and commands are defined
    */
   private void configureButtonBindings() 
   {
-    
+    /* Sets up the buttons on the joystick */
+    lowSpeedShooterButton = new JoystickButton(joystickShooter, Constants.SHOOTER_BUTTON_NUMBER); // creates the button for the low speed shooter
+    intakeButton = new JoystickButton(joystickDriver, Constants.INTAKE_BUTTON_NUMBER); // Right Upper Bumper, sets intake Button to a controller
+    raiseTelescopicRodButton = new JoystickButton(joystickShooter, Constants.TELESCOPIC_ROD_BUTTON_NUMBER);
+    descendTelescopicRodButton = new JoystickButton(joystickShooter, Constants.DESCEND_ROBOT_BUTTON_NUMBER);
+    winchMotorButton = new JoystickButton(joystickShooter, Constants.WINCH_BUTTON_NUMBER);
+    rotateColorWheelButton = new JoystickButton(joystickShooter, Constants.ROTATE_COLOR_WHEEL_BUTTON);
 
+    /* Binds the buttons to each command  */
+    // Calls the command to run the shooter motor and release the shooter gate at the same time
+    lowSpeedShooterButton.whenHeld(new ParallelCommandGroup(
+        new LowSpeedShooter(shooter),
+        new ReleaseGate(shooter)));
+
+    // Runs the command to extend the intake and run the intake/elevator motors at the same time
+    intakeButton.whenHeld(new ParallelCommandGroup(
+        new ExtendRetractIntake(intake),
+        new IntakeRun(intake)));
+
+    // Sets up the Drive commands
+    robotDrive.setDefaultCommand(new DriveJoystick(joystickDriver, robotDrive));
+    
+    // Command to raise the telescopic rod
+    raiseTelescopicRodButton.whenHeld(new ExtendTelescopicClimb(climb));
+
+    //Command to bring the telescopic rod down and spool the winch to raise the robot, which is decorated
+    //with a timeout to stop the command after the amount of time we give it has passed
+    descendTelescopicRodButton.whenHeld(new DescendTelescopicClimb(climb));
+       
+    winchMotorButton.whenHeld(new ParallelRaceGroup(
+        new RaiseRobot(climb).withTimeout(Constants.WINCH_TIMEOUT)));
   }
 
 

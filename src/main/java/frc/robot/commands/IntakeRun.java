@@ -44,13 +44,13 @@ public class IntakeRun extends CommandBase
     SmartDashboard.putBoolean("Intake", true);
     
     //Once this command is executed the motor will run a little over half speed
-    m_intake.runIntakeMotors(Constants.INTAKE_MOTOR_SPEED);
+    m_intake.startElevator();
   }
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) 
   {
-
+    m_intake.stopElevator();
   }
 
   // Returns true when the command should end.

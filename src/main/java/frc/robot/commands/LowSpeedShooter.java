@@ -28,7 +28,6 @@ public class LowSpeedShooter extends CommandBase
     m_shooter = shooter; // stores shooter object from parameters
     
     addRequirements(m_shooter); // Declares the dependencies of the command
-    
   }
 
   // Called when the command is initially scheduled.
