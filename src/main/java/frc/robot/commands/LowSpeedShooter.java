@@ -20,7 +20,6 @@ public class LowSpeedShooter extends CommandBase
    * Creates a new LowSpeedShooter.
    */
   private Shooter m_shooter; // new shooter variable to store shooter object in
-  private double m_lowShooterSpeed; // allows the low speed constant to be stored in a variable in this command
 
   public LowSpeedShooter(Shooter shooter) 
   {
@@ -41,15 +40,14 @@ public class LowSpeedShooter extends CommandBase
   @Override
   public void execute() 
   {
-    m_lowShooterSpeed = Constants.SHOOTER_LOW_SPEED; // sets the low speed constant to the variable
-    m_shooter.shooterSpeed(m_lowShooterSpeed); // calls the shooterSpeed method on the shooter object
+    m_shooter.shooterOn();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) 
   {
-    m_shooter.shooterSpeed(0.0);
+    m_shooter.shooterOff();
     m_shooter.retractGate(); // will bring the gate back up after the shooting has finished
     //ReleaseGate.ballRelease = ballReleasePiston.EXTENDED;
   }

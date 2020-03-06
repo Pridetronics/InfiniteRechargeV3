@@ -56,12 +56,7 @@ public class ReleaseGate extends CommandBase
   @Override
   public boolean isFinished() 
   {
-    //Tests that the shooter motor is up to desired RPM, and ends the command
-    boolean commandState = false;
-    if(m_shooterMotorEncoder.getVelocity() == Constants.SHOOTER_DESIRED_RPM)
-    {
-      commandState = true;
-    }
-    return commandState;
+    // If the shooter is up to speed then release the gate
+    return (m_shooterMotorEncoder.getVelocity() >= Constants.SHOOTER_LOW_SPEED);
   }
 }

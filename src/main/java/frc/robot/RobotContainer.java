@@ -21,6 +21,8 @@ import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -50,7 +52,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.command.InstantCommand;
+import edu.wpi.first.wpilibj.command.Scheduler;
 
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
@@ -129,9 +131,12 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   
   public RobotContainer() 
   {
-     /* Turn On LiveWindow */
-     // Disables all motors and PID loop commands for testing in smartdashboard
-     // https://first.wpi.edu/FRC/roborio/beta/docs/java/edu/wpi/first/wpilibj/livewindow/LiveWindow.html
+    // Gets an instance of the command scheduler
+    CommandScheduler scheduler = CommandScheduler.getInstance();
+
+    /* Turn On LiveWindow */
+    // Disables all motors and PID loop commands for testing in smartdashboard
+    // https://first.wpi.edu/FRC/roborio/beta/docs/java/edu/wpi/first/wpilibj/livewindow/LiveWindow.html
     LiveWindow.setEnabled(true);
 
     /********************************************************************************************/
@@ -205,7 +210,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     shooterMotor_pid.setD(Constants.SHOOTER_kD);
 
     //Creates the encoder of the shooter motor
-    shooterMotorEncoder = new CANEncoder(shooterMotor, EncoderType.kHallSensor, 4096);
+    shooterMotorEncoder = shooterMotor.getEncoder();
 
     //Creates the double solenoid for the shooter gate
     shooterBallRelease = new DoubleSolenoid(Constants.SHOOTER_GATE_FORWARD_CHANNEL, Constants.SHOOTER_GATE_RELEASE_CHANNEL);
@@ -242,17 +247,17 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     */
     /********************************************************************************************/
     
-    //creates the telescopic rod motor, sets it to 0, and sets it to brake mode
+    // Creates the telescopic rod motor, sets it to 0, and sets it to brake mode
     raiseRodMotor = new WPI_TalonSRX(Constants.RAISE_CLIMB_MOTOR_ADDRESS);
     raiseRodMotor.setNeutralMode(NeutralMode.Brake);
     raiseRodMotor.set(TalonSRXControlMode.PercentOutput, 0.0);
 
-    //creates the motor to spool the winch, sets it to brake mode, and sets it 0
+    // Creates the motor to spool the winch, sets it to brake mode, and sets it 0
     spoolWinchMotor = new CANSparkMax(Constants.TELESCOPIC_CLIMB_MOTOR_ADDRESS, MotorType.kBrushless);
     spoolWinchMotor.setIdleMode(IdleMode.kBrake);
     spoolWinchMotor.set(0.0);
 
-    //creates climb object
+    // Creates climb object
     climb = new Climb();
 
     /*********************************************************************************************/
@@ -279,6 +284,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
     //new InstantCommand(shooter, shooter::releaseGate());
     
+    // Extends the shooter ball blocker on start of robot
+    scheduler.schedule(new InstantCommand(shooter::retractGate, shooter));
     /*
     intakeLimitSwitch = new DigitalInput(Constants.INTAKE_LIMIT_SWITCH_CHANNEL);
     shooterLimitSwitch = new DigitalInput(Constants.SHOOTER_LIMIT_SWITCH_CHANNEL);
