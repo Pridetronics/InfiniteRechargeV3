@@ -147,7 +147,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     /********************************************************************************************/
 
     joystickDriver = new Joystick(Constants.DRIVER_JOYSTICK_NUMBER);
-    joystickShooter = new Joystick(Constants.SHOOTER_BUTTON_NUMBER);
+    joystickShooter = new Joystick(Constants.SHOOTER_JOYSTICK_NUMBER);
     
     /********************************************************************************************/
     /*
