@@ -231,10 +231,12 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     intakeMotor = new WPI_TalonSRX(Constants.INTAKE_MOTOR_CAN_ADDRESS);
     intakeMotor.set(TalonSRXControlMode.PercentOutput, 0.0);
 
+    /*
     //creates the elevator motor, sets the speed to 0, and has it follow the intake motor
     elevatorMotor = new WPI_TalonSRX(Constants.ELEVATOR_MOTOR_CAN_ADDRESS);
     elevatorMotor.set(TalonSRXControlMode.PercentOutput, 0.0);
     elevatorMotor.follow(intakeMotor);
+    */
 
     //creates the intake object
     intake = new Intake();
@@ -279,6 +281,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
         Start of miscellaneous section
     */
     /*********************************************************************************************/
+
+    //new InstantCommand(shooter, shooter::releaseGate());
     
     // Extends the shooter ball blocker on start of robot
     scheduler.schedule(new InstantCommand(shooter::retractGate, shooter));
@@ -288,6 +292,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
     ballCounter = new Counter(CounterBase.EncodingType.k2X, intakeLimitSwitch, shooterLimitSwitch, false);
     */
+
+   //new InstantCommand(Shooter::releaseGate, shooter);
   
     //Test autonomous command to test GoDistance and GoToAngle commands
     m_auton = new SequentialCommandGroup(
