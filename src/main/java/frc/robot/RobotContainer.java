@@ -50,6 +50,8 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.command.InstantCommand;
+
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
@@ -224,10 +226,12 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     intakeMotor = new WPI_TalonSRX(Constants.INTAKE_MOTOR_CAN_ADDRESS);
     intakeMotor.set(TalonSRXControlMode.PercentOutput, 0.0);
 
+    /*
     //creates the elevator motor, sets the speed to 0, and has it follow the intake motor
     elevatorMotor = new WPI_TalonSRX(Constants.ELEVATOR_MOTOR_CAN_ADDRESS);
     elevatorMotor.set(TalonSRXControlMode.PercentOutput, 0.0);
     elevatorMotor.follow(intakeMotor);
+    */
 
     //creates the intake object
     intake = new Intake();
@@ -272,6 +276,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
         Start of miscellaneous section
     */
     /*********************************************************************************************/
+
+    //new InstantCommand(shooter, shooter::releaseGate());
     
     /*
     intakeLimitSwitch = new DigitalInput(Constants.INTAKE_LIMIT_SWITCH_CHANNEL);
@@ -279,6 +285,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
     ballCounter = new Counter(CounterBase.EncodingType.k2X, intakeLimitSwitch, shooterLimitSwitch, false);
     */
+
+   //new InstantCommand(Shooter::releaseGate, shooter);
   
     //Test autonomous command to test GoDistance and GoToAngle commands
     m_auton = new SequentialCommandGroup(

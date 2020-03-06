@@ -34,7 +34,7 @@ public final class Constants {
     public static final int DRIVER_JOYSTICK_NUMBER = 0;
     public static final int SHOOTER_JOYSTICK_NUMBER = 1;
     public static final int SHOOTER_BUTTON_NUMBER = 4;
-    public static final int INTAKE_BUTTON_NUMBER = 5;
+    public static final int INTAKE_BUTTON_NUMBER = 6;
     public static final int TELESCOPIC_ROD_BUTTON_NUMBER = 6;
     public static final int DESCEND_ROBOT_BUTTON_NUMBER = 5;
     public static final int WINCH_BUTTON_NUMBER = 3;
@@ -66,7 +66,7 @@ public final class Constants {
     public static final double RIGHT_DRIVE_kD = 0.0;
 
     //Motor speeds
-    public static final double INTAKE_MOTOR_SPEED = 0.55;
+    public static final double INTAKE_MOTOR_SPEED = 1.0;
     public static final double TELESCOPIC_ROD_MOTOR_SPEED = 0.2;
     public static final double INVERSE_TELESCOPIC_MOTOR_SPEED = -0.2;
     public static final double WINCH_MOTOR_SPEED = 0.2;
