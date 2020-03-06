@@ -95,7 +95,6 @@ public final class Constants {
     public static final double SHOOTER_kP = 0.0002;
     public static final double SHOOTER_kI = 0.000001;
     public static final double SHOOTER_kD = 0.0004;
-    public static final double SHOOTER_DESIRED_RPM = 3300.0 / 5767.0;
     public static final double MAX_NEO_RPM = 5676.0;
 
     //Drive PID Setup
