@@ -146,7 +146,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     /********************************************************************************************/
 
     joystickDriver = new Joystick(Constants.DRIVER_JOYSTICK_NUMBER);
-    joystickShooter = new Joystick(Constants.SHOOTER_BUTTON_NUMBER);
+    joystickShooter = new Joystick(Constants.SHOOTER_JOYSTICK_NUMBER);
     
     /********************************************************************************************/
     /*
@@ -208,6 +208,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     shooterMotor_pid.setP(Constants.SHOOTER_kP);
     shooterMotor_pid.setI(Constants.SHOOTER_kI);
     shooterMotor_pid.setD(Constants.SHOOTER_kD);
+    shooterMotor_pid.setOutputRange(Constants.SHOOTER_MIN_OUTPUT, Constants.SHOOTER_MAX_OUTPUT);
 
     //Creates the encoder of the shooter motor
     shooterMotorEncoder = shooterMotor.getEncoder();
@@ -342,6 +343,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
     /* Binds the buttons to each command  */
     // Calls the command to run the shooter motor and release the shooter gate at the same time
+
     lowSpeedShooterButton.whenHeld(new ParallelCommandGroup(
         new LowSpeedShooter(shooter),
         new ReleaseGate(shooter)));
