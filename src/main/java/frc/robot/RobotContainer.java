@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -138,7 +139,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     /* Turn On LiveWindow */
     // Disables all motors and PID loop commands for testing in smartdashboard
     // https://first.wpi.edu/FRC/roborio/beta/docs/java/edu/wpi/first/wpilibj/livewindow/LiveWindow.html
-    LiveWindow.setEnabled(true);
+    // LiveWindow.setEnabled(true);
 
     /********************************************************************************************/
     /*
