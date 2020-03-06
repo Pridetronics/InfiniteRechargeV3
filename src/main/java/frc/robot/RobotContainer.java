@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.DescendTelescopicClimb;
 import frc.robot.commands.DriveJoystick;
 import frc.robot.subsystems.Climb;
@@ -321,7 +322,6 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
     // Configure the button bindings
     configureButtonBindings();
-
   }
 
   /**
@@ -349,6 +349,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     // Runs the command to extend the intake and run the intake/elevator motors at the same time
     intakeButton.whenHeld(new ParallelCommandGroup(
         new ExtendRetractIntake(intake),
+        new WaitCommand(0.3),
         new IntakeRun(intake)));
 
     // Sets up the Drive commands
