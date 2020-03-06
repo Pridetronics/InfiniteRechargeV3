@@ -209,6 +209,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     shooterMotor_pid.setP(Constants.SHOOTER_kP);
     shooterMotor_pid.setI(Constants.SHOOTER_kI);
     shooterMotor_pid.setD(Constants.SHOOTER_kD);
+    shooterMotor_pid.setOutputRange(-1.0, 1.0);
 
     //Creates the encoder of the shooter motor
     shooterMotorEncoder = shooterMotor.getEncoder();
