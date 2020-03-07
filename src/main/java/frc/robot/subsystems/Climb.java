@@ -9,6 +9,8 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase; // Imports needed for this subsystem
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;//Motor Type 
@@ -37,8 +39,9 @@ public class Climb extends SubsystemBase
   @Override
   public void periodic() 
   {
-    // This method will be called once per scheduler run
-
+    // PID coefficients display on SmartDashboard
+    SmartDashboard.putBoolean("Upper Climb Limit Switch", m_upperClimbLimitSwitch.get());
+    SmartDashboard.putBoolean("Lower Climb Limit Switch", m_lowerClimbLimitSwitch.get());
   }
 
   public void raiseTelescopicRod(double speed)
