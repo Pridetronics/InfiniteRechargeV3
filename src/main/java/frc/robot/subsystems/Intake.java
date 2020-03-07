@@ -9,7 +9,11 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase; // Imports needed for this subsystem
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;//Motor Type 
+
+import frc.robot.Constants;
 import frc.robot.RobotContainer;//Class
 
 /*
@@ -20,17 +24,14 @@ public class Intake extends SubsystemBase
   /**
    * Creates a new Intake.
    */
-  private CANSparkMax m_intakeMotor;
+  private TalonSRX m_intakeMotor;
   private DoubleSolenoid m_intakeExtendRetract;
-  
-   ///private Talon intakeMotor = RobotContainer.intakeMotor; //Competition Motor--> Intake motor
 
    public Intake() 
    {
-    //Collect power cell balls
-    m_intakeMotor = RobotContainer.intakeMotor; // Testing Motor: Creates an intake motor
+    //Brings in the intake motor and the intake double solenoid
+    m_intakeMotor = RobotContainer.intakeMotor;
     m_intakeExtendRetract = RobotContainer.intakeExtendRetract;
-
    }
 
   @Override
@@ -39,18 +40,30 @@ public class Intake extends SubsystemBase
     // This method will be called once per scheduler run
   }
 
+  //Runs the intake motors
   public void runIntakeMotors(double speed)
   {
-    m_intakeMotor.set(speed);
+    //@param - Speed in Percentages
+    m_intakeMotor.set(TalonSRXControlMode.PercentOutput, speed);
   }
 
+  public void startElevator() {
+    m_intakeMotor.set(TalonSRXControlMode.PercentOutput, Constants.INTAKE_MOTOR_SPEED);
+  }
+
+  public void stopElevator() {
+    m_intakeMotor.set(TalonSRXControlMode.PercentOutput, 0);
+  }
+
+  //Extends the intake
   public void extendIntake()
   {
-    m_intakeExtendRetract.set(DoubleSolenoid.Value.kForward);
+    m_intakeExtendRetract.set(DoubleSolenoid.Value.kReverse);
   }
 
+  //Retracts the intake
   public void retractIntake()
   {
-    m_intakeExtendRetract.set(DoubleSolenoid.Value.kReverse);
+    m_intakeExtendRetract.set(DoubleSolenoid.Value.kForward);
   }
 }

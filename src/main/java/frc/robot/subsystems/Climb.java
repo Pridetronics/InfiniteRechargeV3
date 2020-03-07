@@ -9,6 +9,8 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase; // Imports needed for this subsystem
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;//Motor Type 
@@ -19,6 +21,7 @@ public class Climb extends SubsystemBase
   /**
    * Creates a new Climb.
    */
+  //motor objects and limit switches
   private CANSparkMax m_spoolWinchMotor;
   private TalonSRX m_raiseRodMotor;
   private DigitalInput m_upperClimbLimitSwitch;
@@ -26,36 +29,51 @@ public class Climb extends SubsystemBase
 
   public Climb() 
   {
-    m_raiseRodMotor = RobotContainer.raiseRodMotor;
-    m_spoolWinchMotor = RobotContainer.spoolWinchMotor;
-    m_upperClimbLimitSwitch = RobotContainer.upperClimbLimitSwitch;
-    m_lowerClimbLimitSwitch = RobotContainer.lowerClimbLimitSwitch;
+    m_raiseRodMotor = RobotContainer.raiseRodMotor; // motor to raise telescopic rod
+    m_spoolWinchMotor = RobotContainer.spoolWinchMotor; // motor to raise the robot
+    m_upperClimbLimitSwitch = RobotContainer.upperClimbLimitSwitch; // limit switch to test if telescopic rod is extended
+    m_lowerClimbLimitSwitch = RobotContainer.lowerClimbLimitSwitch; // limit switch to test if telescopic rod has descended
  
   }
-
+// 0 is closed, 1 is open
   @Override
   public void periodic() 
   {
-    // This method will be called once per scheduler run
+    // Limit Switches display on SmartDashboard
+    SmartDashboard.putBoolean("Upper Climb Limit Switch", m_upperClimbLimitSwitch.get());
+    SmartDashboard.putBoolean("Lower Climb Limit Switch", m_lowerClimbLimitSwitch.get());
   }
 
   public void raiseTelescopicRod(double speed)
   {
-    m_raiseRodMotor.set(TalonSRXControlMode.PercentOutput, speed);
+    // @param speed - speed the telescopic rod moves at
+    m_raiseRodMotor.set(TalonSRXControlMode.PercentOutput, speed); // sets the motor at 20% speed
   }
 
   public void spoolWinch(double speed)
   {
-    m_spoolWinchMotor.set(speed);
+    // @param speed - speed the winch motor moves at
+    m_spoolWinchMotor.set(speed); // sets the motor at 20% speed
   }
 
-  public boolean upperClimbLimitOpen()
+  public boolean isClimbAtTop()
   {
-    return m_upperClimbLimitSwitch.get();
+    //Returns the state of the upper limit switch
+    boolean isClimbAtTop;
+    if(m_upperClimbLimitSwitch.get())
+    {
+      isClimbAtTop = false;
+    }
+    else
+    {
+      isClimbAtTop = true;
+    }
+    return isClimbAtTop;
   }
   
-  public boolean lowerClimbLimitOpen()
+  public boolean isClimbAtBottom()
   {
-    return m_lowerClimbLimitSwitch.get();
+    //Returns the state of the lower limit switch
+    return (!m_lowerClimbLimitSwitch.get());
   }
 }

@@ -15,16 +15,16 @@ public class ExtendRetractIntake extends CommandBase
   /**
    * Creates a new ExtendRetractIntake.
    */
+  //Creates intake object
   private Intake m_intake;
-  boolean isIntakeExtended = false;
-  //intake is originally retracted, so it is originally false
+  //boolean isIntakeExtended = false;
 
   public ExtendRetractIntake(Intake intake) 
   {
     // Use addRequirements() here to declare subsystem dependencies.
+    //References intake object in RobotContainer
     m_intake = intake;
 
-    addRequirements(m_intake);
   }
 
   // Called when the command is initially scheduled.
@@ -38,23 +38,16 @@ public class ExtendRetractIntake extends CommandBase
   @Override
   public void execute() 
   {
-    if(isIntakeExtended == false)
-    {
-      m_intake.extendIntake();
-      isIntakeExtended = true;
-    }
-    else
-    {
-      m_intake.retractIntake();
-      isIntakeExtended = false;
-    }
+    //Extends intake when the command is executed
+    m_intake.extendIntake();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) 
   {
-
+    //Retracts the intake when the command ends
+    m_intake.retractIntake();
   }
 
   // Returns true when the command should end.

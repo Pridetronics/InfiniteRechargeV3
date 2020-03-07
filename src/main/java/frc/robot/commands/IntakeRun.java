@@ -23,6 +23,7 @@ public class IntakeRun extends CommandBase
   public IntakeRun(Intake intake) 
   {
     // Use addRequirements() here to declare subsystem dependencies.
+    //Creates the intake object
     m_intake = intake;
 
     addRequirements(m_intake);
@@ -39,14 +40,14 @@ public class IntakeRun extends CommandBase
   @Override
   public void execute() 
   {
-    SmartDashboard.putBoolean("Intake", true); //Once this command is running, the dashboard will acknowledge it (Driver comfort?)
-    m_intake.runIntakeMotors(Constants.INTAKE_MOTOR_SPEED);//Once this command is executed the motor will run a little over half speed
+    //Once this command is executed the motor will run a little over half speed
+    m_intake.startElevator();
   }
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) 
   {
-
+    m_intake.stopElevator();
   }
 
   // Returns true when the command should end.

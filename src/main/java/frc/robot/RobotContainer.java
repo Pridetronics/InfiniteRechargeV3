@@ -5,70 +5,6 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-/*
-  ddddddddddddddddddddddddddddddddddddddddddddooooolllcc::;;;;;::ccllloooooooooooooooooooooooooooooooollllllllll
-ddddddddddddddddddddddddddddddddddooooooooollccc::;;::::cclloooddddddddddddddddddddddddddddddoooooooooooooooll
-dddddddddddddddddddddddddddddoooooooolllcc:::::::clloodddddxxxxxxxxxxxxxxxxxxxxxxxxxxddddddddddddddooooooooooo
-dddddddddddddddddddddoooooooooolllcc::::::ccloodddxxxxxxxkkkkkkkkkkkkkkkkkkkkkkkxxxxxxxxxxxxdddddddddooooooooo
-oooddoooooooooodoooooooolllcc:::::::cllooddxxxxkkkkkkkkkkkkkkOOOOOOOOOkkkkkkkkkkkkkkxxxxxxxxxxxxdddddddoddoooo
-oooooooooooooooooolllcc:::;::cclooddxxxxkkkkkkkOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOkkkkkkkkkkkxxxxxxxxxddddddddddooo
-oooooooooolllllcc::::::ccloodddxxxkkkkkkOOOOOOOOOO000000000000000000000O00OOOOOOOkkkkkkkkkkkxxxxxxxxdddddddddo
-lllllllccc:::;;;::cllodddxxxkkkkOOOOOOOO0000000000000000000K00K0000000000000OOOOOOOOOOkkkkkkkkxxxxxxxxdddddddd
-ccc::::;;;::cclooddxxxkkkkkOOOOOOO0000000000KKKKKKKKKKKKKKKKKKKKKKKKKK0000K0O000OOOOOkkkkkkkkkxxxxxxxxxxxddddd
-;;;;;:cclloodddxxxkkkkkOOOOO00000000KKKKKKKKKKKKKKKKKKKKKXKKKKKKKKKKKKK00K0OOOxxxkOkdddxkkkkkkkkxxxxxxxxxxdddd
-:cclloodddxxxxkkkkOOOOO00000000KKKKKKKKKKKKKKXXXXXXXXXXXKKKKKO0K0O0KKKK00OkOOkocldxo:ollkkkkkkkkkkkxxxxxxxxddd
-ooodddxxxxkkkkkkOOOOO000000KKKKKKKKKKXXXXXXXXXXXXXXXXXKKKX0OkdoxdodO00000Odloolc:cc;;c:lxdodkkkkkkkkxxxxxxxxdd
-ddddxxxkkkkkOOOO0000000KKKKKKKXXKXXXXXXXXXXXXNNNXNNXXXK00OOkdl:::;;;:cldddoc:;;;,,'',;;::;:oxkkkkkkkkkxxxxxxxx
-dxxxkkkkkOOOOO0000000KKKKKKKXXXXXXXXXXXXNNNNNNNNNNNNNXKOxlloddoc;'....,::;::'',,;;'',,',,';dOkkkkkkkkkxxxxxxxx
-xxkkkkOOOOOO00000KKKKKKKKKXXXXXXXXNNNNNNNNNNNNNNNNNNNXOddc;cxxoccoc,'''..','.....,,'....'..cddxkkkkkkkkxxxxxxx
-kkkkOOOOOO00000KKKKKKKXXXXXXXXNNNNNNNNNNNNNNNNNNNNNNNKdcclokxdoc::;,''..'..................',cdxxxkkxxkkxxxxxx
-kkOOOOO0000000KKKKKKKKXXXXXXNNNNNNNNNNNNNNNNNNNNNNWN0xdxddxxoooc:;,'''........................,:ldxxkkkkkxxxxx
-kOOOOO0000000KKKKKKKKXXXXXXXNNNNNNNNNNNNNNNNNNNNWWN0xxxxollooddolc;,,,'''''',,;;,,,'............,cxkkkkkkkxxxx
-OOOOOO000000KKKKKKKKXXXXXXXNNNNNNNNNNNNNNNNWWWWWNNKkkxoolcldxkkxdolccc::::::cllllolc:;,''........,okkkkkkkkxxx
-OOOOO0000000KKKKKKKXXXXXXXXNNNNNNNNNNNWNWWNWWWNWN0kO0kxkdodxxxxdddddooollllllooooddoolc:;;,'......,dkkkkkkkxxx
-OOOO0000000KKKKKKKKXXXXXXXNNNNNNNNNNNNWNWWNWWNWNOdx0000000OOkxxxxxxxdddddooooooddooooolllcc:,......:xkkkkkkxxx
-OOO00000000KKKKKKKKXXXXXXXXNNNNNNNNNNNNNWNNWNNW0ookKXNXKXXK0Okxxxxxxddddddoooooodooooooollllc;'....,dkkkkkkxxx
-OOO00000000KKKKKKKKKXXXXXXXXNNNNNNNNNNNNNNNNNWNkldk0XNXXXXK0Okkxxxxxxxddddddoooooooooooollllll:,....cxkkkkkxxx
-OOOO0000000KKKKKKKKKKXXXXXXXXXNNNNNNNNNNNNNNNNKoloxOKKXNXXXXK0Okkxxxxxddddddddddddooooooloolllc:,...,dkkkkkxxx
-OOOO00000000KKKKKKKKKKKXXXXXXXXXXXNNNNNNNNNNNNkc:coxOKNNNNNX0Okxxxddddooddooooodooooodoooooololc;'..'lkkkkkkxx
-OOOO0000000000KKKKKKKKKKXXXXXXXXXXXXXXNNNXNNNXd;,,cx0XNNXX0Oxdollccccclloollloolllllooooooooooll:,'..:xkkkkkxx
-OOOO00000000000KKKKKKKKKKKKXXXXXXXXXXXXXXXXXNKo,.,lk00kxdlc;,,''...'',;:clllcc::;,,,;;::ccllllllc,'..,dkkkkxxx
-OOOO000000000000KKKKKKKKKKKKKXXXXXXXXXXXXXXXX0c'.:k0kl;,,'...........'',:cllc;,'.........'',;::cc;...;xkkkkxxx
-OOOOOOO000000000000KKKKKKKKKKKKKKKXXXXXXXXXXXk:';d0Oo;'''''...........';loddl:;,''...........'',;;...cxkkkkxxx
-OOOOOOOOO0000000000000KKKKKKKKKKKKKKKKKKKKKXKd;,l00o:,''',,'. ........,cdxxdoc:,''......'''''',,;:'..lkkkkkxxx
-OOOOOOOOOOO00000000000000000KKKKKKKKKKKKKKKXKd;ckXOocc:::::,.........,:oxkxdoc:,'.........,,'',;:c,..lkkkkxxxx
-OOOOOOOOOOOO00000000000000000KKKKKKKKKKKKKK0kocxXXK0Okdddoc:;;,,,,;;:lox0Kkdol:;,'....   ..,,,,,;c;..lkkkkxxxx
-OOOOOOOOOOOOOOOOOOOOOOOOOOOOO00000000000000o::l0XXXXK0OkxdoolllllloooookXXOdlcc:;;,''....',;;;:::cc..lkkkxxxxx
-kkkxxxxxxxxdxxxxddddddddxxdddddddddddddddxo:cld0XKKKKK00Okkxddddddoooox0NKkdolccccc::;;;;;::ccccclc,.:xkxxxxxx
-dooooooooooooooooooooooddddddddddoooooodddolood00OOkkOOOOOkkxxddddooookKK0xdoolcccclllllcccccccllll:';lxxxxxxx
-lllloooooollllllooooooooooooooooooooooooooodocoOOkxxkkOOOOkkxddoooooodO0Okdoooocccccllllllollllllllc,',lxxxxxx
-;:ccclllllllllllllllllllllooooloooolllllllokxodkxxxxkkxxxxdddoolllloxOOkkdooolllc::cclllllooollllllc;,;lxxxxxx
-,,,;;;::ccccccllllllllllllooollllloolllllllxO00kxddxxdoooooooolllclxOkoccc:ccccc:::::clllllllllccccc;:cdxxxxxx
-.''',,,,,,;;;;;;;;;::::::::ccccclllccc:;'',o00Okxddddooooooollccllooc;.','',;;,;::;;::ccllllllccccc:::ldxxxxxx
-.......'''''',,,,,,,,,,,,,,,,,,,,,,,,,,'...:xkkkxdddddddooolcccclooc,....'''''..,;;;;;:cccccccccccc;;coxxxxxxx
-..................'''''''''''''......''''..';:;lxdooddoooollccloodddo:;,'.''',',;:::;;;:::ccccccccc::ldxxxxxxx
-...............................................ckdooddoooollooooddddolc:;,'',;;;:::::;;;;:::::ccc:cccoxxxxxxxx
-          .....................................:xxddddddooodddddddolc:::;,',,;;;;:::::::::::::::c::cldxxxxxxxx
-            .................................  ;xxdddddddodddollllcccccc:;;;;;;;;;;;:::::::::::::ccldxxxxxxxxd
-                    ...............            'dxddddddoollc;;;;::cccccccclc::::::::;;::::::::::clodxxxxxxddd
-                      ....                     .ldodddooolc;,''''''''''.'',,,''''''',,,;::::::::codddxxxxxdddd
-                                               .:doooolllc:;;;:c::::;;;;,'''''','''''',;;:::::::ldxxxxxdxddddd
-                                                ;olooolccc::::cccccccccc::::;;;;;;;::;;;;:c:::::oxxxxxdxxddddd
-                                               .:dlllllccc:::cccccc:::;,,'''',,;;;::::;;;;:::::cdxxxxddddddddd
-                                               .lxlcllclcc::::c::::;;,,''''''',,;;;;;;;;;;:::::odxxxdddddddddd
-                                               .okocccclcccc:::::::;;;;;,,,,,,;;,;;;;;;;;;;;;:lddddddddddddddd
-                                               ,xkxoccccclllcccc:::::ccccccc:::;;;;;;;;;;;;,;cdxdddddddddddddd
-                                               :kxxdlc::cllllllccccclllllllcccc::::::;;;;;;;;ldddddddddddddddd
-                                              .okxxxol:;:cllllllllllllllccccccc::::::;;;;,,;:odddddddddddddooo
-                                              'xkxxddoc;;:ccllllllllllcc:::::::::::::;;;;,,;:oddddddddddoooooo
-*/
-
-/*
-  To-do:
-  The double solenoids are only initialized and need to be instantiated. To do that, you need the forward and
-  reverse channels. I will find those out on monday. For now, I will declare them as constants in Constants.
-*/
-
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Counter;
@@ -77,27 +13,49 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.trajectory.Trajectory;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.DescendTelescopicClimb;
 import frc.robot.commands.DriveJoystick;
 import frc.robot.subsystems.Climb;
+import frc.robot.subsystems.ColorWheel;
 import frc.robot.subsystems.Drive;
 import frc.robot.commands.IntakeRun;
 import frc.robot.commands.LowSpeedShooter;
 import frc.robot.commands.RaiseRobot;
 import frc.robot.commands.ReleaseGate;
+import frc.robot.commands.RotateColorWheel;
 import frc.robot.commands.ExtendRetractIntake;
 import frc.robot.commands.ExtendTelescopicClimb;
+import frc.robot.commands.FollowTrajectory;
+import frc.robot.commands.GoDistance;
+import frc.robot.commands.GoToAngle;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
+
+import java.util.List;
+
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.command.Scheduler;
+
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
@@ -128,24 +86,24 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
   public static CANSparkMax leftDriveMotorFollow;
   public static CANSparkMax rightDriveMotorFollow;
-  public static CANSparkMax intakeMotor;
-  public static CANSparkMax elevatorMotor;
+  public static TalonSRX intakeMotor;
+  public static TalonSRX elevatorMotor;
   public static TalonSRX raiseRodMotor;
   public static CANSparkMax spoolWinchMotor;
   public static CANSparkMax shooterMotor;
+  public static CANSparkMax colorWheelMotor;
 
   public JoystickButton intakeButton; // Button to run the intake
   public JoystickButton intakeExtendRetractButton; // Button to run the intake Vertical
   public JoystickButton lowSpeedShooterButton; // Button A
-  public JoystickButton highSpeedShooterButton; // Button Y
-  public JoystickButton cameraModeButton;
+  public JoystickButton rotateColorWheelButton;
 
   public static Shooter shooter; // shooter object to be used for shooter commands
   public static CANPIDController shooterMotor_pid;
 
-  // public Pneumatics pneumatics; // creates a pneumatic object
   public JoystickButton raiseTelescopicRodButton;
-  public JoystickButton liftRobotButton;
+  public JoystickButton descendTelescopicRodButton;
+  public JoystickButton winchMotorButton;
 
   public static DoubleSolenoid shooterBallRelease; // represents the solenoids for the different intake systems
   public static DoubleSolenoid intakeDeploy;
@@ -165,31 +123,33 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
   public static Intake intake;
 
+  public static ColorWheel colorWheel;
+
   // Counts how many balls are in the magazine
   public Counter ballCounter;
 
-  // Sets up the NAVX object for robot orientation
+  private final SequentialCommandGroup m_auton;
+  private final SequentialCommandGroup m_auton_traj;
   
-
   public RobotContainer() 
   {
+    // Gets an instance of the command scheduler
+    CommandScheduler scheduler = CommandScheduler.getInstance();
+
+    /* Turn On LiveWindow */
+    // Disables all motors and PID loop commands for testing in smartdashboard
+    // https://first.wpi.edu/FRC/roborio/beta/docs/java/edu/wpi/first/wpilibj/livewindow/LiveWindow.html
+    // LiveWindow.setEnabled(true);
 
     /********************************************************************************************/
     /*
-        Joystick Controller and Button Definitions
+        Joystick Controller
     */
     /********************************************************************************************/
 
-    joystickDriver = new Joystick(0);
-    joystickShooter = new Joystick(1);
-    // The numbers in the parenthesis represents the ports each controller goes to.
-
-    lowSpeedShooterButton = new JoystickButton(joystickShooter, 1); // creates the button for the low speed shooter
-    intakeButton = new JoystickButton(joystickDriver, 5); // Right Upper Bumper, sets intake Button to a controller
-    intakeExtendRetractButton = new JoystickButton(joystickDriver, 7); //Left Upper Bumper, elevator button  to a controller
-    raiseTelescopicRodButton = new JoystickButton(joystickShooter, 6);
-    liftRobotButton = new JoystickButton(joystickShooter, 5);
-
+    joystickDriver = new Joystick(Constants.DRIVER_JOYSTICK_NUMBER);
+    joystickShooter = new Joystick(Constants.SHOOTER_JOYSTICK_NUMBER);
+    
     /********************************************************************************************/
     /*
         Start of driver section
@@ -210,14 +170,16 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     rightDriveMotorFollow = new CANSparkMax(Constants.RIGHT_DRIVE_MOTOR_FOLLOW, MotorType.kBrushless);
     rightDriveMotorFollow.follow(rightDriveMotorLead);
 
-    leftDriveEncoder = leftDriveMotorLead.getEncoder();
-    rightDriveEncoder = rightDriveMotorLead.getEncoder();
-
+    //Creates the encoders for the left drive and right drive motors
+    leftDriveEncoder = new CANEncoder(leftDriveMotorLead, EncoderType.kHallSensor, 4096);
+    rightDriveEncoder = new CANEncoder(rightDriveMotorLead, EncoderType.kHallSensor, 4096);
+    
     /* Sets the gear ratio for the encoders to convert it to feet */
     /* Need to convert this to meters for odometry */
     leftDriveEncoder.setPositionConversionFactor(Constants.WHEEL_CIRCUMFERENCE / Constants.MAIN_MOTOR_RATIO); // Converts to distance in feet and uses the gearbox ratio too
     rightDriveEncoder.setPositionConversionFactor(Constants.WHEEL_CIRCUMFERENCE / Constants.MAIN_MOTOR_RATIO); // Converts to distance in feet and uses the gearbox ratio too
 
+    //Gets the pid controller for the left drive and right drive motors
     leftDrive_pid = leftDriveMotorLead.getPIDController();
     rightDrive_pid = rightDriveMotorLead.getPIDController();
 
@@ -230,15 +192,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     rightDrive_pid.setI(Constants.DRIVE_kI);
     rightDrive_pid.setD(Constants.DRIVE_kD);
 
+    //Creates the drive object
     robotDrive = new Drive();
-    // It sets a new drive and uses the ints 1 and 2. The order matters.
-    // 1 is assigned to leftDriveMotorAddress, whereas 2 is rightDriveMotorAddress
-
-    robotDrive.setDefaultCommand(new DriveJoystick(joystickDriver, robotDrive));
-    // This helps set the default command. It sets it to DriveJoystick so that way
-    // RobotContainer
-    // can grab the information and utilize it for the given controller, in this
-    // case joystickDriver
 
     /********************************************************************************************/
     /*  
@@ -246,27 +201,25 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     */
     /********************************************************************************************/
 
-    shooterMotor = new CANSparkMax(Constants.SHOOTER_MOTOR_CAN_ADDRESS, MotorType.kBrushed); // instantiates new shooter
-                                                                                          // motor with specific ID
-    // Drive PID Drive Setup
-    leftDrive_pid = leftDriveMotorLead.getPIDController();
-    rightDrive_pid = rightDriveMotorLead.getPIDController();
+    //Creates shooter motor 
+    shooterMotor = new CANSparkMax(Constants.SHOOTER_MOTOR_CAN_ADDRESS, MotorType.kBrushless);
+    shooterMotor.setInverted(false);
 
-    // Shooter PID Setup
+    //Creates shooter motor pid controller and sets the pid constants
     shooterMotor_pid = shooterMotor.getPIDController();
     shooterMotor_pid.setP(Constants.SHOOTER_kP);
     shooterMotor_pid.setI(Constants.SHOOTER_kI);
     shooterMotor_pid.setD(Constants.SHOOTER_kD);
+    shooterMotor_pid.setOutputRange(Constants.SHOOTER_MIN_OUTPUT, Constants.SHOOTER_MAX_OUTPUT);
 
-    shooterMotorEncoder = new CANEncoder(shooterMotor, EncoderType.kHallSensor, 42); // instantiates a new encoder for
-                                                                                     // the shooterMotor
+    //Creates the encoder of the shooter motor
+    shooterMotorEncoder = shooterMotor.getEncoder();
+
+    //Creates the double solenoid for the shooter gate
     shooterBallRelease = new DoubleSolenoid(Constants.SHOOTER_GATE_FORWARD_CHANNEL, Constants.SHOOTER_GATE_RELEASE_CHANNEL);
 
-    shooter = new Shooter(); // new Shooter object
-    
-    lowSpeedShooterButton.whenHeld(new ParallelCommandGroup(
-        new LowSpeedShooter(shooter),
-        new ReleaseGate(shooter)));
+    //Creates a shooter object
+    shooter = new Shooter();
     
     /********************************************************************************************/
     /*  
@@ -274,69 +227,106 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     */
     /********************************************************************************************/
     
+    //creates the double solenoid and gives it the forward/reverse channels
     intakeExtendRetract = new DoubleSolenoid(Constants.INTAKE_SOLENOID_FORWARD_CHANNEL, Constants.INTAKE_SOLENOID_REVERSE_CHANNEL);
-    
-    intakeMotor = new CANSparkMax(Constants.INTAKE_MOTOR_CAN_ADDRESS, MotorType.kBrushless); //The motor (CANSparkMax) is defined with a type and port (port 5, and motor type = brushless)
-    ///intakeMotor =  new Talon(5); //Motor is defined as a specified motor under port five (Talon)
-    intakeMotor.set(0); //Initially sets motor value to 0, will not run without further command
 
-    elevatorMotor = new CANSparkMax(Constants.ELEVATOR_MOTOR_CAN_ADDRESS, MotorType.kBrushless); //Motor is deinfed under 7th port (CANSparkMax)
-    ///elevatorMotorFollow = new Talon(7); // Motor is defined under port seven (Talon)
-    elevatorMotor.set(0); //Sets motor speed to 0
-    elevatorMotor.follow(intakeMotor); // Vertical follow motor will do everthing the vertical lead motor does
-    
+    //creates the intake motor and sets the speed to 0
+    intakeMotor = new WPI_TalonSRX(Constants.INTAKE_MOTOR_CAN_ADDRESS);
+    intakeMotor.set(TalonSRXControlMode.PercentOutput, 0.0);
+
+    /*
+    //creates the elevator motor, sets the speed to 0, and has it follow the intake motor
+    elevatorMotor = new WPI_TalonSRX(Constants.ELEVATOR_MOTOR_CAN_ADDRESS);
+    elevatorMotor.set(TalonSRXControlMode.PercentOutput, 0.0);
+    elevatorMotor.follow(intakeMotor);
+    */
+
+    //creates the intake object
     intake = new Intake();
 
-    intakeExtendRetractButton.whenPressed(new ExtendRetractIntake(intake));//While held, command is being run, references command from commands. Hence imports
-    intakeButton.whenHeld(new IntakeRun(intake));//While the button is being held, the command is being run
-    
     /********************************************************************************************/
     /*  
         Start of climb section
     */
     /********************************************************************************************/
-
-    /*
+    
     upperClimbLimitSwitch = new DigitalInput(Constants.UPPER_CLIMB_LIMIT_CHANNEL);
     lowerClimbLimitSwitch = new DigitalInput(Constants.LOWER_CLIMB_LIMIT_CHANNEL);
-    */
-    /*
-      If the limit switch is closed, the value is 0. If the limit switch is open, the value is 1
-    */
-    
+    // Creates the telescopic rod motor, sets it to 0, and sets it to brake mode
     raiseRodMotor = new WPI_TalonSRX(Constants.RAISE_CLIMB_MOTOR_ADDRESS);
     raiseRodMotor.setNeutralMode(NeutralMode.Brake);
+    raiseRodMotor.set(TalonSRXControlMode.PercentOutput, 0.0);
 
+    // Creates the motor to spool the winch, sets it to brake mode, and sets it 0
     spoolWinchMotor = new CANSparkMax(Constants.TELESCOPIC_CLIMB_MOTOR_ADDRESS, MotorType.kBrushless);
     spoolWinchMotor.setIdleMode(IdleMode.kBrake);
-    // The numbers in the parenthesis represents the ports each controller goes to. 
+    spoolWinchMotor.setInverted(true);
+    spoolWinchMotor.set(0.0);
 
+    // Creates climb object
     climb = new Climb();
 
-    raiseTelescopicRodButton.whileHeld(new ExtendTelescopicClimb(climb));
-
+    /*********************************************************************************************/
     /*
-    liftRobotButton.whileHeld(new SequentialCommandGroup(
-        new DescendTelescopicClimb(climb),
-        new RaiseRobot(Constants.WINCH_TIMEOUT, climb)));
+        Start of color wheel section
     */
-    
+    /*********************************************************************************************/
+    /*
+    //Creates the motor and sets it to 0
+    colorWheelMotor = new CANSparkMax(Constants.COLOR_WHEEL_MOTOR_ADDRESS, MotorType.kBrushless);
+    colorWheelMotor.set(0);
+
+    //Creates new ColorWheel object
+    colorWheel = new ColorWheel();
+
+    //Command to rotate the color wheel a certain number of times
+    rotateColorWheelButton.whenPressed(new RotateColorWheel(colorWheel));
+    */
     /*********************************************************************************************/
     /*
         Start of miscellaneous section
     */
     /*********************************************************************************************/
+
+    //new InstantCommand(shooter, shooter::releaseGate());
     
+    // Extends the shooter ball blocker on start of robot
+    scheduler.schedule(new InstantCommand(shooter::retractGate, shooter));
     /*
     intakeLimitSwitch = new DigitalInput(Constants.INTAKE_LIMIT_SWITCH_CHANNEL);
     shooterLimitSwitch = new DigitalInput(Constants.SHOOTER_LIMIT_SWITCH_CHANNEL);
 
     ballCounter = new Counter(CounterBase.EncodingType.k2X, intakeLimitSwitch, shooterLimitSwitch, false);
     */
+
+   //new InstantCommand(Shooter::releaseGate, shooter);
   
+    //Test autonomous command to test GoDistance and GoToAngle commands
+    m_auton = new SequentialCommandGroup(
+        new GoDistance(4.0, robotDrive), new GoToAngle(90.0, robotDrive),
+        new GoDistance(4.0, robotDrive), new GoToAngle(90.0, robotDrive),
+        new GoDistance(4.0, robotDrive), new GoToAngle(90.0, robotDrive),
+        new GoDistance(4.0, robotDrive), new GoToAngle(90.0, robotDrive)
+    );
+
+    // Trajectory Autonomous Command
+    Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
+        // Start at the origin facing the +X direction
+        new Pose2d(0, 0, new Rotation2d(0)),
+        // Pass through these two interior waypoints, making an 's' curve path
+        List.of(
+            new Translation2d(1, 1),
+            new Translation2d(2, -1)
+        ),
+        // End 3 meters straight ahead of where we started, facing forward
+        new Pose2d(3, 0, new Rotation2d(0)),
+        // Pass config
+        robotDrive.trajectoryConfig
+    );
+    m_auton_traj = new SequentialCommandGroup(new FollowTrajectory(robotDrive, trajectory));
+
     // Configure the button bindings
     configureButtonBindings();
-
   }
 
   /**
@@ -347,8 +337,37 @@ public class RobotContainer { // The robot's subsystems and commands are defined
    */
   private void configureButtonBindings() 
   {
-    
+    /* Sets up the buttons on the joystick */
+    lowSpeedShooterButton = new JoystickButton(joystickShooter, Constants.SHOOTER_BUTTON_NUMBER); // creates the button for the low speed shooter
+    intakeButton = new JoystickButton(joystickDriver, Constants.INTAKE_BUTTON_NUMBER); // Right Upper Bumper, sets intake Button to a controller
+    raiseTelescopicRodButton = new JoystickButton(joystickShooter, Constants.TELESCOPIC_ROD_BUTTON_NUMBER);
+    descendTelescopicRodButton = new JoystickButton(joystickShooter, Constants.DESCEND_ROBOT_BUTTON_NUMBER);
+    winchMotorButton = new JoystickButton(joystickShooter, Constants.WINCH_BUTTON_NUMBER);
+    rotateColorWheelButton = new JoystickButton(joystickShooter, Constants.ROTATE_COLOR_WHEEL_BUTTON);
 
+    /* Binds the buttons to each command  */
+    // Calls the command to run the shooter motor and release the shooter gate at the same time
+
+    lowSpeedShooterButton.whenHeld(new ParallelCommandGroup(
+        new LowSpeedShooter(shooter),
+        new ReleaseGate(shooter)));
+
+    // Runs the command to extend the intake and run the intake/elevator motors at the same time
+    intakeButton.whenHeld(new ParallelCommandGroup(
+        new ExtendRetractIntake(intake),
+        new WaitCommand(0.3),
+        new IntakeRun(intake)));
+
+    // Sets up the Drive commands
+    robotDrive.setDefaultCommand(new DriveJoystick(joystickDriver, robotDrive));
+    
+    // Command to raise the telescopic rod
+    raiseTelescopicRodButton.whenHeld(new ExtendTelescopicClimb(climb));
+
+    //Command to bring the telescopic rod down and spool the winch to raise the robot
+    descendTelescopicRodButton.whenHeld(new DescendTelescopicClimb(climb));
+       
+    winchMotorButton.whenHeld(new RaiseRobot(climb));
   }
 
 
@@ -359,6 +378,6 @@ public class RobotContainer { // The robot's subsystems and commands are defined
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return getAutonomousCommand();
+    return m_auton;
   }
 }

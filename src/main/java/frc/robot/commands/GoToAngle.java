@@ -23,25 +23,30 @@ public class GoToAngle extends CommandBase {
     // Imports the parameters
     setAngle = angle;
     m_Robotdrive = robotDrive;
+
+    addRequirements(m_Robotdrive);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    /* Enables the turning PID loop and sets the setpoint */
-    m_Robotdrive.setSetpoint(setAngle);
-    m_Robotdrive.zeroRotationRate();
-    m_Robotdrive.enable();
+    // Nothing
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (!m_Robotdrive.isEnabled()) {
+      /* Enables the turning PID loop and sets the setpoint */
+      m_Robotdrive.setSetpoint(setAngle);
+      m_Robotdrive.zeroRotationRate();
+      m_Robotdrive.enable();
+    }
     /* Puts the stick values to the rotation rate and drives the robot */
     /* Will only rotate the robot to the specified value */
     double leftStickValue = m_Robotdrive.getRotationRate();
     double rightStickValue = -m_Robotdrive.getRotationRate();
-    m_Robotdrive.tankDrive(leftStickValue, rightStickValue, false);
+    m_Robotdrive.tankDrive(leftStickValue, rightStickValue, false, false);
   }
 
   // Called once the command ends or is interrupted.
@@ -49,6 +54,7 @@ public class GoToAngle extends CommandBase {
   public void end(boolean interrupted) {
     // Disables the PID loop
     m_Robotdrive.disable();
+    m_Robotdrive.resetAngle();
   }
 
   // Returns true when the command should end.

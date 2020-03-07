@@ -16,15 +16,16 @@ public class RaiseRobot extends CommandBase
   /**
    * Creates a new RaiseRobot.
    */
+  //Creates a climb object
   private Climb m_climb;
   
-  
-  public RaiseRobot(double timeout, Climb climb) 
+  public RaiseRobot(Climb climb) 
   {
     // Use addRequirements() here to declare subsystem dependencies.
-    withTimeout(timeout);
+    //References climb object from robot container
     m_climb = climb;
     
+    addRequirements(m_climb);
   }
 
   // Called when the command is initially scheduled.
@@ -38,6 +39,7 @@ public class RaiseRobot extends CommandBase
   @Override
   public void execute() 
   {
+    //Runs the winch motor to spool the winch
     m_climb.spoolWinch(Constants.WINCH_MOTOR_SPEED);
   }
 
