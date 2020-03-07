@@ -56,6 +56,9 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
   // PID Constants for the velocity PID loop, not for direction
   private double kP, kI, kD;
 
+  // Last Input Storage for Input Ramping
+  private double lastInput;
+
   // Odometry Setup for Pathing
   public DifferentialDriveOdometry driveOdometry;
 
@@ -131,6 +134,9 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     // Put NavX Values on SmartDashboard
     SmartDashboard.putNumber("NavX Yaw", navX.getAngle());
 
+    // Sets up the drive ramping lastValue storage
+    lastInput = 0.0;
+
     // Sets up the robot DifferentialDrive object for autonomous 
     robotDrive = new DifferentialDrive(leftDriveMotor, rightDriveMotor);
   }
@@ -172,7 +178,7 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     }
   }
 
-  public void tankDrive(double leftValue, double rightValue, boolean squareInputs) {
+  public void tankDrive(double leftValue, double rightValue, boolean squareInputs, boolean rampInputs) {
     // Replaces the regular tankdrive with a PID loop that controls the RPM
     // This compensates for the amperage drop in the battery and makes it much smoother
     
@@ -187,19 +193,19 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     leftValue = applyDeadband(leftValue, Constants.DEADBAND);
     rightValue = applyDeadband(rightValue, Constants.DEADBAND);
 
-    // Squares the input to make it a exponential response curve instead of linear
-    // to increase fine control while permitting full power
+    // Square and Ramp Inputs 
     if (squareInputs) 
     {
-      // Squares the values and copies the sign from the initial value
-      // This makes sure that if the values were negative that they stay negative after the square
-      // Take a look at the intensity of the squaring of the inputs
-      leftValue = Math.copySign(leftValue * leftValue, leftValue);
-      rightValue = Math.copySign(rightValue * rightValue, rightValue);
+      // Squares the input to make it a exponential response curve instead of linear
+      // to increase fine control while permitting full power
+      leftValue = Math.copySign(squareInput(leftValue, 0.5), leftValue);
+      rightValue = Math.copySign(squareInput(rightValue, 0.5), rightValue);
     }
-    else {
-      leftValue  *= 0.5;
-      rightValue *= 0.5;
+    if (rampInputs)
+    {
+      // Ramp inputs to make acceleration much smoother
+      leftValue = Math.copySign(rampInput(leftValue, 1.0), leftValue);
+      rightValue = Math.copySign(rampInput(rightValue, 1.0), rightValue);
     }
     
     // Converts the percentage value to RPM for the PID Loop
@@ -214,6 +220,25 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     robotDrive.feed();
   }
 
+  double squareInput(double input, double degree) {
+    // Adjustable parabolic curve for drive values
+    return Math.pow(input, 3) + Constants.SQUARING_CONSTANT * (degree * input) / (Constants.SQUARING_CONSTANT * degree + 1);
+  }
+
+  double rampInput(double input, double maxAccel) {
+    // Calculate the change from the current input from the last input
+    double change = input - lastInput;
+    // If the change is larger than max acceleration then ramp the acceleration down
+    if (Math.abs(change) >= maxAccel) {
+      change = Math.signum(change) * maxAccel;
+    }
+    // Add the acceleration change to the input
+    input += change;
+    // Store the last input as this one
+    lastInput = input;
+    // Return the input
+    return input;
+  }
 
   /* Trajectory Methods */
   public void tankDriveVolts(double leftVolts, double rightVolts) {

@@ -47,7 +47,7 @@ public class DriveJoystick extends CommandBase { //Creates a new DriveJoystick.
       rightValue = m_joystickDriver.getRawAxis(5); // Right Joystick verticle axis
       leftValue = m_joystickDriver.getRawAxis(1); // Left joystick verticle axis
 
-      m_robotDrive.tankDrive(leftValue, rightValue, false);
+      m_robotDrive.tankDrive(leftValue, rightValue, true, true);
       // Defines how the joysticks will operate     
     } 
     /*

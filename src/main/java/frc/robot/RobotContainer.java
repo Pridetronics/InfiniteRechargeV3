@@ -260,6 +260,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     // Creates the motor to spool the winch, sets it to brake mode, and sets it 0
     spoolWinchMotor = new CANSparkMax(Constants.TELESCOPIC_CLIMB_MOTOR_ADDRESS, MotorType.kBrushless);
     spoolWinchMotor.setIdleMode(IdleMode.kBrake);
+    spoolWinchMotor.setInverted(true);
     spoolWinchMotor.set(0.0);
 
     // Creates climb object
