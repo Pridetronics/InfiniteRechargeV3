@@ -164,7 +164,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     leftDriveMotorFollow.follow(leftDriveMotorLead);
     
     rightDriveMotorLead = new CANSparkMax(Constants.RIGHT_DRIVE_MOTOR_LEAD, MotorType.kBrushless); // Creates new talon motor for leading right drive
-    rightDriveMotorLead.setInverted(false); // Inverts Right Drive Motor
+    rightDriveMotorLead.setInverted(true); // Inverts Right Drive Motor
     rightDriveMotorLead.set(0); // Sets speed to 0 (anywhere between -1 and 1)
 
     rightDriveMotorFollow = new CANSparkMax(Constants.RIGHT_DRIVE_MOTOR_FOLLOW, MotorType.kBrushless);
@@ -176,7 +176,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     
     /* Sets the gear ratio for the encoders to convert it to feet */
     /* Need to convert this to meters for odometry */
-    leftDriveEncoder.setPositionConversionFactor(Constants.WHEEL_CIRCUMFERENCE / Constants.MAIN_MOTOR_RATIO); // Converts to distance in feet and uses the gearbox ratio too
+    leftDriveEncoder.setPositionConversionFactor(Constants.WHEEL_CIRCUMFERENCE / Constants.MAIN_MOTOR_RATIO); // Converts to distancse in feet and uses the gearbox ratio too
     rightDriveEncoder.setPositionConversionFactor(Constants.WHEEL_CIRCUMFERENCE / Constants.MAIN_MOTOR_RATIO); // Converts to distance in feet and uses the gearbox ratio too
 
     //Gets the pid controller for the left drive and right drive motors
@@ -292,6 +292,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     
     // Extends the shooter ball blocker on start of robot
     scheduler.schedule(new InstantCommand(shooter::retractGate, shooter));
+    scheduler.run();
     /*
     intakeLimitSwitch = new DigitalInput(Constants.INTAKE_LIMIT_SWITCH_CHANNEL);
     shooterLimitSwitch = new DigitalInput(Constants.SHOOTER_LIMIT_SWITCH_CHANNEL);
@@ -303,10 +304,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
   
     //Test autonomous command to test GoDistance and GoToAngle commands
     m_auton = new SequentialCommandGroup(
-        new GoDistance(4.0, robotDrive), new GoToAngle(90.0, robotDrive),
-        new GoDistance(4.0, robotDrive), new GoToAngle(90.0, robotDrive),
-        new GoDistance(4.0, robotDrive), new GoToAngle(90.0, robotDrive),
-        new GoDistance(4.0, robotDrive), new GoToAngle(90.0, robotDrive)
+        new GoDistance(4.0, robotDrive),
+        new GoDistance(-4.0, robotDrive)
     );
 
     // Trajectory Autonomous Command
@@ -350,6 +349,7 @@ public class RobotContainer { // The robot's subsystems and commands are defined
 
     lowSpeedShooterButton.whenHeld(new ParallelCommandGroup(
         new LowSpeedShooter(shooter),
+        new WaitCommand(0.2),
         new ReleaseGate(shooter)));
 
     // Runs the command to extend the intake and run the intake/elevator motors at the same time

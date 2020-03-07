@@ -39,31 +39,29 @@ public class DriveJoystick extends CommandBase { //Creates a new DriveJoystick.
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    if (driveMode == 0) {
-      //System.out.println("Tank Drive");
-
+    if (driveMode == 0) 
+    {
       double rightValue, leftValue; // Sets these up as doubles, allows to make it into axis
-      rightValue = m_joystickDriver.getRawAxis(5); // Right Joystick verticle axis
-      leftValue = m_joystickDriver.getRawAxis(1); // Left joystick verticle axis
-
-      m_robotDrive.tankDrive(leftValue, rightValue, false, false);
-      // Defines how the joysticks will operate     
+      if (m_robotDrive.arcadeModeOn()) {
+        rightValue = m_joystickDriver.getRawAxis(4); // Right Joystick horizontal axis
+        leftValue = m_joystickDriver.getRawAxis(1); // Left joystick verticle axis
+        // If arcade mode is turned on in smart dashboard
+        m_robotDrive.arcadeDrive(leftValue, rightValue, true, false);
+      }
+      else if (m_robotDrive.curvatureModeOn()) {
+        rightValue = m_joystickDriver.getRawAxis(4); // Right Joystick horizontal axis
+        leftValue = m_joystickDriver.getRawAxis(1); // Left joystick verticle axis
+        // If arcade mode is turned on in smart dashboard
+        m_robotDrive.curvatureDrive(leftValue, rightValue, true);
+      }
+      else
+      {
+        rightValue = m_joystickDriver.getRawAxis(5); // Right Joystick verticle axis
+        leftValue = m_joystickDriver.getRawAxis(1); // Left joystick verticle axis
+        // If arcade mode is turned off in smart dashboard use tank drive
+        m_robotDrive.tankDrive(leftValue, rightValue, true, true); 
+      }
     } 
-    /*
-    else {
-      System.out.println("arcadeDrive");
-
-      double rightArcadeValue, leftArcadeValue;
-      rightArcadeValue = gamepad1.getRawAxis(1);
-      leftArcadeValue = gamepad1.getRawAxis(4);
-
-      robotDrive.arcadeDrive(rightArcadeValue, leftArcadeValue);
-      //not right??
-      
-    }
-    */
-
   }
 
   // Called once the command ends or is interrupted.

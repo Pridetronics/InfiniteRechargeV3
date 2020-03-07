@@ -123,6 +123,11 @@ public final class Constants {
     //Speed for the color wheel motor
     public static final double COLOR_WHEEL_MOTOR_SPEED = 0.5;
 
+    //Constants for curvature drive
+    public static final double QUICK_STOP_THRESHOLD = 0.2;
+    public static final double QUICK_STOP_ALPHA = 0.1;
+    public static final double  QUICK_STOP_ACCUMULATOR = 0.0;
+
     public static void init() {
         // LiveWindow.addAcutator("Drive", "robotDrive", myRobot);
         robotDrive.setSafetyEnabled(false);
