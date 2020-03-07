@@ -59,8 +59,9 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
   // Last Input Storage for Input Ramping
   private double lastInput;
 
-  // Drive Modes from Tank to Arcade
+  // Drive Modes from Tank to Arcade to Curvature
   private boolean arcadeMode;
+  private boolean curvatureMode;
 
   // Odometry Setup for Pathing
   public DifferentialDriveOdometry driveOdometry;
@@ -133,6 +134,7 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     // Puts the arcade drive boolean
     arcadeMode = false;
     SmartDashboard.putBoolean("Arcade Mode Enabled", arcadeMode);
+    SmartDashboard.putBoolean("Curvature Mode Enabled", curvatureMode);
 
     // Sets up the drive ramping lastValue storage
     lastInput = 0.0;
@@ -161,8 +163,9 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     if((i != kI)) { m_leftDrive_pid.setI(i); m_rightDrive_pid.setI(i); kI = i; }
     if((d != kD)) { m_leftDrive_pid.setD(d); m_rightDrive_pid.setD(d); kD = d; }
 
-    // Enables Arcade Drive
+    // Enables Arcade Drive and Curvature Drive
     arcadeMode = SmartDashboard.getBoolean("Arcade Mode Enabled", false);
+    curvatureMode = SmartDashboard.getBoolean("Curvature Mode Enabled", false)
 
     // Put motor encoder values on SmartDashboard for PID Graphing
     SmartDashboard.putNumber("Left Drive Speed",  leftDriveEncoder.getVelocity());
@@ -387,10 +390,10 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     return arcadeMode;
   }
 
-
-    double angularPower;
-    boolean overPower;
-  
+  public boolean curvatureModeOn() {
+    // Returns whether or not curvature mode should be on
+    return curvatureMode;
+  }
   
   double squareInput(double input, double degree) {
     // Adjustable parabolic curve for drive values
