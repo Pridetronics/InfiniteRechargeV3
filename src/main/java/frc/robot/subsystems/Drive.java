@@ -57,7 +57,8 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
   private double kP, kI, kD;
 
   // Last Input Storage for Input Ramping
-  private double lastInput;
+  private double leftLastInput;
+  private double rightLastInput;
 
   // Drive Modes from Tank to Arcade to Curvature
   private boolean arcadeMode;
@@ -137,7 +138,8 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     SmartDashboard.putBoolean("Curvature Mode Enabled", curvatureMode);
 
     // Sets up the drive ramping lastValue storage
-    lastInput = 0.0;
+    leftLastInput = 0.0;
+    rightLastInput = 0.0;
 
     // Sets up the robot DifferentialDrive object for autonomous 
     robotDrive = new DifferentialDrive(leftDriveMotor, rightDriveMotor);
@@ -165,7 +167,7 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
 
     // Enables Arcade Drive and Curvature Drive
     arcadeMode = SmartDashboard.getBoolean("Arcade Mode Enabled", false);
-    curvatureMode = SmartDashboard.getBoolean("Curvature Mode Enabled", false)
+    curvatureMode = SmartDashboard.getBoolean("Curvature Mode Enabled", false);
 
     // Put motor encoder values on SmartDashboard for PID Graphing
     SmartDashboard.putNumber("Left Drive Speed",  leftDriveEncoder.getVelocity());
@@ -194,106 +196,127 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
   public void tankDrive(double leftValue, double rightValue, boolean squareInputs, boolean rampInputs) {
     // Replaces the regular tankdrive with a PID loop that controls the RPM
     // This compensates for the amperage drop in the battery and makes it much smoother
-    
-    /* Left this here for testing, it's the original tankdrive function */
-    // robotDrive.tankDrive(leftValue, rightValue, squareInputs);
 
-    // Checks that the value is between -1 and 1
-    leftValue = MathUtil.clamp(leftValue, -1.0, 1.0);
-    rightValue = MathUtil.clamp(rightValue, -1.0, 1.0);
-    
-    // Creates a deadzone on the controller to reduce drive jitter
-    leftValue = applyDeadband(leftValue, Constants.DEADBAND);
-    rightValue = applyDeadband(rightValue, Constants.DEADBAND);
-
-    // Square and Ramp Inputs 
+    // leftValue *= 0.5;
+    // rightValue *= 0.5;
     if (squareInputs) 
     {
       // Squares the input to make it a exponential response curve instead of linear
       // to increase fine control while permitting full power
-      leftValue = Math.copySign(squareInput(leftValue, 0.5), leftValue);
-      rightValue = Math.copySign(squareInput(rightValue, 0.5), rightValue);
+      leftValue = Math.copySign(squareInput(leftValue, 0.3), leftValue);
+      rightValue = Math.copySign(squareInput(rightValue, 0.3), rightValue);
     }
     if (rampInputs)
     {
       // Ramp inputs to make acceleration much smoother
-      leftValue = Math.copySign(rampInput(leftValue, 1.0), leftValue);
-      rightValue = Math.copySign(rampInput(rightValue, 1.0), rightValue);
+      leftValue = Math.copySign(rampInput(leftValue, 1.0, leftLastInput), leftValue);
+      rightValue = Math.copySign(rampInput(rightValue, 1.0, rightLastInput), rightValue);
     }
+    robotDrive.tankDrive(leftValue, rightValue, false);
     
-    // Converts the percentage value to RPM for the PID Loop
-    leftValue *= Constants.MAX_NEO_RPM;
-    rightValue *= Constants.MAX_NEO_RPM;
+    // // Checks that the value is between -1 and 1
+    // leftValue = MathUtil.clamp(leftValue, -1.0, 1.0);
+    // rightValue = MathUtil.clamp(rightValue, -1.0, 1.0);
+    
+    // // Creates a deadzone on the controller to reduce drive jitter
+    // leftValue = applyDeadband(leftValue, Constants.DEADBAND);
+    // rightValue = applyDeadband(rightValue, Constants.DEADBAND);
 
-    // Sets the reference point on the PID loop to the specified RPM
-    m_leftDrive_pid.setReference(leftValue, ControlType.kVelocity);
-    m_rightDrive_pid.setReference(rightValue, ControlType.kVelocity);
+    // // Square and Ramp Inputs 
+    
 
-    // Feeds the safety object with the new robot data
-    robotDrive.feed();
+    
+    // // Converts the percentage value to RPM for the PID Loop
+    // leftValue *= Constants.MAX_NEO_RPM;
+    // rightValue *= Constants.MAX_NEO_RPM;
+
+    // // Sets the reference point on the PID loop to the specified RPM
+    // m_leftDrive_pid.setReference(leftValue, ControlType.kVelocity);
+    // m_rightDrive_pid.setReference(rightValue, ControlType.kVelocity);
+
+    // // Feeds the safety object with the new robot data
+    // robotDrive.feed();
   }
 
   public void arcadeDrive(double xSpeed, double zRotation, boolean squareInputs, boolean rampInputs)
   {
-    xSpeed = MathUtil.clamp(xSpeed, -1.0, 1.0);
-    xSpeed = applyDeadband(xSpeed, Constants.DEADBAND);
-
-    zRotation = MathUtil.clamp(zRotation, -1.0, 1.0);
-    zRotation = applyDeadband(zRotation, Constants.DEADBAND);
-
-    // Speed Limiting
-    if(squareInputs)
+    if (squareInputs) 
     {
+      // Squares the input to make it a exponential response curve instead of linear
+      // to increase fine control while permitting full power
       xSpeed = Math.copySign(squareInput(xSpeed, 0.5), xSpeed);
       zRotation = Math.copySign(squareInput(zRotation, 0.5), zRotation);
     }
-    if(rampInputs)
+    if (rampInputs)
     {
-      xSpeed = Math.copySign(rampInput(xSpeed, 1.0), xSpeed);
-      zRotation = Math.copySign(rampInput(zRotation, 1.0), zRotation);
+      // Ramp inputs to make acceleration much smoother
+      xSpeed = Math.copySign(rampInput(xSpeed, 1.0, leftLastInput), xSpeed);
+      zRotation = Math.copySign(rampInput(zRotation, 1.0, rightLastInput), zRotation);
     }
+    robotDrive.arcadeDrive(xSpeed, zRotation, true);
+    // xSpeed *= 0.5;
+    // zRotation *= 0.5;
 
-    double leftMotorOutput;
-    double rightMotorOutput;
+    // xSpeed = MathUtil.clamp(xSpeed, -1.0, 1.0);
+    // xSpeed = applyDeadband(xSpeed, Constants.DEADBAND);
 
-    double maxInput = Math.copySign(Math.max(Math.abs(xSpeed), Math.abs(zRotation)), xSpeed);
+    // zRotation = MathUtil.clamp(zRotation, -1.0, 1.0);
+    // zRotation = applyDeadband(zRotation, Constants.DEADBAND);
+    // zRotation *= -1;
 
-    if (xSpeed >= 0.0) 
-    {
-      // First quadrant, else second quadrant
-      if (zRotation >= 0.0) 
-      {
-        leftMotorOutput = maxInput;
-        rightMotorOutput = xSpeed - zRotation;
-      } 
-      else 
-      {
-        leftMotorOutput = xSpeed + zRotation;
-        rightMotorOutput = maxInput;
-      }
-    } 
-    else 
-    {
-      // Third quadrant, else fourth quadrant
-      if (zRotation >= 0.0) 
-      {
-        leftMotorOutput = xSpeed + zRotation;
-        rightMotorOutput = maxInput;
-      } 
-      else 
-      {
-        leftMotorOutput = maxInput;
-        rightMotorOutput = xSpeed - zRotation;
-      }
-    }
+    // // Speed Limiting
+    // if(squareInputs)
+    // {
+    //   xSpeed = Math.copySign(squareInput(xSpeed, 0.7), xSpeed);
+    //   zRotation = Math.copySign(squareInput(zRotation, 0.7), zRotation);
+    // }
+    // if(rampInputs)
+    // {
+    //   xSpeed = Math.copySign(rampInput(xSpeed, 1.0), xSpeed);
+    //   zRotation = Math.copySign(rampInput(zRotation, 1.0), zRotation);
+    // }
+
+    // double leftMotorOutput;
+    // double rightMotorOutput;
+
+    // double maxInput = Math.copySign(Math.max(Math.abs(xSpeed), Math.abs(zRotation)), xSpeed);
+
+    // if (xSpeed >= 0.0) 
+    // {
+    //   // First quadrant, else second quadrant
+    //   if (zRotation >= 0.0) 
+    //   {
+    //     leftMotorOutput = maxInput;
+    //     rightMotorOutput = xSpeed - zRotation;
+    //   } 
+    //   else 
+    //   {
+    //     leftMotorOutput = xSpeed + zRotation;
+    //     rightMotorOutput = maxInput;
+    //   }
+    // } 
+    // else 
+    // {
+    //   // Third quadrant, else fourth quadrant
+    //   if (zRotation >= 0.0) 
+    //   {
+    //     leftMotorOutput = xSpeed + zRotation;
+    //     rightMotorOutput = maxInput;
+    //   } 
+    //   else 
+    //   {
+    //     leftMotorOutput = maxInput;
+    //     rightMotorOutput = xSpeed - zRotation;
+    //   }
+    // }
     
-    leftMotorOutput = MathUtil.clamp(leftMotorOutput, -1.0, 1.0) * Constants.MAX_NEO_RPM;
-    rightMotorOutput = MathUtil.clamp(rightMotorOutput, -1.0, 1.0) * Constants.MAX_NEO_RPM;
+    // leftMotorOutput = MathUtil.clamp(leftMotorOutput, -1.0, 1.0) * Constants.MAX_NEO_RPM;
+    // rightMotorOutput = MathUtil.clamp(rightMotorOutput, -1.0, 1.0) * Constants.MAX_NEO_RPM;
 
-    m_leftDrive_pid.setReference(leftMotorOutput, ControlType.kVelocity);
-    m_rightDrive_pid.setReference(rightMotorOutput, ControlType.kVelocity);
+    // m_leftDrive_pid.setReference(leftMotorOutput, ControlType.kVelocity);
+    // m_rightDrive_pid.setReference(rightMotorOutput, ControlType.kVelocity);
 
-    robotDrive.feed();
+    // robotDrive.feed();
   }
 
   public void curvatureDrive(double xSpeed, double zRotation, boolean isQuickTurn)
@@ -400,7 +423,7 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     return Math.pow(input, 3) + Constants.SQUARING_CONSTANT * (degree * input) / (Constants.SQUARING_CONSTANT * degree + 1);
   }
 
-  double rampInput(double input, double maxAccel) {
+  double rampInput(double input, double maxAccel, double lastInput) {
     // Calculate the change from the current input from the last input
     double change = input - lastInput;
     // If the change is larger than max acceleration then ramp the acceleration down

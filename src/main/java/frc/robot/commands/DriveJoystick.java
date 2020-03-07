@@ -59,7 +59,7 @@ public class DriveJoystick extends CommandBase { //Creates a new DriveJoystick.
         rightValue = m_joystickDriver.getRawAxis(5); // Right Joystick verticle axis
         leftValue = m_joystickDriver.getRawAxis(1); // Left joystick verticle axis
         // If arcade mode is turned off in smart dashboard use tank drive
-        m_robotDrive.tankDrive(leftValue, rightValue, true, false); 
+        m_robotDrive.tankDrive(leftValue, rightValue, true, true); 
       }
     } 
   }
