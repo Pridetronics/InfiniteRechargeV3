@@ -130,12 +130,9 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     SmartDashboard.putNumber("Drive I Gain", kI);
     SmartDashboard.putNumber("Drive D Gain", kD);
 
-    // Put motor encoder values on SmartDashboard for PID Graphing
-    SmartDashboard.putNumber("Left Drive Speed",  leftDriveEncoder.getVelocity());
-    SmartDashboard.putNumber("Right Drive Speed", rightDriveEncoder.getVelocity());
-
-    // Put NavX Values on SmartDashboard
-    SmartDashboard.putNumber("NavX Yaw", navX.getAngle());
+    // Puts the arcade drive boolean
+    arcadeMode = false;
+    SmartDashboard.putBoolean("Arcade Mode Enabled", arcadeMode);
 
     // Sets up the drive ramping lastValue storage
     lastInput = 0.0;
@@ -166,6 +163,13 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
 
     // Enables Arcade Drive
     arcadeMode = SmartDashboard.getBoolean("Arcade Mode Enabled", false);
+
+    // Put motor encoder values on SmartDashboard for PID Graphing
+    SmartDashboard.putNumber("Left Drive Speed",  leftDriveEncoder.getVelocity());
+    SmartDashboard.putNumber("Right Drive Speed", rightDriveEncoder.getVelocity());
+
+    // Put NavX Values on SmartDashboard
+    SmartDashboard.putNumber("NavX Yaw", navX.getAngle());
   }
 
 
@@ -199,9 +203,6 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     leftValue = applyDeadband(leftValue, Constants.DEADBAND);
     rightValue = applyDeadband(rightValue, Constants.DEADBAND);
 
-    // Speed Limiting
-    leftValue *= 0.4;
-    rightValue *= 0.4;
     // Square and Ramp Inputs 
     if (squareInputs) 
     {
@@ -238,8 +239,6 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     zRotation = applyDeadband(zRotation, Constants.DEADBAND);
 
     // Speed Limiting
-    //xSpeed *= 0.4;
-    //zRotation *= 0.4;
     if(squareInputs)
     {
       xSpeed = Math.copySign(squareInput(xSpeed, 0.5), xSpeed);

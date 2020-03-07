@@ -39,7 +39,6 @@ public class DriveJoystick extends CommandBase { //Creates a new DriveJoystick.
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
     if (driveMode == 0) 
     {
       double rightValue, leftValue; // Sets these up as doubles, allows to make it into axis
@@ -56,8 +55,6 @@ public class DriveJoystick extends CommandBase { //Creates a new DriveJoystick.
         // If arcade mode is turned off in smart dashboard use tank drive
         m_robotDrive.tankDrive(leftValue, rightValue, true, false); 
       }
-
-      
     } 
   }
 
