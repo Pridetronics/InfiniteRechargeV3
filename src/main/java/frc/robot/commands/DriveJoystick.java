@@ -44,7 +44,7 @@ public class DriveJoystick extends CommandBase { //Creates a new DriveJoystick.
     {
       double rightValue, leftValue; // Sets these up as doubles, allows to make it into axis
       if (m_robotDrive.arcadeModeOn()) {
-        rightValue = m_joystickDriver.getRawAxis(4); // Right Joystick verticle axis
+        rightValue = m_joystickDriver.getRawAxis(4); // Right Joystick horizontal axis
         leftValue = m_joystickDriver.getRawAxis(1); // Left joystick verticle axis
         // If arcade mode is turned on in smart dashboard
         m_robotDrive.arcadeDrive(leftValue, rightValue, true, false);
@@ -58,29 +58,6 @@ public class DriveJoystick extends CommandBase { //Creates a new DriveJoystick.
 
       
     } 
-    else
-    {
-      double rightArcadeValue, leftArcadeValue;
-
-      rightArcadeValue = m_joystickDriver.getRawAxis(5);
-      leftArcadeValue = m_joystickDriver.getRawAxis(1);
-
-      m_robotDrive.arcadeDrive(leftArcadeValue, rightArcadeValue, true, false);
-    }
-    /*
-    else {
-      System.out.println("arcadeDrive");
-
-      double rightArcadeValue, leftArcadeValue;
-      rightArcadeValue = gamepad1.getRawAxis(1);
-      leftArcadeValue = gamepad1.getRawAxis(4);
-
-      robotDrive.arcadeDrive(rightArcadeValue, leftArcadeValue);
-      //not right??
-      
-    }
-    */
-
   }
 
   // Called once the command ends or is interrupted.
