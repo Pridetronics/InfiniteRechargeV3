@@ -47,8 +47,7 @@ public class RaiseRobot extends CommandBase
   @Override
   public void end(boolean interrupted) 
   {
-    //This may not be a good idea
-    //m_climb.spoolWinch(0.0);
+    m_climb.spoolWinch(0.0);
   }
 
   // Returns true when the command should end.

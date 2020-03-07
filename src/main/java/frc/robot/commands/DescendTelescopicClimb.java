@@ -56,7 +56,7 @@ public class DescendTelescopicClimb extends CommandBase
   {
     //Ends the command when the limit switch closes
     boolean control = false;
-    if(m_climb.lowerClimbLimitOpen() == false)
+    if(m_climb.isClimbAtBottom() == true)
     {
       control = true;
     }

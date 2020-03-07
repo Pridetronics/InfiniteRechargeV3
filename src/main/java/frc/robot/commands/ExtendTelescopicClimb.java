@@ -37,7 +37,14 @@ public class ExtendTelescopicClimb extends CommandBase
   @Override
   public void execute() 
   {
-    m_climb.raiseTelescopicRod(Constants.TELESCOPIC_ROD_MOTOR_SPEED);
+    if(m_climb.isClimbAtTop() == false)
+    {
+      m_climb.raiseTelescopicRod(Constants.TELESCOPIC_ROD_MOTOR_SPEED);
+    }
+    else
+    {
+      m_climb.raiseTelescopicRod(0.0);
+    }
   }
 
   // Called once the command ends or is interrupted.
@@ -51,11 +58,6 @@ public class ExtendTelescopicClimb extends CommandBase
   @Override
   public boolean isFinished() 
   {
-    boolean control = false;
-    if(m_climb.upperClimbLimitOpen() == false)
-    {
-      control = true;
-    }
-    return control;
+    return false;
   }
 }

@@ -33,11 +33,12 @@ public class Climb extends SubsystemBase
     m_lowerClimbLimitSwitch = RobotContainer.lowerClimbLimitSwitch; // limit switch to test if telescopic rod has descended
  
   }
-
+// 0 is closed, 1 is open
   @Override
   public void periodic() 
   {
     // This method will be called once per scheduler run
+
   }
 
   public void raiseTelescopicRod(double speed)
@@ -52,15 +53,24 @@ public class Climb extends SubsystemBase
     m_spoolWinchMotor.set(speed); // sets the motor at 20% speed
   }
 
-  public boolean upperClimbLimitOpen()
+  public boolean isClimbAtTop()
   {
     //Returns the state of the upper limit switch
-    return m_upperClimbLimitSwitch.get();
+    boolean isClimbAtTop;
+    if(m_upperClimbLimitSwitch.get())
+    {
+      isClimbAtTop = false;
+    }
+    else
+    {
+      isClimbAtTop = true;
+    }
+    return isClimbAtTop;
   }
   
-  public boolean lowerClimbLimitOpen()
+  public boolean isClimbAtBottom()
   {
     //Returns the state of the lower limit switch
-    return m_lowerClimbLimitSwitch.get();
+    return (!m_lowerClimbLimitSwitch.get());
   }
 }
