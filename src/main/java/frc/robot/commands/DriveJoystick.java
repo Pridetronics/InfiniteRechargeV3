@@ -42,14 +42,21 @@ public class DriveJoystick extends CommandBase { //Creates a new DriveJoystick.
 
     if (driveMode == 0) 
     {
-      //System.out.println("Tank Drive");
-
       double rightValue, leftValue; // Sets these up as doubles, allows to make it into axis
-      rightValue = m_joystickDriver.getRawAxis(5); // Right Joystick verticle axis
-      leftValue = m_joystickDriver.getRawAxis(1); // Left joystick verticle axis
+      if (m_robotDrive.arcadeModeOn()) {
+        rightValue = m_joystickDriver.getRawAxis(4); // Right Joystick verticle axis
+        leftValue = m_joystickDriver.getRawAxis(1); // Left joystick verticle axis
+        // If arcade mode is turned on in smart dashboard
+        m_robotDrive.arcadeDrive(leftValue, rightValue, true, false);
+      }
+      else {
+        rightValue = m_joystickDriver.getRawAxis(5); // Right Joystick verticle axis
+        leftValue = m_joystickDriver.getRawAxis(1); // Left joystick verticle axis
+        // If arcade mode is turned off in smart dashboard use tank drive
+        m_robotDrive.tankDrive(leftValue, rightValue, true, false); 
+      }
 
-      m_robotDrive.tankDrive(leftValue, rightValue, false, false);
-      // Defines how the joysticks will operate     
+      
     } 
     else
     {
@@ -58,7 +65,7 @@ public class DriveJoystick extends CommandBase { //Creates a new DriveJoystick.
       rightArcadeValue = m_joystickDriver.getRawAxis(5);
       leftArcadeValue = m_joystickDriver.getRawAxis(1);
 
-      m_robotDrive.arcadeDrive(leftArcadeValue, rightArcadeValue, true);
+      m_robotDrive.arcadeDrive(leftArcadeValue, rightArcadeValue, true, false);
     }
     /*
     else {
