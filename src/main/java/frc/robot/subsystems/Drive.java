@@ -59,6 +59,9 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
   // Last Input Storage for Input Ramping
   private double lastInput;
 
+  // Drive Modes from Tank to Arcade
+  private boolean arcadeMode;
+
   // Odometry Setup for Pathing
   public DifferentialDriveOdometry driveOdometry;
 
@@ -160,6 +163,9 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     if((p != kP)) { m_leftDrive_pid.setP(p); m_rightDrive_pid.setP(p); kP = p; }
     if((i != kI)) { m_leftDrive_pid.setI(i); m_rightDrive_pid.setI(i); kI = i; }
     if((d != kD)) { m_leftDrive_pid.setD(d); m_rightDrive_pid.setD(d); kD = d; }
+
+    // Enables Arcade Drive
+    arcadeMode = SmartDashboard.getBoolean("Arcade Mode Enabled", false);
   }
 
 
@@ -193,8 +199,9 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     leftValue = applyDeadband(leftValue, Constants.DEADBAND);
     rightValue = applyDeadband(rightValue, Constants.DEADBAND);
 
-    leftValue *= 0.3;
-    rightValue *= 0.3;
+    // Speed Limiting
+    leftValue *= 0.4;
+    rightValue *= 0.4;
     // Square and Ramp Inputs 
     if (squareInputs) 
     {
@@ -222,7 +229,7 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     robotDrive.feed();
   }
 
-  public void arcadeDrive(double xSpeed, double zRotation, boolean squareInputs)
+  public void arcadeDrive(double xSpeed, double zRotation, boolean squareInputs, boolean rampInputs)
   {
     xSpeed = MathUtil.clamp(xSpeed, -1.0, 1.0);
     xSpeed = applyDeadband(xSpeed, Constants.DEADBAND);
@@ -230,10 +237,18 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     zRotation = MathUtil.clamp(zRotation, -1.0, 1.0);
     zRotation = applyDeadband(zRotation, Constants.DEADBAND);
 
+    // Speed Limiting
+    xSpeed *= 0.4;
+    zRotation *= 0.4;
     if(squareInputs)
     {
-      xSpeed = Math.copySign(xSpeed * xSpeed, xSpeed);
-      zRotation = Math.copySign(zRotation * zRotation, zRotation);
+      xSpeed = Math.copySign(squareInput(xSpeed, 0.5), xSpeed);
+      zRotation = Math.copySign(squareInput(zRotation, 0.5), zRotation);
+    }
+    if(rampInputs)
+    {
+      xSpeed = Math.copySign(rampInput(xSpeed, 1.0), xSpeed);
+      zRotation = Math.copySign(rampInput(zRotation, 1.0), zRotation);
     }
 
     double leftMotorOutput;
@@ -278,13 +293,11 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     robotDrive.feed();
   }
 
-  public void curvatureDrive(double xSpeed, double zRotation, boolean isQuickTurn)
-  {
-    xSpeed = MathUtil.clamp(xSpeed, -1.0, 1.0);
-    xSpeed = applyDeadband(xSpeed, Constants.DEADBAND);
+  public boolean arcadeModeOn() {
+    // Returns whether or not arcade mode should be on
+    return arcadeMode;
+  }
 
-    zRotation = MathUtil.clamp(zRotation, -1.0, 1.0);
-    zRotation = applyDeadband(zRotation, Constants.DEADBAND);
 
     double angularPower;
     boolean overPower;
