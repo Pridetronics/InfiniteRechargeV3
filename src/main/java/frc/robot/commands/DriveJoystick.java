@@ -40,7 +40,8 @@ public class DriveJoystick extends CommandBase { //Creates a new DriveJoystick.
   @Override
   public void execute() {
 
-    if (driveMode == 0) {
+    if (driveMode == 0) 
+    {
       //System.out.println("Tank Drive");
 
       double rightValue, leftValue; // Sets these up as doubles, allows to make it into axis
@@ -50,6 +51,15 @@ public class DriveJoystick extends CommandBase { //Creates a new DriveJoystick.
       m_robotDrive.tankDrive(leftValue, rightValue, true);
       // Defines how the joysticks will operate     
     } 
+    else
+    {
+      double rightArcadeValue, leftArcadeValue;
+
+      rightArcadeValue = m_joystickDriver.getRawAxis(5);
+      leftArcadeValue = m_joystickDriver.getRawAxis(1);
+
+      m_robotDrive.arcadeDrive(leftArcadeValue, rightArcadeValue, true);
+    }
     /*
     else {
       System.out.println("arcadeDrive");
