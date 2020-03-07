@@ -250,6 +250,8 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     */
     /********************************************************************************************/
     
+    upperClimbLimitSwitch = new DigitalInput(Constants.UPPER_CLIMB_LIMIT_CHANNEL);
+    lowerClimbLimitSwitch = new DigitalInput(Constants.LOWER_CLIMB_LIMIT_CHANNEL);
     // Creates the telescopic rod motor, sets it to 0, and sets it to brake mode
     raiseRodMotor = new WPI_TalonSRX(Constants.RAISE_CLIMB_MOTOR_ADDRESS);
     raiseRodMotor.setNeutralMode(NeutralMode.Brake);
@@ -361,12 +363,10 @@ public class RobotContainer { // The robot's subsystems and commands are defined
     // Command to raise the telescopic rod
     raiseTelescopicRodButton.whenHeld(new ExtendTelescopicClimb(climb));
 
-    //Command to bring the telescopic rod down and spool the winch to raise the robot, which is decorated
-    //with a timeout to stop the command after the amount of time we give it has passed
+    //Command to bring the telescopic rod down and spool the winch to raise the robot
     descendTelescopicRodButton.whenHeld(new DescendTelescopicClimb(climb));
        
-    winchMotorButton.whenHeld(new ParallelRaceGroup(
-        new RaiseRobot(climb).withTimeout(Constants.WINCH_TIMEOUT)));
+    winchMotorButton.whenHeld(new RaiseRobot(climb));
   }
 
 
