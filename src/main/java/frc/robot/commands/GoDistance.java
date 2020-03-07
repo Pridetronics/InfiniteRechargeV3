@@ -54,7 +54,7 @@ public class GoDistance extends CommandBase {
     }
     double leftStickValue = Constants.AUTO_TRAVEL_SPEED + m_Robotdrive.getRotationRate(); // Adds the rotation rate to ensure the robot drives straight
     double rightStickValue = Constants.AUTO_TRAVEL_SPEED - m_Robotdrive.getRotationRate(); // Adds the rotation rate to ensure the robot drives straight
-    m_Robotdrive.tankDrive(leftStickValue, rightStickValue, false);
+    m_Robotdrive.tankDrive(leftStickValue, rightStickValue, false, false);
   }
 
   // Called once the command ends or is interrupted.

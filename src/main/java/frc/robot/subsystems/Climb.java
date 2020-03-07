@@ -39,7 +39,7 @@ public class Climb extends SubsystemBase
   @Override
   public void periodic() 
   {
-    // PID coefficients display on SmartDashboard
+    // Limit Switches display on SmartDashboard
     SmartDashboard.putBoolean("Upper Climb Limit Switch", m_upperClimbLimitSwitch.get());
     SmartDashboard.putBoolean("Lower Climb Limit Switch", m_lowerClimbLimitSwitch.get());
   }

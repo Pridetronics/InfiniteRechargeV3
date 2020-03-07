@@ -55,6 +55,8 @@ public final class Constants {
     public static final int UPPER_CLIMB_LIMIT_CHANNEL = 0;
     public static final int LOWER_CLIMB_LIMIT_CHANNEL = 1;
 
+    // Drive Input Squaring and Ramping\
+    public static final double SQUARING_CONSTANT = 0.2;
     //Left Drive PID Setup
     public static final double LEFT_DRIVE_kP = 0.00002;
     public static final double LEFT_DRIVE_kI = 0.000001;
@@ -67,9 +69,9 @@ public final class Constants {
 
     //Motor speeds
     public static final double INTAKE_MOTOR_SPEED = 1.0;
-    public static final double TELESCOPIC_ROD_MOTOR_SPEED = 0.2;
-    public static final double INVERSE_TELESCOPIC_MOTOR_SPEED = -0.2;
-    public static final double WINCH_MOTOR_SPEED = 0.2;
+    public static final double TELESCOPIC_ROD_MOTOR_SPEED = 1.0;
+    public static final double INVERSE_TELESCOPIC_MOTOR_SPEED = -1.0;
+    public static final double WINCH_MOTOR_SPEED = 1.0;
 
     //Timeout for winch
     public static final double WINCH_TIMEOUT = 5.0;
@@ -91,7 +93,7 @@ public final class Constants {
     public static final double TURN_PS_TOLERANCE = 10.0;
     
     // Shooter PID Setup
-    public static final double SHOOTER_LOW_SPEED = 3300.0; // creates the speed for the LowSpeedShooter
+    public static final double SHOOTER_LOW_SPEED = 3400.0; // creates the speed for the LowSpeedShooter
     public static final double SHOOTER_kP = 0.0002;
     public static final double SHOOTER_kI = 0.000001;
     public static final double SHOOTER_kD = 0.0004;
