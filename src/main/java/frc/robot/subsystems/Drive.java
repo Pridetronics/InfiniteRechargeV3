@@ -274,9 +274,22 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
 
     m_leftDrive_pid.setReference(leftMotorOutput, ControlType.kVelocity);
     m_rightDrive_pid.setReference(rightMotorOutput, ControlType.kVelocity);
+
+    robotDrive.feed();
   }
 
+  public void curvatureDrive(double xSpeed, double zRotation, boolean isQuickTurn)
+  {
+    xSpeed = MathUtil.clamp(xSpeed, -1.0, 1.0);
+    xSpeed = applyDeadband(xSpeed, Constants.DEADBAND);
 
+    zRotation = MathUtil.clamp(zRotation, -1.0, 1.0);
+    zRotation = applyDeadband(zRotation, Constants.DEADBAND);
+
+    double angularPower;
+    boolean overPower;
+  }
+  
   double squareInput(double input, double degree) {
     // Adjustable parabolic curve for drive values
     return Math.pow(input, 3) + Constants.SQUARING_CONSTANT * (degree * input) / (Constants.SQUARING_CONSTANT * degree + 1);
