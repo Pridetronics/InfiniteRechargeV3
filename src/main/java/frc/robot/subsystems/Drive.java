@@ -222,6 +222,61 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     robotDrive.feed();
   }
 
+  public void arcadeDrive(double xSpeed, double zRotation, boolean squareInputs)
+  {
+    xSpeed = MathUtil.clamp(xSpeed, -1.0, 1.0);
+    xSpeed = applyDeadband(xSpeed, Constants.DEADBAND);
+
+    zRotation = MathUtil.clamp(zRotation, -1.0, 1.0);
+    zRotation = applyDeadband(zRotation, Constants.DEADBAND);
+
+    if(squareInputs)
+    {
+      xSpeed = Math.copySign(xSpeed * xSpeed, xSpeed);
+      zRotation = Math.copySign(zRotation * zRotation, zRotation);
+    }
+
+    double leftMotorOutput;
+    double rightMotorOutput;
+
+    double maxInput = Math.copySign(Math.max(Math.abs(xSpeed), Math.abs(zRotation)), xSpeed);
+
+    if (xSpeed >= 0.0) 
+    {
+      // First quadrant, else second quadrant
+      if (zRotation >= 0.0) 
+      {
+        leftMotorOutput = maxInput;
+        rightMotorOutput = xSpeed - zRotation;
+      } 
+      else 
+      {
+        leftMotorOutput = xSpeed + zRotation;
+        rightMotorOutput = maxInput;
+      }
+    } else 
+    {
+      // Third quadrant, else fourth quadrant
+      if (zRotation >= 0.0) 
+      {
+        leftMotorOutput = xSpeed + zRotation;
+        rightMotorOutput = maxInput;
+      } 
+      else 
+      {
+        leftMotorOutput = maxInput;
+        rightMotorOutput = xSpeed - zRotation;
+      }
+    }
+    
+    leftMotorOutput = MathUtil.clamp(leftMotorOutput, -1.0, 1.0) * Constants.MAX_NEO_RPM;
+    rightMotorOutput = MathUtil.clamp(rightMotorOutput, -1.0, 1.0) * Constants.MAX_NEO_RPM;
+
+    m_leftDrive_pid.setReference(leftMotorOutput, ControlType.kVelocity);
+    m_rightDrive_pid.setReference(rightMotorOutput, ControlType.kVelocity);
+  }
+
+
   double squareInput(double input, double degree) {
     // Adjustable parabolic curve for drive values
     return Math.pow(input, 3) + Constants.SQUARING_CONSTANT * (degree * input) / (Constants.SQUARING_CONSTANT * degree + 1);
