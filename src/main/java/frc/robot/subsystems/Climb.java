@@ -33,15 +33,17 @@ public class Climb extends SubsystemBase
     m_spoolWinchMotor = RobotContainer.spoolWinchMotor; // motor to raise the robot
     m_upperClimbLimitSwitch = RobotContainer.upperClimbLimitSwitch; // limit switch to test if telescopic rod is extended
     m_lowerClimbLimitSwitch = RobotContainer.lowerClimbLimitSwitch; // limit switch to test if telescopic rod has descended
+
+    // Limit Switches display on SmartDashboard
+    SmartDashboard.putBoolean("Upper Climb Limit Switch", m_upperClimbLimitSwitch.get());
+    SmartDashboard.putBoolean("Lower Climb Limit Switch", m_lowerClimbLimitSwitch.get());
  
   }
 
   @Override
   public void periodic() 
   {
-    // PID coefficients display on SmartDashboard
-    SmartDashboard.putBoolean("Upper Climb Limit Switch", m_upperClimbLimitSwitch.get());
-    SmartDashboard.putBoolean("Lower Climb Limit Switch", m_lowerClimbLimitSwitch.get());
+    
   }
 
   public void raiseTelescopicRod(double speed)

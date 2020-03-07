@@ -40,9 +40,6 @@ public class IntakeRun extends CommandBase
   @Override
   public void execute() 
   {
-    //Once this command is running, the dashboard will acknowledge it (Driver comfort?)
-    SmartDashboard.putBoolean("Intake", true);
-    
     //Once this command is executed the motor will run a little over half speed
     m_intake.startElevator();
   }

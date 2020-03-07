@@ -124,6 +124,13 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     SmartDashboard.putNumber("Drive I Gain", kI);
     SmartDashboard.putNumber("Drive D Gain", kD);
 
+    // Put motor encoder values on SmartDashboard for PID Graphing
+    SmartDashboard.putNumber("Left Drive Speed",  leftDriveEncoder.getVelocity());
+    SmartDashboard.putNumber("Right Drive Speed", rightDriveEncoder.getVelocity());
+
+    // Put NavX Values on SmartDashboard
+    SmartDashboard.putNumber("NavX Yaw", navX.getAngle());
+
     // Sets up the robot DifferentialDrive object for autonomous 
     robotDrive = new DifferentialDrive(leftDriveMotor, rightDriveMotor);
   }
@@ -189,6 +196,10 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
       // Take a look at the intensity of the squaring of the inputs
       leftValue = Math.copySign(leftValue * leftValue, leftValue);
       rightValue = Math.copySign(rightValue * rightValue, rightValue);
+    }
+    else {
+      leftValue  *= 0.5;
+      rightValue *= 0.5;
     }
     
     // Converts the percentage value to RPM for the PID Loop
