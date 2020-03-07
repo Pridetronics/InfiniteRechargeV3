@@ -193,6 +193,8 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     leftValue = applyDeadband(leftValue, Constants.DEADBAND);
     rightValue = applyDeadband(rightValue, Constants.DEADBAND);
 
+    leftValue *= 0.3;
+    rightValue *= 0.3;
     // Square and Ramp Inputs 
     if (squareInputs) 
     {
