@@ -222,7 +222,6 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     robotDrive.feed();
   }
 
-<<<<<<< HEAD
   public void arcadeDrive(double xSpeed, double zRotation, boolean squareInputs)
   {
     xSpeed = MathUtil.clamp(xSpeed, -1.0, 1.0);
@@ -277,7 +276,7 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     m_rightDrive_pid.setReference(rightMotorOutput, ControlType.kVelocity);
   }
 
-=======
+
   double squareInput(double input, double degree) {
     // Adjustable parabolic curve for drive values
     return Math.pow(input, 3) + Constants.SQUARING_CONSTANT * (degree * input) / (Constants.SQUARING_CONSTANT * degree + 1);
@@ -297,7 +296,6 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     // Return the input
     return input;
   }
->>>>>>> 8f54e4776b762c6269f22b87c3974667322ffcd9
 
   /* Trajectory Methods */
   public void tankDriveVolts(double leftVolts, double rightVolts) {
