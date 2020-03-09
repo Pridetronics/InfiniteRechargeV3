@@ -60,6 +60,10 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
   private double leftLastInput;
   private double rightLastInput;
 
+  // Stores input of stick values
+  private double leftStickValue;
+  private double rightStickValue;
+
   // Drive Modes from Tank to Arcade to Curvature
   private boolean arcadeMode;
   private boolean curvatureMode;
@@ -175,6 +179,10 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
 
     // Put NavX Values on SmartDashboard
     SmartDashboard.putNumber("NavX Yaw", navX.getAngle());
+
+    // Puts stick values on SmartDashboard
+    SmartDashboard.putNumber("Left Stick Value", leftStickValue);
+    SmartDashboard.putNumber("Right Stick Value", rightStickValue);
   }
 
 
@@ -212,6 +220,11 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
       leftValue = Math.copySign(rampInput(leftValue, 1.0, leftLastInput), leftValue);
       rightValue = Math.copySign(rampInput(rightValue, 1.0, rightLastInput), rightValue);
     }
+
+    // Stores stick values into class variables
+    leftStickValue = leftValue;
+    rightStickValue = rightValue;
+    
     robotDrive.tankDrive(leftValue, rightValue, false);
     
     // // Checks that the value is between -1 and 1
