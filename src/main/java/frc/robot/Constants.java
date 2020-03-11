@@ -57,6 +57,7 @@ public final class Constants {
 
     // Drive Input Squaring and Ramping\
     public static final double SQUARING_CONSTANT = 0.2;
+    public static final double MAX_ACCELERATION = 0.2;
     //Left Drive PID Setup
     public static final double LEFT_DRIVE_kP = 0.00002;
     public static final double LEFT_DRIVE_kI = 0.000001;

@@ -217,8 +217,8 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     if (rampInputs)
     {
       // Ramp inputs to make acceleration much smoother
-      leftValue = Math.copySign(rampInput(leftValue, 1.0, leftLastInput), leftValue);
-      rightValue = Math.copySign(rampInput(rightValue, 1.0, rightLastInput), rightValue);
+      leftValue = Math.copySign(rampInput(leftValue, Constants.MAX_ACCELERATION, leftLastInput, true), leftValue);
+      rightValue = Math.copySign(rampInput(rightValue, Constants.MAX_ACCELERATION, rightLastInput, false), rightValue);
     }
 
     // Stores stick values into class variables
@@ -263,8 +263,8 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     if (rampInputs)
     {
       // Ramp inputs to make acceleration much smoother
-      xSpeed = Math.copySign(rampInput(xSpeed, 1.0, leftLastInput), xSpeed);
-      zRotation = Math.copySign(rampInput(zRotation, 1.0, rightLastInput), zRotation);
+      xSpeed = Math.copySign(rampInput(xSpeed, 1.0, leftLastInput, true), xSpeed);
+      zRotation = Math.copySign(rampInput(zRotation, 1.0, rightLastInput, false), zRotation);
     }
     robotDrive.arcadeDrive(xSpeed, zRotation, true);
     // xSpeed *= 0.5;
@@ -436,17 +436,26 @@ public class Drive extends PIDSubsystem { // Creates a new Drive.
     return Math.pow(input, 3) + Constants.SQUARING_CONSTANT * (degree * input) / (Constants.SQUARING_CONSTANT * degree + 1);
   }
 
-  double rampInput(double input, double maxAccel, double lastInput) {
+  double rampInput(double input, double maxAccel, double lastInput, boolean isLeft) {
     // Calculate the change from the current input from the last input
     double change = input - lastInput;
     // If the change is larger than max acceleration then ramp the acceleration down
     if (Math.abs(change) >= maxAccel) {
       change = Math.signum(change) * maxAccel;
     }
-    // Add the acceleration change to the input
-    input += change;
+    // Add the change to the last input
     // Store the last input as this one
-    lastInput = input;
+    // If/else statement decides if this change comes from the left stick or the right stick
+    if(isLeft)
+    {
+      input = leftLastInput + change;
+      leftLastInput = input;
+    }
+    else
+    {
+      input = rightLastInput + change;
+      rightLastInput = input;
+    }
     // Return the input
     return input;
   }
